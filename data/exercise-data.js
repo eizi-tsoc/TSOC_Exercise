@@ -1,5 +1,5 @@
 window.TSOC_EXERCISE_DATA = {
-  "app_version": "1.0.0",
+  "app_version": "1.1.0",
   "source_workbook": "TSOC_Exercise_2v4.xlsm",
   "max_selection": 8,
   "categories": [
@@ -9,12 +9,15 @@ window.TSOC_EXERCISE_DATA = {
     "ストレッチポール",
     "上肢トレーニング",
     "下肢トレーニング",
-    "体幹トレーニング"
+    "体幹トレーニング",
+    "野球パターン",
+    "腰痛体操",
+    "肩体操",
+    "膝体操"
   ],
   "exercises": [
     {
       "id": "EX001",
-      "category": "ストレッチ（上肢）",
       "source_row": 2,
       "name": "結帯ストレッチ",
       "purpose": "目的:肩の柔軟性の改善",
@@ -24,11 +27,31 @@ window.TSOC_EXERCISE_DATA = {
         "assets/exercise/ex001_2.jpeg",
         "assets/exercise/ex001_3.jpeg"
       ],
-      "qr_name": "QR_結帯ストレッチ"
+      "qr_name": "QR_結帯ストレッチ",
+      "categories": [
+        "ストレッチ（上肢）",
+        "肩体操"
+      ],
+      "image_transforms": [
+        {
+          "rotate": 90.0,
+          "flipH": false,
+          "flipV": false
+        },
+        {
+          "rotate": 90.0,
+          "flipH": false,
+          "flipV": false
+        },
+        {
+          "rotate": 90.0,
+          "flipH": false,
+          "flipV": false
+        }
+      ]
     },
     {
       "id": "EX002",
-      "category": "ストレッチ（上肢）",
       "source_row": 3,
       "name": "三角筋ストレッチ",
       "purpose": "目的:腕後面の柔軟性の改善",
@@ -38,11 +61,31 @@ window.TSOC_EXERCISE_DATA = {
         "assets/exercise/ex002_2.jpeg",
         "assets/exercise/ex002_3.jpeg"
       ],
-      "qr_name": "QR_三角筋ストレッチ"
+      "qr_name": "QR_三角筋ストレッチ",
+      "categories": [
+        "ストレッチ（上肢）",
+        "肩体操"
+      ],
+      "image_transforms": [
+        {
+          "rotate": 90.0,
+          "flipH": false,
+          "flipV": false
+        },
+        {
+          "rotate": 90.0,
+          "flipH": false,
+          "flipV": false
+        },
+        {
+          "rotate": 90.0,
+          "flipH": false,
+          "flipV": false
+        }
+      ]
     },
     {
       "id": "EX003",
-      "category": "ストレッチ（上肢）",
       "source_row": 4,
       "name": "三角筋ストレッチ_四つ這い",
       "purpose": "目的:腕後面の柔軟性の改善",
@@ -51,11 +94,25 @@ window.TSOC_EXERCISE_DATA = {
         "assets/exercise/ex003_1.jpeg",
         "assets/exercise/ex003_2.jpeg"
       ],
-      "qr_name": "QR_三角筋ストレッチ_四つ這い"
+      "qr_name": "QR_三角筋ストレッチ_四つ這い",
+      "categories": [
+        "ストレッチ（上肢）"
+      ],
+      "image_transforms": [
+        {
+          "rotate": 270.0,
+          "flipH": false,
+          "flipV": false
+        },
+        {
+          "rotate": 270.0,
+          "flipH": false,
+          "flipV": false
+        }
+      ]
     },
     {
       "id": "EX004",
-      "category": "ストレッチ（上肢）",
       "source_row": 5,
       "name": "上肢前面ストレッチ",
       "purpose": "目的:上肢前面の柔軟性の改善",
@@ -64,11 +121,25 @@ window.TSOC_EXERCISE_DATA = {
         "assets/exercise/ex004_1.jpeg",
         "assets/exercise/ex004_2.jpeg"
       ],
-      "qr_name": "QR_上肢前面ストレッチ"
+      "qr_name": "QR_上肢前面ストレッチ",
+      "categories": [
+        "ストレッチ（上肢）"
+      ],
+      "image_transforms": [
+        {
+          "rotate": 90.0,
+          "flipH": false,
+          "flipV": false
+        },
+        {
+          "rotate": 90.0,
+          "flipH": false,
+          "flipV": false
+        }
+      ]
     },
     {
       "id": "EX005",
-      "category": "ストレッチ（上肢）",
       "source_row": 6,
       "name": "上肢後面ストレッチ",
       "purpose": "目的:上肢後面の柔軟性の改善",
@@ -77,11 +148,25 @@ window.TSOC_EXERCISE_DATA = {
         "assets/exercise/ex005_1.jpeg",
         "assets/exercise/ex005_2.jpeg"
       ],
-      "qr_name": "QR_上肢後面ストレッチ"
+      "qr_name": "QR_上肢後面ストレッチ",
+      "categories": [
+        "ストレッチ（上肢）"
+      ],
+      "image_transforms": [
+        {
+          "rotate": 90.0,
+          "flipH": false,
+          "flipV": false
+        },
+        {
+          "rotate": 90.0,
+          "flipH": false,
+          "flipV": false
+        }
+      ]
     },
     {
       "id": "EX006",
-      "category": "ストレッチ（上肢）",
       "source_row": 7,
       "name": "上腕二頭筋ストレッチ",
       "purpose": "目的:上腕前面の柔軟性の改善",
@@ -90,11 +175,25 @@ window.TSOC_EXERCISE_DATA = {
         "assets/exercise/ex006_1.jpeg",
         "assets/exercise/ex006_2.jpeg"
       ],
-      "qr_name": "QR_上腕二頭筋ストレッチ"
+      "qr_name": "QR_上腕二頭筋ストレッチ",
+      "categories": [
+        "ストレッチ（上肢）"
+      ],
+      "image_transforms": [
+        {
+          "rotate": 90.0,
+          "flipH": false,
+          "flipV": false
+        },
+        {
+          "rotate": 90.0,
+          "flipH": false,
+          "flipV": false
+        }
+      ]
     },
     {
       "id": "EX007",
-      "category": "ストレッチ（上肢）",
       "source_row": 8,
       "name": "上腕三頭筋ストレッチ",
       "purpose": "目的:上腕後面の柔軟性の改善",
@@ -103,11 +202,26 @@ window.TSOC_EXERCISE_DATA = {
         "assets/exercise/ex007_1.jpeg",
         "assets/exercise/ex007_2.jpeg"
       ],
-      "qr_name": "QR_上腕三頭筋ストレッチ"
+      "qr_name": "QR_上腕三頭筋ストレッチ",
+      "categories": [
+        "ストレッチ（上肢）",
+        "肩体操"
+      ],
+      "image_transforms": [
+        {
+          "rotate": 90.0,
+          "flipH": false,
+          "flipV": false
+        },
+        {
+          "rotate": 90.0,
+          "flipH": false,
+          "flipV": false
+        }
+      ]
     },
     {
       "id": "EX008",
-      "category": "ストレッチ（上肢）",
       "source_row": 9,
       "name": "胸ストレッチ",
       "purpose": "目的:胸部の柔軟性の改善",
@@ -116,11 +230,26 @@ window.TSOC_EXERCISE_DATA = {
         "assets/exercise/ex008_1.jpeg",
         "assets/exercise/ex008_2.jpeg"
       ],
-      "qr_name": "QR_胸ストレッチ"
+      "qr_name": "QR_胸ストレッチ",
+      "categories": [
+        "ストレッチ（上肢）",
+        "肩体操"
+      ],
+      "image_transforms": [
+        {
+          "rotate": 90.0,
+          "flipH": false,
+          "flipV": false
+        },
+        {
+          "rotate": 90.0,
+          "flipH": false,
+          "flipV": false
+        }
+      ]
     },
     {
       "id": "EX009",
-      "category": "ストレッチ（上肢）",
       "source_row": 10,
       "name": "前腕外側ストレッチ",
       "purpose": "目的:前腕外側の柔軟性の改善",
@@ -129,11 +258,25 @@ window.TSOC_EXERCISE_DATA = {
         "assets/exercise/ex009_1.jpeg",
         "assets/exercise/ex009_2.jpeg"
       ],
-      "qr_name": "QR_前腕外側ストレッチ"
+      "qr_name": "QR_前腕外側ストレッチ",
+      "categories": [
+        "ストレッチ（上肢）"
+      ],
+      "image_transforms": [
+        {
+          "rotate": 90.0,
+          "flipH": false,
+          "flipV": false
+        },
+        {
+          "rotate": 90.0,
+          "flipH": false,
+          "flipV": false
+        }
+      ]
     },
     {
       "id": "EX010",
-      "category": "ストレッチ（上肢）",
       "source_row": 11,
       "name": "前腕内側ストレッチ",
       "purpose": "目的:前腕内側の柔軟性の改善",
@@ -142,11 +285,25 @@ window.TSOC_EXERCISE_DATA = {
         "assets/exercise/ex010_1.jpeg",
         "assets/exercise/ex010_2.jpeg"
       ],
-      "qr_name": "QR_前腕内側ストレッチ"
+      "qr_name": "QR_前腕内側ストレッチ",
+      "categories": [
+        "ストレッチ（上肢）"
+      ],
+      "image_transforms": [
+        {
+          "rotate": 90.0,
+          "flipH": false,
+          "flipV": false
+        },
+        {
+          "rotate": 90.0,
+          "flipH": false,
+          "flipV": false
+        }
+      ]
     },
     {
       "id": "EX011",
-      "category": "ストレッチ（上肢）",
       "source_row": 12,
       "name": "広背筋ストレッチ",
       "purpose": "目的:背中側面の柔軟性改善",
@@ -155,11 +312,26 @@ window.TSOC_EXERCISE_DATA = {
         "assets/exercise/ex011_1.jpeg",
         "assets/exercise/ex011_2.jpeg"
       ],
-      "qr_name": "QR_広背筋ストレッチ"
+      "qr_name": "QR_広背筋ストレッチ",
+      "categories": [
+        "ストレッチ（上肢）",
+        "肩体操"
+      ],
+      "image_transforms": [
+        {
+          "rotate": 90.0,
+          "flipH": false,
+          "flipV": false
+        },
+        {
+          "rotate": 90.0,
+          "flipH": false,
+          "flipV": false
+        }
+      ]
     },
     {
       "id": "EX012",
-      "category": "ストレッチ（上肢）",
       "source_row": 13,
       "name": "広背筋ストレッチ_肘曲げ",
       "purpose": "目的:背中側面の柔軟性改善",
@@ -169,11 +341,30 @@ window.TSOC_EXERCISE_DATA = {
         "assets/exercise/ex012_2.png",
         "assets/exercise/ex012_3.png"
       ],
-      "qr_name": "QR_広背筋ストレッチ_肘曲げ"
+      "qr_name": "QR_広背筋ストレッチ_肘曲げ",
+      "categories": [
+        "ストレッチ（上肢）"
+      ],
+      "image_transforms": [
+        {
+          "rotate": 0.0,
+          "flipH": false,
+          "flipV": false
+        },
+        {
+          "rotate": 0.0,
+          "flipH": false,
+          "flipV": false
+        },
+        {
+          "rotate": 4.65,
+          "flipH": false,
+          "flipV": false
+        }
+      ]
     },
     {
       "id": "EX013",
-      "category": "ストレッチ（上肢）",
       "source_row": 14,
       "name": "僧帽筋ストレッチ",
       "purpose": "目的:首外側の柔軟性の改善",
@@ -182,11 +373,26 @@ window.TSOC_EXERCISE_DATA = {
         "assets/exercise/ex013_1.jpeg",
         "assets/exercise/ex013_2.jpeg"
       ],
-      "qr_name": "QR_僧帽筋ストレッチ"
+      "qr_name": "QR_僧帽筋ストレッチ",
+      "categories": [
+        "ストレッチ（上肢）",
+        "肩体操"
+      ],
+      "image_transforms": [
+        {
+          "rotate": 90.0,
+          "flipH": false,
+          "flipV": false
+        },
+        {
+          "rotate": 90.0,
+          "flipH": false,
+          "flipV": false
+        }
+      ]
     },
     {
       "id": "EX014",
-      "category": "ストレッチ（上肢）",
       "source_row": 15,
       "name": "肩甲挙筋ストレッチ①",
       "purpose": "目的:首の後外側の柔軟性改善",
@@ -195,11 +401,25 @@ window.TSOC_EXERCISE_DATA = {
         "assets/exercise/ex014_1.jpeg",
         "assets/exercise/ex014_2.jpeg"
       ],
-      "qr_name": "QR_肩甲挙筋ストレッチ①"
+      "qr_name": "QR_肩甲挙筋ストレッチ①",
+      "categories": [
+        "ストレッチ（上肢）"
+      ],
+      "image_transforms": [
+        {
+          "rotate": 90.0,
+          "flipH": false,
+          "flipV": false
+        },
+        {
+          "rotate": 90.0,
+          "flipH": false,
+          "flipV": false
+        }
+      ]
     },
     {
       "id": "EX015",
-      "category": "ストレッチ（上肢）",
       "source_row": 16,
       "name": "バルーンストレッチ_前",
       "purpose": "目的:背部筋肉の柔軟性の改善",
@@ -208,11 +428,26 @@ window.TSOC_EXERCISE_DATA = {
         "assets/exercise/ex015_1.jpeg",
         "assets/exercise/ex015_2.jpeg"
       ],
-      "qr_name": "QR_バルーンストレッチ_前"
+      "qr_name": "QR_バルーンストレッチ_前",
+      "categories": [
+        "ストレッチ（上肢）",
+        "肩体操"
+      ],
+      "image_transforms": [
+        {
+          "rotate": 90.0,
+          "flipH": false,
+          "flipV": false
+        },
+        {
+          "rotate": 90.0,
+          "flipH": false,
+          "flipV": false
+        }
+      ]
     },
     {
       "id": "EX016",
-      "category": "ストレッチ（上肢）",
       "source_row": 17,
       "name": "バルーンストレッチ_斜め",
       "purpose": "目的:背部筋肉の柔軟性の改善",
@@ -221,11 +456,26 @@ window.TSOC_EXERCISE_DATA = {
         "assets/exercise/ex016_1.jpeg",
         "assets/exercise/ex016_2.jpeg"
       ],
-      "qr_name": "QR_バルーンストレッチ_斜め"
+      "qr_name": "QR_バルーンストレッチ_斜め",
+      "categories": [
+        "ストレッチ（上肢）",
+        "肩体操"
+      ],
+      "image_transforms": [
+        {
+          "rotate": 90.0,
+          "flipH": false,
+          "flipV": false
+        },
+        {
+          "rotate": 90.0,
+          "flipH": false,
+          "flipV": false
+        }
+      ]
     },
     {
       "id": "EX017",
-      "category": "ストレッチ（上肢）",
       "source_row": 18,
       "name": "サンディング",
       "purpose": "目的:肩の挙上動作の改善",
@@ -234,11 +484,25 @@ window.TSOC_EXERCISE_DATA = {
         "assets/exercise/ex017_1.jpeg",
         "assets/exercise/ex017_2.jpeg"
       ],
-      "qr_name": "QR_サンディング"
+      "qr_name": "QR_サンディング",
+      "categories": [
+        "ストレッチ（上肢）"
+      ],
+      "image_transforms": [
+        {
+          "rotate": 90.0,
+          "flipH": false,
+          "flipV": false
+        },
+        {
+          "rotate": 90.0,
+          "flipH": false,
+          "flipV": false
+        }
+      ]
     },
     {
       "id": "EX018",
-      "category": "ストレッチ（下肢）",
       "source_row": 2,
       "name": "太もも外側ストレッチ_仰向け",
       "purpose": "目的:大腿筋膜張筋の柔軟性の改善",
@@ -247,11 +511,26 @@ window.TSOC_EXERCISE_DATA = {
         "assets/exercise/ex018_1.jpeg",
         "assets/exercise/ex018_2.jpeg"
       ],
-      "qr_name": "QR_太もも外側ストレッチ_仰向け"
+      "qr_name": "QR_太もも外側ストレッチ_仰向け",
+      "categories": [
+        "ストレッチ（下肢）",
+        "膝体操"
+      ],
+      "image_transforms": [
+        {
+          "rotate": 0.0,
+          "flipH": false,
+          "flipV": false
+        },
+        {
+          "rotate": 0.0,
+          "flipH": false,
+          "flipV": false
+        }
+      ]
     },
     {
       "id": "EX019",
-      "category": "ストレッチ（下肢）",
       "source_row": 3,
       "name": "太もも外側ストレッチ_膝つき",
       "purpose": "目的:大腿筋膜張筋の柔軟性の改善",
@@ -260,11 +539,26 @@ window.TSOC_EXERCISE_DATA = {
         "assets/exercise/ex019_1.jpeg",
         "assets/exercise/ex019_2.jpeg"
       ],
-      "qr_name": "QR_太もも外側ストレッチ_膝つき"
+      "qr_name": "QR_太もも外側ストレッチ_膝つき",
+      "categories": [
+        "ストレッチ（下肢）",
+        "腰痛体操"
+      ],
+      "image_transforms": [
+        {
+          "rotate": 90.0,
+          "flipH": false,
+          "flipV": false
+        },
+        {
+          "rotate": 90.0,
+          "flipH": false,
+          "flipV": false
+        }
+      ]
     },
     {
       "id": "EX020",
-      "category": "ストレッチ（下肢）",
       "source_row": 4,
       "name": "太もも外側ストレッチ_立位",
       "purpose": "目的:大腿筋膜張筋の柔軟性の改善",
@@ -273,11 +567,25 @@ window.TSOC_EXERCISE_DATA = {
         "assets/exercise/ex020_1.jpeg",
         "assets/exercise/ex020_2.jpeg"
       ],
-      "qr_name": "QR_太もも外側ストレッチ_立位"
+      "qr_name": "QR_太もも外側ストレッチ_立位",
+      "categories": [
+        "ストレッチ（下肢）"
+      ],
+      "image_transforms": [
+        {
+          "rotate": 90.0,
+          "flipH": false,
+          "flipV": false
+        },
+        {
+          "rotate": 90.0,
+          "flipH": false,
+          "flipV": false
+        }
+      ]
     },
     {
       "id": "EX021",
-      "category": "ストレッチ（下肢）",
       "source_row": 5,
       "name": "両膝ニートゥチェスト",
       "purpose": "目的:股関節、腰背部の柔軟性の改善",
@@ -286,11 +594,26 @@ window.TSOC_EXERCISE_DATA = {
         "assets/exercise/ex021_1.jpeg",
         "assets/exercise/ex021_2.jpeg"
       ],
-      "qr_name": "QR_両膝ニートゥチェスト"
+      "qr_name": "QR_両膝ニートゥチェスト",
+      "categories": [
+        "ストレッチ（下肢）",
+        "腰痛体操"
+      ],
+      "image_transforms": [
+        {
+          "rotate": 0.0,
+          "flipH": false,
+          "flipV": false
+        },
+        {
+          "rotate": 0.0,
+          "flipH": false,
+          "flipV": false
+        }
+      ]
     },
     {
       "id": "EX022",
-      "category": "ストレッチ（下肢）",
       "source_row": 6,
       "name": "片膝ニートゥチェスト",
       "purpose": "目的:股関節、腰背部の柔軟性の改善",
@@ -299,11 +622,26 @@ window.TSOC_EXERCISE_DATA = {
         "assets/exercise/ex022_1.jpeg",
         "assets/exercise/ex022_2.jpeg"
       ],
-      "qr_name": "QR_片膝ニートゥチェスト"
+      "qr_name": "QR_片膝ニートゥチェスト",
+      "categories": [
+        "ストレッチ（下肢）",
+        "腰痛体操"
+      ],
+      "image_transforms": [
+        {
+          "rotate": 0.0,
+          "flipH": false,
+          "flipV": false
+        },
+        {
+          "rotate": 0.0,
+          "flipH": false,
+          "flipV": false
+        }
+      ]
     },
     {
       "id": "EX023",
-      "category": "ストレッチ（下肢）",
       "source_row": 7,
       "name": "ヒップロール",
       "purpose": "目的:骨盤周囲、腰背部の柔軟性の改善",
@@ -312,11 +650,27 @@ window.TSOC_EXERCISE_DATA = {
         "assets/exercise/ex023_1.jpeg",
         "assets/exercise/ex023_2.jpeg"
       ],
-      "qr_name": "QR_ヒップロール"
+      "qr_name": "QR_ヒップロール",
+      "categories": [
+        "ストレッチ（下肢）",
+        "腰痛体操",
+        "肩体操"
+      ],
+      "image_transforms": [
+        {
+          "rotate": 0.0,
+          "flipH": false,
+          "flipV": false
+        },
+        {
+          "rotate": 0.0,
+          "flipH": false,
+          "flipV": false
+        }
+      ]
     },
     {
       "id": "EX024",
-      "category": "ストレッチ（下肢）",
       "source_row": 8,
       "name": "片足ヒップロール",
       "purpose": "目的:骨盤周囲、腰背部の柔軟性の改善",
@@ -325,11 +679,26 @@ window.TSOC_EXERCISE_DATA = {
         "assets/exercise/ex024_1.jpeg",
         "assets/exercise/ex024_2.png"
       ],
-      "qr_name": "QR_片足ヒップロール"
+      "qr_name": "QR_片足ヒップロール",
+      "categories": [
+        "ストレッチ（下肢）",
+        "腰痛体操"
+      ],
+      "image_transforms": [
+        {
+          "rotate": 90.0,
+          "flipH": false,
+          "flipV": false
+        },
+        {
+          "rotate": 0.0,
+          "flipH": false,
+          "flipV": false
+        }
+      ]
     },
     {
       "id": "EX025",
-      "category": "ストレッチ（下肢）",
       "source_row": 9,
       "name": "もも裏ストレッチ_仰向け",
       "purpose": "目的:もも裏の柔軟性の改善",
@@ -338,11 +707,27 @@ window.TSOC_EXERCISE_DATA = {
         "assets/exercise/ex025_1.jpeg",
         "assets/exercise/ex025_2.jpeg"
       ],
-      "qr_name": "QR_もも裏ストレッチ_仰向け"
+      "qr_name": "QR_もも裏ストレッチ_仰向け",
+      "categories": [
+        "ストレッチ（下肢）",
+        "腰痛体操",
+        "膝体操"
+      ],
+      "image_transforms": [
+        {
+          "rotate": 0.0,
+          "flipH": false,
+          "flipV": false
+        },
+        {
+          "rotate": 0.0,
+          "flipH": false,
+          "flipV": false
+        }
+      ]
     },
     {
       "id": "EX026",
-      "category": "ストレッチ（下肢）",
       "source_row": 10,
       "name": "もも裏ストレッチ_椅子",
       "purpose": "目的:もも裏の柔軟性の改善",
@@ -351,11 +736,26 @@ window.TSOC_EXERCISE_DATA = {
         "assets/exercise/ex026_1.jpeg",
         "assets/exercise/ex026_2.jpeg"
       ],
-      "qr_name": "QR_もも裏ストレッチ_椅子"
+      "qr_name": "QR_もも裏ストレッチ_椅子",
+      "categories": [
+        "ストレッチ（下肢）",
+        "膝体操"
+      ],
+      "image_transforms": [
+        {
+          "rotate": 90.0,
+          "flipH": false,
+          "flipV": false
+        },
+        {
+          "rotate": 90.0,
+          "flipH": false,
+          "flipV": false
+        }
+      ]
     },
     {
       "id": "EX027",
-      "category": "ストレッチ（下肢）",
       "source_row": 11,
       "name": "もも裏外側ストレッチ",
       "purpose": "目的:もも裏外側の柔軟性の改善",
@@ -364,11 +764,25 @@ window.TSOC_EXERCISE_DATA = {
         "assets/exercise/ex027_1.jpeg",
         "assets/exercise/ex027_2.jpeg"
       ],
-      "qr_name": "QR_もも裏外側ストレッチ"
+      "qr_name": "QR_もも裏外側ストレッチ",
+      "categories": [
+        "ストレッチ（下肢）"
+      ],
+      "image_transforms": [
+        {
+          "rotate": 90.0,
+          "flipH": false,
+          "flipV": false
+        },
+        {
+          "rotate": 90.0,
+          "flipH": false,
+          "flipV": false
+        }
+      ]
     },
     {
       "id": "EX028",
-      "category": "ストレッチ（下肢）",
       "source_row": 12,
       "name": "ジャックナイフ",
       "purpose": "目的:もも裏の柔軟性の改善",
@@ -377,11 +791,26 @@ window.TSOC_EXERCISE_DATA = {
         "assets/exercise/ex028_1.jpeg",
         "assets/exercise/ex028_2.jpeg"
       ],
-      "qr_name": "QR_ジャックナイフ"
+      "qr_name": "QR_ジャックナイフ",
+      "categories": [
+        "ストレッチ（下肢）",
+        "腰痛体操"
+      ],
+      "image_transforms": [
+        {
+          "rotate": 90.0,
+          "flipH": false,
+          "flipV": false
+        },
+        {
+          "rotate": 90.0,
+          "flipH": false,
+          "flipV": false
+        }
+      ]
     },
     {
       "id": "EX029",
-      "category": "ストレッチ（下肢）",
       "source_row": 13,
       "name": "ヒップバック_四つ這い",
       "purpose": "目的:股関節屈曲運動\n__臀部の柔軟性の改善",
@@ -390,11 +819,25 @@ window.TSOC_EXERCISE_DATA = {
         "assets/exercise/ex029_1.jpeg",
         "assets/exercise/ex029_2.jpeg"
       ],
-      "qr_name": "QR_ヒップバック_四つ這い"
+      "qr_name": "QR_ヒップバック_四つ這い",
+      "categories": [
+        "ストレッチ（下肢）"
+      ],
+      "image_transforms": [
+        {
+          "rotate": 0.0,
+          "flipH": false,
+          "flipV": false
+        },
+        {
+          "rotate": 0.0,
+          "flipH": false,
+          "flipV": false
+        }
+      ]
     },
     {
       "id": "EX030",
-      "category": "ストレッチ（下肢）",
       "source_row": 14,
       "name": "ヒップバック_四つ這い_外側",
       "purpose": "目的:股関節屈曲運動\n_____臀部の柔軟性の改善",
@@ -403,11 +846,25 @@ window.TSOC_EXERCISE_DATA = {
         "assets/exercise/ex030_1.jpeg",
         "assets/exercise/ex030_2.jpeg"
       ],
-      "qr_name": "QR_ヒップバック_四つ這い_外側"
+      "qr_name": "QR_ヒップバック_四つ這い_外側",
+      "categories": [
+        "ストレッチ（下肢）"
+      ],
+      "image_transforms": [
+        {
+          "rotate": 90.0,
+          "flipH": false,
+          "flipV": false
+        },
+        {
+          "rotate": 90.0,
+          "flipH": false,
+          "flipV": false
+        }
+      ]
     },
     {
       "id": "EX031",
-      "category": "ストレッチ（下肢）",
       "source_row": 15,
       "name": "ヒップバック_膝立ち",
       "purpose": "目的:股関節の屈曲運動\n__臀筋の柔軟性の改善",
@@ -416,11 +873,25 @@ window.TSOC_EXERCISE_DATA = {
         "assets/exercise/ex031_1.jpeg",
         "assets/exercise/ex031_2.jpeg"
       ],
-      "qr_name": "QR_ヒップバック_膝立ち"
+      "qr_name": "QR_ヒップバック_膝立ち",
+      "categories": [
+        "ストレッチ（下肢）"
+      ],
+      "image_transforms": [
+        {
+          "rotate": 0.0,
+          "flipH": false,
+          "flipV": false
+        },
+        {
+          "rotate": 0.0,
+          "flipH": false,
+          "flipV": false
+        }
+      ]
     },
     {
       "id": "EX032",
-      "category": "ストレッチ（下肢）",
       "source_row": 16,
       "name": "内転筋ストレッチ_片足",
       "purpose": "目的:股関節内転筋の柔軟性の改善",
@@ -429,11 +900,27 @@ window.TSOC_EXERCISE_DATA = {
         "assets/exercise/ex032_1.jpeg",
         "assets/exercise/ex032_2.jpeg"
       ],
-      "qr_name": "QR_内転筋ストレッチ_片足"
+      "qr_name": "QR_内転筋ストレッチ_片足",
+      "categories": [
+        "ストレッチ（下肢）",
+        "腰痛体操",
+        "膝体操"
+      ],
+      "image_transforms": [
+        {
+          "rotate": 90.0,
+          "flipH": false,
+          "flipV": false
+        },
+        {
+          "rotate": 90.0,
+          "flipH": false,
+          "flipV": false
+        }
+      ]
     },
     {
       "id": "EX033",
-      "category": "ストレッチ（下肢）",
       "source_row": 17,
       "name": "もも前ストレッチ_横向き",
       "purpose": "目的:もも前の柔軟性の改善",
@@ -442,11 +929,27 @@ window.TSOC_EXERCISE_DATA = {
         "assets/exercise/ex033_1.jpeg",
         "assets/exercise/ex033_2.jpeg"
       ],
-      "qr_name": "QR_もも前ストレッチ_横向き"
+      "qr_name": "QR_もも前ストレッチ_横向き",
+      "categories": [
+        "ストレッチ（下肢）",
+        "腰痛体操",
+        "膝体操"
+      ],
+      "image_transforms": [
+        {
+          "rotate": 0.0,
+          "flipH": false,
+          "flipV": false
+        },
+        {
+          "rotate": 0.0,
+          "flipH": false,
+          "flipV": false
+        }
+      ]
     },
     {
       "id": "EX034",
-      "category": "ストレッチ（下肢）",
       "source_row": 18,
       "name": "もも前ストレッチ_横向き_タオル",
       "purpose": "目的:もも前の柔軟性の改善",
@@ -455,11 +958,25 @@ window.TSOC_EXERCISE_DATA = {
         "assets/exercise/ex034_1.png",
         "assets/exercise/ex034_2.png"
       ],
-      "qr_name": "QR_もも前ストレッチ_横向き_タオル"
+      "qr_name": "QR_もも前ストレッチ_横向き_タオル",
+      "categories": [
+        "ストレッチ（下肢）"
+      ],
+      "image_transforms": [
+        {
+          "rotate": 0.0,
+          "flipH": false,
+          "flipV": false
+        },
+        {
+          "rotate": 0.0,
+          "flipH": false,
+          "flipV": false
+        }
+      ]
     },
     {
       "id": "EX035",
-      "category": "ストレッチ（下肢）",
       "source_row": 19,
       "name": "腸腰筋ストレッチ_膝つき",
       "purpose": "目的:股関節前面の柔軟性の改善",
@@ -468,11 +985,25 @@ window.TSOC_EXERCISE_DATA = {
         "assets/exercise/ex035_1.jpeg",
         "assets/exercise/ex035_2.jpeg"
       ],
-      "qr_name": "QR_腸腰筋ストレッチ_膝つき"
+      "qr_name": "QR_腸腰筋ストレッチ_膝つき",
+      "categories": [
+        "ストレッチ（下肢）"
+      ],
+      "image_transforms": [
+        {
+          "rotate": 0.0,
+          "flipH": false,
+          "flipV": false
+        },
+        {
+          "rotate": 0.0,
+          "flipH": false,
+          "flipV": false
+        }
+      ]
     },
     {
       "id": "EX036",
-      "category": "ストレッチ（下肢）",
       "source_row": 20,
       "name": "下腿三頭筋ストレッチ_立位",
       "purpose": "目的:腓腹筋の柔軟性の改善",
@@ -481,11 +1012,26 @@ window.TSOC_EXERCISE_DATA = {
         "assets/exercise/ex036_1.jpeg",
         "assets/exercise/ex036_2.jpeg"
       ],
-      "qr_name": "QR_下腿三頭筋ストレッチ_立位"
+      "qr_name": "QR_下腿三頭筋ストレッチ_立位",
+      "categories": [
+        "ストレッチ（下肢）",
+        "膝体操"
+      ],
+      "image_transforms": [
+        {
+          "rotate": 90.0,
+          "flipH": false,
+          "flipV": false
+        },
+        {
+          "rotate": 90.0,
+          "flipH": false,
+          "flipV": false
+        }
+      ]
     },
     {
       "id": "EX037",
-      "category": "ストレッチ（下肢）",
       "source_row": 21,
       "name": "ヒラメ筋ストレッチ_立位",
       "purpose": "目的:ヒラメ筋の柔軟性の改善",
@@ -494,11 +1040,26 @@ window.TSOC_EXERCISE_DATA = {
         "assets/exercise/ex037_1.jpeg",
         "assets/exercise/ex037_2.jpeg"
       ],
-      "qr_name": "QR_ヒラメ筋ストレッチ_立位"
+      "qr_name": "QR_ヒラメ筋ストレッチ_立位",
+      "categories": [
+        "ストレッチ（下肢）",
+        "膝体操"
+      ],
+      "image_transforms": [
+        {
+          "rotate": 90.0,
+          "flipH": false,
+          "flipV": false
+        },
+        {
+          "rotate": 90.0,
+          "flipH": false,
+          "flipV": false
+        }
+      ]
     },
     {
       "id": "EX038",
-      "category": "ストレッチ（下肢）",
       "source_row": 22,
       "name": "ヒラメ筋ストレッチ_片膝立ち",
       "purpose": "目的:足関節背屈の可動性の改善\n__ヒラメ筋の柔軟性の改善",
@@ -507,11 +1068,25 @@ window.TSOC_EXERCISE_DATA = {
         "assets/exercise/ex038_1.jpeg",
         "assets/exercise/ex038_2.jpeg"
       ],
-      "qr_name": "QR_ヒラメ筋ストレッチ_片膝立ち"
+      "qr_name": "QR_ヒラメ筋ストレッチ_片膝立ち",
+      "categories": [
+        "ストレッチ（下肢）"
+      ],
+      "image_transforms": [
+        {
+          "rotate": 90.0,
+          "flipH": false,
+          "flipV": false
+        },
+        {
+          "rotate": 90.0,
+          "flipH": false,
+          "flipV": false
+        }
+      ]
     },
     {
       "id": "EX039",
-      "category": "ストレッチ（下肢）",
       "source_row": 23,
       "name": "タオルストレッチ",
       "purpose": "目的:下腿三頭筋の柔軟性の改善",
@@ -520,11 +1095,26 @@ window.TSOC_EXERCISE_DATA = {
         "assets/exercise/ex039_1.jpeg",
         "assets/exercise/ex039_2.jpeg"
       ],
-      "qr_name": "QR_タオルストレッチ"
+      "qr_name": "QR_タオルストレッチ",
+      "categories": [
+        "ストレッチ（下肢）",
+        "膝体操"
+      ],
+      "image_transforms": [
+        {
+          "rotate": 0.0,
+          "flipH": false,
+          "flipV": false
+        },
+        {
+          "rotate": 0.0,
+          "flipH": false,
+          "flipV": false
+        }
+      ]
     },
     {
       "id": "EX040",
-      "category": "ストレッチ（下肢）",
       "source_row": 24,
       "name": "座位四股",
       "purpose": "目的:骨盤の可動性の改善\n____股関節内転筋の柔軟性の改善",
@@ -533,11 +1123,25 @@ window.TSOC_EXERCISE_DATA = {
         "assets/exercise/ex040_1.jpeg",
         "assets/exercise/ex040_2.jpeg"
       ],
-      "qr_name": "QR_座位四股"
+      "qr_name": "QR_座位四股",
+      "categories": [
+        "ストレッチ（下肢）"
+      ],
+      "image_transforms": [
+        {
+          "rotate": 90.0,
+          "flipH": false,
+          "flipV": false
+        },
+        {
+          "rotate": 90.0,
+          "flipH": false,
+          "flipV": false
+        }
+      ]
     },
     {
       "id": "EX041",
-      "category": "ストレッチ（下肢）",
       "source_row": 25,
       "name": "四股捻転",
       "purpose": "目的:骨盤の可動性\n__股関節内転筋の柔軟性",
@@ -546,11 +1150,26 @@ window.TSOC_EXERCISE_DATA = {
         "assets/exercise/ex041_1.jpeg",
         "assets/exercise/ex041_2.jpeg"
       ],
-      "qr_name": "QR_四股捻転"
+      "qr_name": "QR_四股捻転",
+      "categories": [
+        "ストレッチ（下肢）",
+        "腰痛体操"
+      ],
+      "image_transforms": [
+        {
+          "rotate": 90.0,
+          "flipH": false,
+          "flipV": false
+        },
+        {
+          "rotate": 90.0,
+          "flipH": false,
+          "flipV": false
+        }
+      ]
     },
     {
       "id": "EX042",
-      "category": "ストレッチ（下肢）",
       "source_row": 26,
       "name": "お尻ストレッチ_椅子",
       "purpose": "目的:臀部の柔軟性の改善",
@@ -559,11 +1178,27 @@ window.TSOC_EXERCISE_DATA = {
         "assets/exercise/ex042_1.jpeg",
         "assets/exercise/ex042_2.jpeg"
       ],
-      "qr_name": "QR_お尻ストレッチ_椅子"
+      "qr_name": "QR_お尻ストレッチ_椅子",
+      "categories": [
+        "ストレッチ（下肢）",
+        "腰痛体操",
+        "膝体操"
+      ],
+      "image_transforms": [
+        {
+          "rotate": 90.0,
+          "flipH": false,
+          "flipV": false
+        },
+        {
+          "rotate": 90.0,
+          "flipH": false,
+          "flipV": false
+        }
+      ]
     },
     {
       "id": "EX043",
-      "category": "ストレッチ（下肢）",
       "source_row": 27,
       "name": "お尻ストレッチ_仰向け",
       "purpose": "目的:臀部の柔軟性の改善",
@@ -572,11 +1207,25 @@ window.TSOC_EXERCISE_DATA = {
         "assets/exercise/ex043_1.jpeg",
         "assets/exercise/ex043_2.jpeg"
       ],
-      "qr_name": "QR_お尻ストレッチ_仰向け"
+      "qr_name": "QR_お尻ストレッチ_仰向け",
+      "categories": [
+        "ストレッチ（下肢）"
+      ],
+      "image_transforms": [
+        {
+          "rotate": 0.0,
+          "flipH": false,
+          "flipV": false
+        },
+        {
+          "rotate": 0.0,
+          "flipH": false,
+          "flipV": false
+        }
+      ]
     },
     {
       "id": "EX044",
-      "category": "ストレッチ（下肢）",
       "source_row": 28,
       "name": "お尻ストレッチ_膝抱え",
       "purpose": "目的:臀部の柔軟性の改善",
@@ -585,11 +1234,26 @@ window.TSOC_EXERCISE_DATA = {
         "assets/exercise/ex044_1.jpeg",
         "assets/exercise/ex044_2.jpeg"
       ],
-      "qr_name": "QR_お尻ストレッチ_膝抱え"
+      "qr_name": "QR_お尻ストレッチ_膝抱え",
+      "categories": [
+        "ストレッチ（下肢）",
+        "膝体操"
+      ],
+      "image_transforms": [
+        {
+          "rotate": 90.0,
+          "flipH": false,
+          "flipV": false
+        },
+        {
+          "rotate": 90.0,
+          "flipH": false,
+          "flipV": false
+        }
+      ]
     },
     {
       "id": "EX045",
-      "category": "肩インナーex",
       "source_row": 2,
       "name": "肩外旋_座位１st",
       "purpose": "目的:肩関節の安定性、腱板訓練",
@@ -598,11 +1262,26 @@ window.TSOC_EXERCISE_DATA = {
         "assets/exercise/ex045_1.jpeg",
         "assets/exercise/ex045_2.jpeg"
       ],
-      "qr_name": "QR_肩外旋_座位１st"
+      "qr_name": "QR_肩外旋_座位１st",
+      "categories": [
+        "肩インナーex",
+        "肩体操"
+      ],
+      "image_transforms": [
+        {
+          "rotate": 90.0,
+          "flipH": false,
+          "flipV": false
+        },
+        {
+          "rotate": 90.0,
+          "flipH": false,
+          "flipV": false
+        }
+      ]
     },
     {
       "id": "EX046",
-      "category": "肩インナーex",
       "source_row": 3,
       "name": "肩外旋_座位2nd",
       "purpose": "目的:肩関節の安定性、腱板訓練",
@@ -611,11 +1290,25 @@ window.TSOC_EXERCISE_DATA = {
         "assets/exercise/ex046_1.jpeg",
         "assets/exercise/ex046_2.jpeg"
       ],
-      "qr_name": "QR_肩外旋_座位2nd"
+      "qr_name": "QR_肩外旋_座位2nd",
+      "categories": [
+        "肩インナーex"
+      ],
+      "image_transforms": [
+        {
+          "rotate": 90.0,
+          "flipH": false,
+          "flipV": false
+        },
+        {
+          "rotate": 90.0,
+          "flipH": false,
+          "flipV": false
+        }
+      ]
     },
     {
       "id": "EX047",
-      "category": "肩インナーex",
       "source_row": 4,
       "name": "肩外旋_座位3rd",
       "purpose": "目的:肩関節の安定性、腱板訓練",
@@ -624,11 +1317,25 @@ window.TSOC_EXERCISE_DATA = {
         "assets/exercise/ex047_1.jpeg",
         "assets/exercise/ex047_2.jpeg"
       ],
-      "qr_name": "QR_肩外旋_座位3rd"
+      "qr_name": "QR_肩外旋_座位3rd",
+      "categories": [
+        "肩インナーex"
+      ],
+      "image_transforms": [
+        {
+          "rotate": 90.0,
+          "flipH": false,
+          "flipV": false
+        },
+        {
+          "rotate": 90.0,
+          "flipH": false,
+          "flipV": false
+        }
+      ]
     },
     {
       "id": "EX048",
-      "category": "肩インナーex",
       "source_row": 5,
       "name": "肩内旋_座位１st",
       "purpose": "目的:肩関節の安定性、腱板訓練",
@@ -637,11 +1344,25 @@ window.TSOC_EXERCISE_DATA = {
         "assets/exercise/ex048_1.jpeg",
         "assets/exercise/ex048_2.jpeg"
       ],
-      "qr_name": "QR_肩内旋_座位１st"
+      "qr_name": "QR_肩内旋_座位１st",
+      "categories": [
+        "肩インナーex"
+      ],
+      "image_transforms": [
+        {
+          "rotate": 90.0,
+          "flipH": false,
+          "flipV": false
+        },
+        {
+          "rotate": 90.0,
+          "flipH": false,
+          "flipV": false
+        }
+      ]
     },
     {
       "id": "EX049",
-      "category": "肩インナーex",
       "source_row": 6,
       "name": "肩内旋_座位2nd",
       "purpose": "目的:肩関節の安定性、腱板訓練",
@@ -650,11 +1371,25 @@ window.TSOC_EXERCISE_DATA = {
         "assets/exercise/ex049_1.jpeg",
         "assets/exercise/ex049_2.jpeg"
       ],
-      "qr_name": "QR_肩内旋_座位2nd"
+      "qr_name": "QR_肩内旋_座位2nd",
+      "categories": [
+        "肩インナーex"
+      ],
+      "image_transforms": [
+        {
+          "rotate": 90.0,
+          "flipH": false,
+          "flipV": false
+        },
+        {
+          "rotate": 90.0,
+          "flipH": false,
+          "flipV": false
+        }
+      ]
     },
     {
       "id": "EX050",
-      "category": "肩インナーex",
       "source_row": 7,
       "name": "肩内旋_座位3rd",
       "purpose": "目的:肩関節の安定性、腱板訓練",
@@ -663,11 +1398,25 @@ window.TSOC_EXERCISE_DATA = {
         "assets/exercise/ex050_1.jpeg",
         "assets/exercise/ex050_2.jpeg"
       ],
-      "qr_name": "QR_肩内旋_座位3rd"
+      "qr_name": "QR_肩内旋_座位3rd",
+      "categories": [
+        "肩インナーex"
+      ],
+      "image_transforms": [
+        {
+          "rotate": 90.0,
+          "flipH": false,
+          "flipV": false
+        },
+        {
+          "rotate": 90.0,
+          "flipH": false,
+          "flipV": false
+        }
+      ]
     },
     {
       "id": "EX051",
-      "category": "肩インナーex",
       "source_row": 8,
       "name": "肩外転_チューブ",
       "purpose": "目的:肩関節の安定性、腱板訓練",
@@ -676,11 +1425,25 @@ window.TSOC_EXERCISE_DATA = {
         "assets/exercise/ex051_1.png",
         "assets/exercise/ex051_2.png"
       ],
-      "qr_name": "QR_肩外転_チューブ"
+      "qr_name": "QR_肩外転_チューブ",
+      "categories": [
+        "肩インナーex"
+      ],
+      "image_transforms": [
+        {
+          "rotate": 0.0,
+          "flipH": false,
+          "flipV": false
+        },
+        {
+          "rotate": 0.0,
+          "flipH": false,
+          "flipV": false
+        }
+      ]
     },
     {
       "id": "EX052",
-      "category": "肩インナーex",
       "source_row": 9,
       "name": "肩外転_輪ゴム",
       "purpose": "目的:肩関節の安定性、腱板訓練",
@@ -689,11 +1452,26 @@ window.TSOC_EXERCISE_DATA = {
         "assets/exercise/ex052_1.png",
         "assets/exercise/ex052_2.png"
       ],
-      "qr_name": "QR_肩外転_輪ゴム"
+      "qr_name": "QR_肩外転_輪ゴム",
+      "categories": [
+        "肩インナーex",
+        "肩体操"
+      ],
+      "image_transforms": [
+        {
+          "rotate": 0.0,
+          "flipH": false,
+          "flipV": false
+        },
+        {
+          "rotate": 0.0,
+          "flipH": false,
+          "flipV": false
+        }
+      ]
     },
     {
       "id": "EX053",
-      "category": "肩インナーex",
       "source_row": 10,
       "name": "壁押し_インナーマッスル",
       "purpose": "目的:肩関節の安定性、腱板訓練",
@@ -702,11 +1480,27 @@ window.TSOC_EXERCISE_DATA = {
         "assets/exercise/ex053_1.jpeg",
         "assets/exercise/ex053_2.jpeg"
       ],
-      "qr_name": "QR_壁押し_インナーマッスル"
+      "qr_name": "QR_壁押し_インナーマッスル",
+      "categories": [
+        "肩インナーex",
+        "野球パターン",
+        "肩体操"
+      ],
+      "image_transforms": [
+        {
+          "rotate": 90.0,
+          "flipH": false,
+          "flipV": false
+        },
+        {
+          "rotate": 90.0,
+          "flipH": false,
+          "flipV": false
+        }
+      ]
     },
     {
       "id": "EX054",
-      "category": "肩インナーex",
       "source_row": 11,
       "name": "肩外転_ダンベル",
       "purpose": "目的:肩関節の安定性、腱板訓練",
@@ -715,11 +1509,27 @@ window.TSOC_EXERCISE_DATA = {
         "assets/exercise/ex054_1.jpeg",
         "assets/exercise/ex054_2.jpeg"
       ],
-      "qr_name": "QR_肩外転_ダンベル"
+      "qr_name": "QR_肩外転_ダンベル",
+      "categories": [
+        "肩インナーex",
+        "野球パターン",
+        "肩体操"
+      ],
+      "image_transforms": [
+        {
+          "rotate": 90.0,
+          "flipH": false,
+          "flipV": false
+        },
+        {
+          "rotate": 90.0,
+          "flipH": false,
+          "flipV": false
+        }
+      ]
     },
     {
       "id": "EX055",
-      "category": "肩インナーex",
       "source_row": 12,
       "name": "肩内旋_仰向け_チューブ",
       "purpose": "目的:肩関節の安定性、腱板訓練",
@@ -728,11 +1538,26 @@ window.TSOC_EXERCISE_DATA = {
         "assets/exercise/ex055_1.png",
         "assets/exercise/ex055_2.png"
       ],
-      "qr_name": "QR_肩内旋_仰向け_チューブ"
+      "qr_name": "QR_肩内旋_仰向け_チューブ",
+      "categories": [
+        "肩インナーex",
+        "野球パターン"
+      ],
+      "image_transforms": [
+        {
+          "rotate": 0.0,
+          "flipH": false,
+          "flipV": false
+        },
+        {
+          "rotate": 0.0,
+          "flipH": false,
+          "flipV": false
+        }
+      ]
     },
     {
       "id": "EX056",
-      "category": "肩インナーex",
       "source_row": 13,
       "name": "肩外旋_側臥位１st",
       "purpose": "目的:肩関節の安定性、腱板訓練",
@@ -741,11 +1566,25 @@ window.TSOC_EXERCISE_DATA = {
         "assets/exercise/ex056_1.png",
         "assets/exercise/ex056_2.png"
       ],
-      "qr_name": "QR_肩外旋_側臥位１st"
+      "qr_name": "QR_肩外旋_側臥位１st",
+      "categories": [
+        "肩インナーex"
+      ],
+      "image_transforms": [
+        {
+          "rotate": 0.0,
+          "flipH": false,
+          "flipV": false
+        },
+        {
+          "rotate": 0.0,
+          "flipH": false,
+          "flipV": false
+        }
+      ]
     },
     {
       "id": "EX057",
-      "category": "肩インナーex",
       "source_row": 14,
       "name": "肩外旋_側臥位３rd",
       "purpose": "目的:肩関節の安定性、腱板訓練",
@@ -754,11 +1593,25 @@ window.TSOC_EXERCISE_DATA = {
         "assets/exercise/ex057_1.png",
         "assets/exercise/ex057_2.png"
       ],
-      "qr_name": "QR_肩外旋_側臥位３rd"
+      "qr_name": "QR_肩外旋_側臥位３rd",
+      "categories": [
+        "肩インナーex"
+      ],
+      "image_transforms": [
+        {
+          "rotate": 0.0,
+          "flipH": false,
+          "flipV": false
+        },
+        {
+          "rotate": 0.0,
+          "flipH": false,
+          "flipV": false
+        }
+      ]
     },
     {
       "id": "EX058",
-      "category": "肩インナーex",
       "source_row": 15,
       "name": "肩外旋_うつ伏せ",
       "purpose": "目的:肩関節の安定性、腱板訓練",
@@ -768,11 +1621,30 @@ window.TSOC_EXERCISE_DATA = {
         "assets/exercise/ex058_2.png",
         "assets/exercise/ex058_3.png"
       ],
-      "qr_name": "QR_肩外旋_うつ伏せ"
+      "qr_name": "QR_肩外旋_うつ伏せ",
+      "categories": [
+        "肩インナーex"
+      ],
+      "image_transforms": [
+        {
+          "rotate": 0.0,
+          "flipH": false,
+          "flipV": false
+        },
+        {
+          "rotate": 0.0,
+          "flipH": false,
+          "flipV": false
+        },
+        {
+          "rotate": 0.0,
+          "flipH": false,
+          "flipV": false
+        }
+      ]
     },
     {
       "id": "EX059",
-      "category": "肩インナーex",
       "source_row": 16,
       "name": "肩外旋_座位１st_輪ゴム",
       "purpose": "目的:肩関節の安定性、腱板訓練",
@@ -781,11 +1653,25 @@ window.TSOC_EXERCISE_DATA = {
         "assets/exercise/ex059_1.png",
         "assets/exercise/ex059_2.png"
       ],
-      "qr_name": "QR_肩外旋_座位１st_輪ゴム"
+      "qr_name": "QR_肩外旋_座位１st_輪ゴム",
+      "categories": [
+        "肩インナーex"
+      ],
+      "image_transforms": [
+        {
+          "rotate": 0.0,
+          "flipH": false,
+          "flipV": false
+        },
+        {
+          "rotate": 0.0,
+          "flipH": false,
+          "flipV": false
+        }
+      ]
     },
     {
       "id": "EX060",
-      "category": "肩インナーex",
       "source_row": 17,
       "name": "肩外旋_座位3rd_肘つき",
       "purpose": "目的:肩関節の安定性、腱板訓練",
@@ -794,11 +1680,26 @@ window.TSOC_EXERCISE_DATA = {
         "assets/exercise/ex060_1.jpeg",
         "assets/exercise/ex060_2.jpeg"
       ],
-      "qr_name": "QR_肩外旋_座位3rd_肘つき"
+      "qr_name": "QR_肩外旋_座位3rd_肘つき",
+      "categories": [
+        "肩インナーex",
+        "肩体操"
+      ],
+      "image_transforms": [
+        {
+          "rotate": 90.0,
+          "flipH": false,
+          "flipV": false
+        },
+        {
+          "rotate": 90.0,
+          "flipH": false,
+          "flipV": false
+        }
+      ]
     },
     {
       "id": "EX061",
-      "category": "肩インナーex",
       "source_row": 18,
       "name": "肩回旋運動_肘つき",
       "purpose": "目的:肩関節の安定性、腱板訓練",
@@ -807,11 +1708,26 @@ window.TSOC_EXERCISE_DATA = {
         "assets/exercise/ex061_1.jpeg",
         "assets/exercise/ex061_2.jpeg"
       ],
-      "qr_name": "QR_肩回旋運動_肘つき"
+      "qr_name": "QR_肩回旋運動_肘つき",
+      "categories": [
+        "肩インナーex",
+        "肩体操"
+      ],
+      "image_transforms": [
+        {
+          "rotate": 90.0,
+          "flipH": false,
+          "flipV": false
+        },
+        {
+          "rotate": 90.0,
+          "flipH": false,
+          "flipV": false
+        }
+      ]
     },
     {
       "id": "EX062",
-      "category": "肩インナーex",
       "source_row": 19,
       "name": "上肢軸回旋運動",
       "purpose": "目的:肩関節の安定性、腱板訓練",
@@ -820,11 +1736,26 @@ window.TSOC_EXERCISE_DATA = {
         "assets/exercise/ex062_1.jpeg",
         "assets/exercise/ex062_2.jpeg"
       ],
-      "qr_name": "QR_上肢軸回旋運動"
+      "qr_name": "QR_上肢軸回旋運動",
+      "categories": [
+        "肩インナーex",
+        "肩体操"
+      ],
+      "image_transforms": [
+        {
+          "rotate": 0.0,
+          "flipH": false,
+          "flipV": false
+        },
+        {
+          "rotate": 0.0,
+          "flipH": false,
+          "flipV": false
+        }
+      ]
     },
     {
       "id": "EX063",
-      "category": "肩インナーex",
       "source_row": 20,
       "name": "肩内旋_ベリープレス",
       "purpose": "目的:肩関節の安定性、腱板訓練",
@@ -833,11 +1764,26 @@ window.TSOC_EXERCISE_DATA = {
         "assets/exercise/ex063_1.jpeg",
         "assets/exercise/ex063_2.jpeg"
       ],
-      "qr_name": "QR_肩内旋_ベリープレス"
+      "qr_name": "QR_肩内旋_ベリープレス",
+      "categories": [
+        "肩インナーex",
+        "肩体操"
+      ],
+      "image_transforms": [
+        {
+          "rotate": 0.0,
+          "flipH": false,
+          "flipV": false
+        },
+        {
+          "rotate": 0.0,
+          "flipH": false,
+          "flipV": false
+        }
+      ]
     },
     {
       "id": "EX064",
-      "category": "肩インナーex",
       "source_row": 21,
       "name": "上肢軸回旋運動_壁",
       "purpose": "目的:肩関節の安定性、腱板訓練",
@@ -849,11 +1795,40 @@ window.TSOC_EXERCISE_DATA = {
         "assets/exercise/ex064_4.jpeg",
         "assets/exercise/ex064_5.png"
       ],
-      "qr_name": "QR_上肢軸回旋運動_壁"
+      "qr_name": "QR_上肢軸回旋運動_壁",
+      "categories": [
+        "肩インナーex"
+      ],
+      "image_transforms": [
+        {
+          "rotate": 0.0,
+          "flipH": false,
+          "flipV": false
+        },
+        {
+          "rotate": 0.0,
+          "flipH": false,
+          "flipV": false
+        },
+        {
+          "rotate": 0.0,
+          "flipH": false,
+          "flipV": false
+        },
+        {
+          "rotate": 0.0,
+          "flipH": false,
+          "flipV": false
+        },
+        {
+          "rotate": 0.0,
+          "flipH": false,
+          "flipV": true
+        }
+      ]
     },
     {
       "id": "EX065",
-      "category": "肩インナーex",
       "source_row": 22,
       "name": "肩内旋ex_背臥位",
       "purpose": "目的:肩関節の安定性、腱板訓練",
@@ -862,11 +1837,25 @@ window.TSOC_EXERCISE_DATA = {
         "assets/exercise/ex065_1.png",
         "assets/exercise/ex065_2.png"
       ],
-      "qr_name": "QR_肩内旋ex_背臥位"
+      "qr_name": "QR_肩内旋ex_背臥位",
+      "categories": [
+        "肩インナーex"
+      ],
+      "image_transforms": [
+        {
+          "rotate": 0.0,
+          "flipH": false,
+          "flipV": false
+        },
+        {
+          "rotate": 0.0,
+          "flipH": false,
+          "flipV": false
+        }
+      ]
     },
     {
       "id": "EX066",
-      "category": "ストレッチポール",
       "source_row": 2,
       "name": "ストレッチポール",
       "purpose": "目的:胸郭の可動性の改善\n__リラクゼーション",
@@ -875,11 +1864,26 @@ window.TSOC_EXERCISE_DATA = {
         "assets/exercise/ex066_1.jpeg",
         "assets/exercise/ex066_2.jpeg"
       ],
-      "qr_name": "QR_ストレッチポール"
+      "qr_name": "QR_ストレッチポール",
+      "categories": [
+        "ストレッチポール",
+        "肩体操"
+      ],
+      "image_transforms": [
+        {
+          "rotate": 0.0,
+          "flipH": false,
+          "flipV": false
+        },
+        {
+          "rotate": 0.0,
+          "flipH": false,
+          "flipV": false
+        }
+      ]
     },
     {
       "id": "EX067",
-      "category": "ストレッチポール",
       "source_row": 3,
       "name": "ストレッチポール_バンザイ",
       "purpose": "目的:胸郭の可動性の改善\n_____リラクゼーション",
@@ -888,11 +1892,27 @@ window.TSOC_EXERCISE_DATA = {
         "assets/exercise/ex067_1.jpeg",
         "assets/exercise/ex067_2.jpeg"
       ],
-      "qr_name": "QR_ストレッチポール_バンザイ"
+      "qr_name": "QR_ストレッチポール_バンザイ",
+      "categories": [
+        "ストレッチポール",
+        "野球パターン",
+        "肩体操"
+      ],
+      "image_transforms": [
+        {
+          "rotate": 0.0,
+          "flipH": false,
+          "flipV": false
+        },
+        {
+          "rotate": 0.0,
+          "flipH": false,
+          "flipV": false
+        }
+      ]
     },
     {
       "id": "EX068",
-      "category": "ストレッチポール",
       "source_row": 4,
       "name": "ストレッチポール_外転",
       "purpose": "目的:胸郭の可動性の改善\n__リラクゼーション",
@@ -901,11 +1921,26 @@ window.TSOC_EXERCISE_DATA = {
         "assets/exercise/ex068_1.jpeg",
         "assets/exercise/ex068_2.jpeg"
       ],
-      "qr_name": "QR_ストレッチポール_外転"
+      "qr_name": "QR_ストレッチポール_外転",
+      "categories": [
+        "ストレッチポール",
+        "肩体操"
+      ],
+      "image_transforms": [
+        {
+          "rotate": 0.0,
+          "flipH": false,
+          "flipV": false
+        },
+        {
+          "rotate": 0.0,
+          "flipH": false,
+          "flipV": false
+        }
+      ]
     },
     {
       "id": "EX069",
-      "category": "ストレッチポール",
       "source_row": 5,
       "name": "ストレッチポール_肩甲骨",
       "purpose": "目的:胸郭の可動性の改善\n_____リラクゼーション",
@@ -914,11 +1949,25 @@ window.TSOC_EXERCISE_DATA = {
         "assets/exercise/ex069_1.jpeg",
         "assets/exercise/ex069_2.jpeg"
       ],
-      "qr_name": "QR_ストレッチポール_肩甲骨"
+      "qr_name": "QR_ストレッチポール_肩甲骨",
+      "categories": [
+        "ストレッチポール"
+      ],
+      "image_transforms": [
+        {
+          "rotate": 0.0,
+          "flipH": false,
+          "flipV": false
+        },
+        {
+          "rotate": 0.0,
+          "flipH": false,
+          "flipV": false
+        }
+      ]
     },
     {
       "id": "EX070",
-      "category": "上肢トレーニング",
       "source_row": 2,
       "name": "胸張り",
       "purpose": "目的:胸椎伸展、肩甲骨の可動性",
@@ -927,11 +1976,26 @@ window.TSOC_EXERCISE_DATA = {
         "assets/exercise/ex070_1.jpeg",
         "assets/exercise/ex070_2.jpeg"
       ],
-      "qr_name": "QR_胸張り"
+      "qr_name": "QR_胸張り",
+      "categories": [
+        "上肢トレーニング",
+        "肩体操"
+      ],
+      "image_transforms": [
+        {
+          "rotate": 90.0,
+          "flipH": false,
+          "flipV": false
+        },
+        {
+          "rotate": 90.0,
+          "flipH": false,
+          "flipV": false
+        }
+      ]
     },
     {
       "id": "EX071",
-      "category": "上肢トレーニング",
       "source_row": 3,
       "name": "シュラッグ",
       "purpose": "目的:肩甲骨挙上と下制の可動性",
@@ -940,11 +2004,26 @@ window.TSOC_EXERCISE_DATA = {
         "assets/exercise/ex071_1.jpeg",
         "assets/exercise/ex071_2.jpeg"
       ],
-      "qr_name": "QR_シュラッグ"
+      "qr_name": "QR_シュラッグ",
+      "categories": [
+        "上肢トレーニング",
+        "肩体操"
+      ],
+      "image_transforms": [
+        {
+          "rotate": 90.0,
+          "flipH": false,
+          "flipV": false
+        },
+        {
+          "rotate": 90.0,
+          "flipH": false,
+          "flipV": false
+        }
+      ]
     },
     {
       "id": "EX072",
-      "category": "上肢トレーニング",
       "source_row": 4,
       "name": "ロウイング",
       "purpose": "目的:胸椎伸展、肩甲骨の内転筋強化",
@@ -953,11 +2032,25 @@ window.TSOC_EXERCISE_DATA = {
         "assets/exercise/ex072_1.jpeg",
         "assets/exercise/ex072_2.jpeg"
       ],
-      "qr_name": "QR_ロウイング"
+      "qr_name": "QR_ロウイング",
+      "categories": [
+        "上肢トレーニング"
+      ],
+      "image_transforms": [
+        {
+          "rotate": 90.0,
+          "flipH": false,
+          "flipV": false
+        },
+        {
+          "rotate": 90.0,
+          "flipH": false,
+          "flipV": false
+        }
+      ]
     },
     {
       "id": "EX073",
-      "category": "上肢トレーニング",
       "source_row": 5,
       "name": "ワンハンドロウイング",
       "purpose": "目的:胸椎回旋、肩甲骨の内転筋強化",
@@ -966,11 +2059,26 @@ window.TSOC_EXERCISE_DATA = {
         "assets/exercise/ex073_1.jpeg",
         "assets/exercise/ex073_2.jpeg"
       ],
-      "qr_name": "QR_ワンハンドロウイング"
+      "qr_name": "QR_ワンハンドロウイング",
+      "categories": [
+        "上肢トレーニング",
+        "野球パターン"
+      ],
+      "image_transforms": [
+        {
+          "rotate": 90.0,
+          "flipH": false,
+          "flipV": false
+        },
+        {
+          "rotate": 90.0,
+          "flipH": false,
+          "flipV": false
+        }
+      ]
     },
     {
       "id": "EX074",
-      "category": "上肢トレーニング",
       "source_row": 6,
       "name": "上腕三頭筋セッティング",
       "purpose": "目的:上腕三頭筋の強化",
@@ -979,11 +2087,25 @@ window.TSOC_EXERCISE_DATA = {
         "assets/exercise/ex074_1.jpeg",
         "assets/exercise/ex074_2.jpeg"
       ],
-      "qr_name": "QR_上腕三頭筋セッティング"
+      "qr_name": "QR_上腕三頭筋セッティング",
+      "categories": [
+        "上肢トレーニング"
+      ],
+      "image_transforms": [
+        {
+          "rotate": 0.0,
+          "flipH": false,
+          "flipV": false
+        },
+        {
+          "rotate": 0.0,
+          "flipH": false,
+          "flipV": false
+        }
+      ]
     },
     {
       "id": "EX075",
-      "category": "上肢トレーニング",
       "source_row": 7,
       "name": "エルボーエレベーション",
       "purpose": "目的:肩甲帯の安定性、内転",
@@ -992,11 +2114,25 @@ window.TSOC_EXERCISE_DATA = {
         "assets/exercise/ex075_1.jpeg",
         "assets/exercise/ex075_2.jpeg"
       ],
-      "qr_name": "QR_エルボーエレベーション"
+      "qr_name": "QR_エルボーエレベーション",
+      "categories": [
+        "上肢トレーニング"
+      ],
+      "image_transforms": [
+        {
+          "rotate": 0.0,
+          "flipH": false,
+          "flipV": false
+        },
+        {
+          "rotate": 0.0,
+          "flipH": false,
+          "flipV": false
+        }
+      ]
     },
     {
       "id": "EX076",
-      "category": "上肢トレーニング",
       "source_row": 8,
       "name": "壁プッシュアップ",
       "purpose": "目的:体幹・肩甲帯の安定性\n__胸部の筋力強化",
@@ -1005,11 +2141,26 @@ window.TSOC_EXERCISE_DATA = {
         "assets/exercise/ex076_1.jpeg",
         "assets/exercise/ex076_2.jpeg"
       ],
-      "qr_name": "QR_壁プッシュアップ"
+      "qr_name": "QR_壁プッシュアップ",
+      "categories": [
+        "上肢トレーニング",
+        "肩体操"
+      ],
+      "image_transforms": [
+        {
+          "rotate": 90.0,
+          "flipH": false,
+          "flipV": false
+        },
+        {
+          "rotate": 90.0,
+          "flipH": false,
+          "flipV": false
+        }
+      ]
     },
     {
       "id": "EX077",
-      "category": "上肢トレーニング",
       "source_row": 9,
       "name": "プッシュアップ",
       "purpose": "目的:体幹・肩甲帯の安定性\n__胸部の筋力強化",
@@ -1018,11 +2169,25 @@ window.TSOC_EXERCISE_DATA = {
         "assets/exercise/ex077_1.jpeg",
         "assets/exercise/ex077_2.jpeg"
       ],
-      "qr_name": "QR_プッシュアップ"
+      "qr_name": "QR_プッシュアップ",
+      "categories": [
+        "上肢トレーニング"
+      ],
+      "image_transforms": [
+        {
+          "rotate": 90.0,
+          "flipH": false,
+          "flipV": false
+        },
+        {
+          "rotate": 90.0,
+          "flipH": false,
+          "flipV": false
+        }
+      ]
     },
     {
       "id": "EX078",
-      "category": "上肢トレーニング",
       "source_row": 10,
       "name": "前鋸筋EX_座位",
       "purpose": "目的:肩甲帯の安定性",
@@ -1032,11 +2197,30 @@ window.TSOC_EXERCISE_DATA = {
         "assets/exercise/ex078_2.jpeg",
         "assets/exercise/ex078_3.jpeg"
       ],
-      "qr_name": "QR_前鋸筋EX_座位"
+      "qr_name": "QR_前鋸筋EX_座位",
+      "categories": [
+        "上肢トレーニング"
+      ],
+      "image_transforms": [
+        {
+          "rotate": 90.0,
+          "flipH": false,
+          "flipV": false
+        },
+        {
+          "rotate": 90.0,
+          "flipH": false,
+          "flipV": false
+        },
+        {
+          "rotate": 90.0,
+          "flipH": false,
+          "flipV": false
+        }
+      ]
     },
     {
       "id": "EX079",
-      "category": "上肢トレーニング",
       "source_row": 11,
       "name": "前鋸筋EX_仰向け",
       "purpose": "目的:肩甲帯の安定性",
@@ -1045,11 +2229,27 @@ window.TSOC_EXERCISE_DATA = {
         "assets/exercise/ex079_1.jpeg",
         "assets/exercise/ex079_2.jpeg"
       ],
-      "qr_name": "QR_前鋸筋EX_仰向け"
+      "qr_name": "QR_前鋸筋EX_仰向け",
+      "categories": [
+        "上肢トレーニング",
+        "野球パターン",
+        "肩体操"
+      ],
+      "image_transforms": [
+        {
+          "rotate": 0.0,
+          "flipH": false,
+          "flipV": false
+        },
+        {
+          "rotate": 0.0,
+          "flipH": false,
+          "flipV": false
+        }
+      ]
     },
     {
       "id": "EX080",
-      "category": "上肢トレーニング",
       "source_row": 12,
       "name": "上肢突き上げ_片手",
       "purpose": "目的:肩甲帯の安定性",
@@ -1058,11 +2258,26 @@ window.TSOC_EXERCISE_DATA = {
         "assets/exercise/ex080_1.jpeg",
         "assets/exercise/ex080_2.jpeg"
       ],
-      "qr_name": "QR_上肢突き上げ_片手"
+      "qr_name": "QR_上肢突き上げ_片手",
+      "categories": [
+        "上肢トレーニング",
+        "野球パターン"
+      ],
+      "image_transforms": [
+        {
+          "rotate": 0.0,
+          "flipH": false,
+          "flipV": false
+        },
+        {
+          "rotate": 0.0,
+          "flipH": false,
+          "flipV": false
+        }
+      ]
     },
     {
       "id": "EX081",
-      "category": "上肢トレーニング",
       "source_row": 13,
       "name": "スキャプラプッシュ",
       "purpose": "目的:肩甲帯の安定性",
@@ -1071,11 +2286,26 @@ window.TSOC_EXERCISE_DATA = {
         "assets/exercise/ex081_1.jpeg",
         "assets/exercise/ex081_2.jpeg"
       ],
-      "qr_name": "QR_スキャプラプッシュ"
+      "qr_name": "QR_スキャプラプッシュ",
+      "categories": [
+        "上肢トレーニング",
+        "野球パターン"
+      ],
+      "image_transforms": [
+        {
+          "rotate": 0.0,
+          "flipH": false,
+          "flipV": false
+        },
+        {
+          "rotate": 0.0,
+          "flipH": false,
+          "flipV": false
+        }
+      ]
     },
     {
       "id": "EX082",
-      "category": "上肢トレーニング",
       "source_row": 14,
       "name": "スキャプラプッシュ_肩内外旋",
       "purpose": "目的：_:肩関節の安定性、腱板訓練",
@@ -1084,11 +2314,25 @@ window.TSOC_EXERCISE_DATA = {
         "assets/exercise/ex082_1.jpeg",
         "assets/exercise/ex082_2.jpeg"
       ],
-      "qr_name": "QR_スキャプラプッシュ_肩内外旋"
+      "qr_name": "QR_スキャプラプッシュ_肩内外旋",
+      "categories": [
+        "上肢トレーニング"
+      ],
+      "image_transforms": [
+        {
+          "rotate": 90.0,
+          "flipH": false,
+          "flipV": false
+        },
+        {
+          "rotate": 90.0,
+          "flipH": false,
+          "flipV": false
+        }
+      ]
     },
     {
       "id": "EX083",
-      "category": "上肢トレーニング",
       "source_row": 15,
       "name": "僧帽筋エクササイズ_A",
       "purpose": "目的:僧帽筋の強化",
@@ -1097,11 +2341,26 @@ window.TSOC_EXERCISE_DATA = {
         "assets/exercise/ex083_1.jpeg",
         "assets/exercise/ex083_2.jpeg"
       ],
-      "qr_name": "QR_僧帽筋エクササイズ_A"
+      "qr_name": "QR_僧帽筋エクササイズ_A",
+      "categories": [
+        "上肢トレーニング",
+        "野球パターン"
+      ],
+      "image_transforms": [
+        {
+          "rotate": 0.0,
+          "flipH": false,
+          "flipV": false
+        },
+        {
+          "rotate": 0.0,
+          "flipH": false,
+          "flipV": false
+        }
+      ]
     },
     {
       "id": "EX084",
-      "category": "上肢トレーニング",
       "source_row": 16,
       "name": "僧帽筋エクササイズ_T",
       "purpose": "目的:僧帽筋の強化",
@@ -1110,11 +2369,26 @@ window.TSOC_EXERCISE_DATA = {
         "assets/exercise/ex084_1.jpeg",
         "assets/exercise/ex084_2.jpeg"
       ],
-      "qr_name": "QR_僧帽筋エクササイズ_T"
+      "qr_name": "QR_僧帽筋エクササイズ_T",
+      "categories": [
+        "上肢トレーニング",
+        "野球パターン"
+      ],
+      "image_transforms": [
+        {
+          "rotate": 0.0,
+          "flipH": false,
+          "flipV": false
+        },
+        {
+          "rotate": 0.0,
+          "flipH": false,
+          "flipV": false
+        }
+      ]
     },
     {
       "id": "EX085",
-      "category": "上肢トレーニング",
       "source_row": 17,
       "name": "僧帽筋エクササイズ_Y",
       "purpose": "目的:僧帽筋の強化",
@@ -1123,11 +2397,26 @@ window.TSOC_EXERCISE_DATA = {
         "assets/exercise/ex085_1.jpeg",
         "assets/exercise/ex085_2.jpeg"
       ],
-      "qr_name": "QR_僧帽筋エクササイズ_Y"
+      "qr_name": "QR_僧帽筋エクササイズ_Y",
+      "categories": [
+        "上肢トレーニング",
+        "野球パターン"
+      ],
+      "image_transforms": [
+        {
+          "rotate": 0.0,
+          "flipH": false,
+          "flipV": false
+        },
+        {
+          "rotate": 0.0,
+          "flipH": false,
+          "flipV": false
+        }
+      ]
     },
     {
       "id": "EX086",
-      "category": "上肢トレーニング",
       "source_row": 18,
       "name": "僧帽筋エクササイズ_W",
       "purpose": "目的:僧帽筋の強化",
@@ -1136,11 +2425,26 @@ window.TSOC_EXERCISE_DATA = {
         "assets/exercise/ex086_1.jpeg",
         "assets/exercise/ex086_2.jpeg"
       ],
-      "qr_name": "QR_僧帽筋エクササイズ_W"
+      "qr_name": "QR_僧帽筋エクササイズ_W",
+      "categories": [
+        "上肢トレーニング",
+        "野球パターン"
+      ],
+      "image_transforms": [
+        {
+          "rotate": 0.0,
+          "flipH": false,
+          "flipV": false
+        },
+        {
+          "rotate": 0.0,
+          "flipH": false,
+          "flipV": false
+        }
+      ]
     },
     {
       "id": "EX087",
-      "category": "上肢トレーニング",
       "source_row": 19,
       "name": "僧帽筋下部_片手",
       "purpose": "目的:僧帽筋の強化",
@@ -1149,11 +2453,26 @@ window.TSOC_EXERCISE_DATA = {
         "assets/exercise/ex087_1.jpeg",
         "assets/exercise/ex087_2.jpeg"
       ],
-      "qr_name": "QR_僧帽筋下部_片手"
+      "qr_name": "QR_僧帽筋下部_片手",
+      "categories": [
+        "上肢トレーニング",
+        "野球パターン"
+      ],
+      "image_transforms": [
+        {
+          "rotate": 0.0,
+          "flipH": false,
+          "flipV": false
+        },
+        {
+          "rotate": 0.0,
+          "flipH": false,
+          "flipV": false
+        }
+      ]
     },
     {
       "id": "EX088",
-      "category": "上肢トレーニング",
       "source_row": 20,
       "name": "チューブ肘伸展ex",
       "purpose": "目的:肘伸展筋力の強化",
@@ -1162,11 +2481,25 @@ window.TSOC_EXERCISE_DATA = {
         "assets/exercise/ex088_1.jpeg",
         "assets/exercise/ex088_2.jpeg"
       ],
-      "qr_name": "QR_チューブ肘伸展ex"
+      "qr_name": "QR_チューブ肘伸展ex",
+      "categories": [
+        "上肢トレーニング"
+      ],
+      "image_transforms": [
+        {
+          "rotate": 0.0,
+          "flipH": false,
+          "flipV": false
+        },
+        {
+          "rotate": 0.0,
+          "flipH": false,
+          "flipV": false
+        }
+      ]
     },
     {
       "id": "EX089",
-      "category": "上肢トレーニング",
       "source_row": 21,
       "name": "チューブ肘伸展ex_挙上位",
       "purpose": "目的:肘伸展筋力の強化",
@@ -1175,11 +2508,25 @@ window.TSOC_EXERCISE_DATA = {
         "assets/exercise/ex089_1.jpeg",
         "assets/exercise/ex089_2.jpeg"
       ],
-      "qr_name": "QR_チューブ肘伸展ex_挙上位"
+      "qr_name": "QR_チューブ肘伸展ex_挙上位",
+      "categories": [
+        "上肢トレーニング"
+      ],
+      "image_transforms": [
+        {
+          "rotate": 0.0,
+          "flipH": false,
+          "flipV": false
+        },
+        {
+          "rotate": 0.0,
+          "flipH": false,
+          "flipV": false
+        }
+      ]
     },
     {
       "id": "EX090",
-      "category": "上肢トレーニング",
       "source_row": 22,
       "name": "キックバック_ダンベル",
       "purpose": "目的:肘伸展筋力の強化",
@@ -1188,11 +2535,25 @@ window.TSOC_EXERCISE_DATA = {
         "assets/exercise/ex090_1.jpeg",
         "assets/exercise/ex090_2.jpeg"
       ],
-      "qr_name": "QR_キックバック_ダンベル"
+      "qr_name": "QR_キックバック_ダンベル",
+      "categories": [
+        "上肢トレーニング"
+      ],
+      "image_transforms": [
+        {
+          "rotate": 0.0,
+          "flipH": false,
+          "flipV": false
+        },
+        {
+          "rotate": 0.0,
+          "flipH": false,
+          "flipV": false
+        }
+      ]
     },
     {
       "id": "EX091",
-      "category": "上肢トレーニング",
       "source_row": 23,
       "name": "肘伸展EX_仰向け",
       "purpose": "目的:肘伸展筋力の強化",
@@ -1201,11 +2562,25 @@ window.TSOC_EXERCISE_DATA = {
         "assets/exercise/ex091_1.jpeg",
         "assets/exercise/ex091_2.jpeg"
       ],
-      "qr_name": "QR_肘伸展EX_仰向け"
+      "qr_name": "QR_肘伸展EX_仰向け",
+      "categories": [
+        "上肢トレーニング"
+      ],
+      "image_transforms": [
+        {
+          "rotate": 0.0,
+          "flipH": false,
+          "flipV": false
+        },
+        {
+          "rotate": 0.0,
+          "flipH": false,
+          "flipV": false
+        }
+      ]
     },
     {
       "id": "EX092",
-      "category": "上肢トレーニング",
       "source_row": 24,
       "name": "前腕回内EX_チューブ",
       "purpose": "目的:前腕回内筋の強化",
@@ -1214,11 +2589,25 @@ window.TSOC_EXERCISE_DATA = {
         "assets/exercise/ex092_1.jpeg",
         "assets/exercise/ex092_2.jpeg"
       ],
-      "qr_name": "QR_前腕回内EX_チューブ"
+      "qr_name": "QR_前腕回内EX_チューブ",
+      "categories": [
+        "上肢トレーニング"
+      ],
+      "image_transforms": [
+        {
+          "rotate": 0.0,
+          "flipH": false,
+          "flipV": false
+        },
+        {
+          "rotate": 0.0,
+          "flipH": false,
+          "flipV": false
+        }
+      ]
     },
     {
       "id": "EX093",
-      "category": "上肢トレーニング",
       "source_row": 25,
       "name": "前腕回外EX_チューブ",
       "purpose": "目的:前腕回外筋力の強化",
@@ -1227,11 +2616,25 @@ window.TSOC_EXERCISE_DATA = {
         "assets/exercise/ex093_1.jpeg",
         "assets/exercise/ex093_2.jpeg"
       ],
-      "qr_name": "QR_前腕回外EX_チューブ"
+      "qr_name": "QR_前腕回外EX_チューブ",
+      "categories": [
+        "上肢トレーニング"
+      ],
+      "image_transforms": [
+        {
+          "rotate": 0.0,
+          "flipH": false,
+          "flipV": false
+        },
+        {
+          "rotate": 0.0,
+          "flipH": false,
+          "flipV": false
+        }
+      ]
     },
     {
       "id": "EX094",
-      "category": "上肢トレーニング",
       "source_row": 26,
       "name": "おじぎエクササイズ",
       "purpose": "目的:肩屈曲可動域の改善",
@@ -1240,11 +2643,26 @@ window.TSOC_EXERCISE_DATA = {
         "assets/exercise/ex094_1.jpeg",
         "assets/exercise/ex094_2.jpeg"
       ],
-      "qr_name": "QR_おじぎエクササイズ"
+      "qr_name": "QR_おじぎエクササイズ",
+      "categories": [
+        "上肢トレーニング",
+        "肩体操"
+      ],
+      "image_transforms": [
+        {
+          "rotate": 0.0,
+          "flipH": false,
+          "flipV": false
+        },
+        {
+          "rotate": 0.0,
+          "flipH": false,
+          "flipV": false
+        }
+      ]
     },
     {
       "id": "EX095",
-      "category": "上肢トレーニング",
       "source_row": 27,
       "name": "僧帽筋下部エクササイズ",
       "purpose": "目的:僧帽筋下部の強化",
@@ -1253,11 +2671,25 @@ window.TSOC_EXERCISE_DATA = {
         "assets/exercise/ex095_1.jpeg",
         "assets/exercise/ex095_2.jpeg"
       ],
-      "qr_name": "QR_僧帽筋下部エクササイズ"
+      "qr_name": "QR_僧帽筋下部エクササイズ",
+      "categories": [
+        "上肢トレーニング"
+      ],
+      "image_transforms": [
+        {
+          "rotate": 0.0,
+          "flipH": false,
+          "flipV": false
+        },
+        {
+          "rotate": 0.0,
+          "flipH": false,
+          "flipV": false
+        }
+      ]
     },
     {
       "id": "EX096",
-      "category": "上肢トレーニング",
       "source_row": 28,
       "name": "前鋸筋エクササイズ_仰向け",
       "purpose": "目的:前鋸筋の筋力強化",
@@ -1267,11 +2699,30 @@ window.TSOC_EXERCISE_DATA = {
         "assets/exercise/ex096_2.jpeg",
         "assets/exercise/ex096_3.jpeg"
       ],
-      "qr_name": "QR_前鋸筋エクササイズ_仰向け"
+      "qr_name": "QR_前鋸筋エクササイズ_仰向け",
+      "categories": [
+        "上肢トレーニング"
+      ],
+      "image_transforms": [
+        {
+          "rotate": 0.0,
+          "flipH": false,
+          "flipV": false
+        },
+        {
+          "rotate": 0.0,
+          "flipH": false,
+          "flipV": false
+        },
+        {
+          "rotate": 0.0,
+          "flipH": false,
+          "flipV": false
+        }
+      ]
     },
     {
       "id": "EX097",
-      "category": "上肢トレーニング",
       "source_row": 29,
       "name": "肩甲骨内転エクササイズ",
       "purpose": "目的:肩甲骨内転筋力の強化",
@@ -1280,11 +2731,25 @@ window.TSOC_EXERCISE_DATA = {
         "assets/exercise/ex097_1.jpeg",
         "assets/exercise/ex097_2.jpeg"
       ],
-      "qr_name": "QR_肩甲骨内転エクササイズ"
+      "qr_name": "QR_肩甲骨内転エクササイズ",
+      "categories": [
+        "上肢トレーニング"
+      ],
+      "image_transforms": [
+        {
+          "rotate": 0.0,
+          "flipH": false,
+          "flipV": false
+        },
+        {
+          "rotate": 0.0,
+          "flipH": false,
+          "flipV": false
+        }
+      ]
     },
     {
       "id": "EX098",
-      "category": "上肢トレーニング",
       "source_row": 30,
       "name": "ウインドミル_壁",
       "purpose": "目的:肩甲帯周囲筋の安定性強化",
@@ -1293,11 +2758,25 @@ window.TSOC_EXERCISE_DATA = {
         "assets/exercise/ex098_1.png",
         "assets/exercise/ex098_2.png"
       ],
-      "qr_name": "QR_ウインドミル_壁"
+      "qr_name": "QR_ウインドミル_壁",
+      "categories": [
+        "上肢トレーニング"
+      ],
+      "image_transforms": [
+        {
+          "rotate": 0.0,
+          "flipH": false,
+          "flipV": false
+        },
+        {
+          "rotate": 0.0,
+          "flipH": false,
+          "flipV": false
+        }
+      ]
     },
     {
       "id": "EX099",
-      "category": "上肢トレーニング",
       "source_row": 31,
       "name": "ウインドミル_腕立て",
       "purpose": "目的:肩甲帯周囲筋の安定性強化",
@@ -1306,11 +2785,25 @@ window.TSOC_EXERCISE_DATA = {
         "assets/exercise/ex099_1.jpeg",
         "assets/exercise/ex099_2.jpeg"
       ],
-      "qr_name": "QR_ウインドミル_腕立て"
+      "qr_name": "QR_ウインドミル_腕立て",
+      "categories": [
+        "上肢トレーニング"
+      ],
+      "image_transforms": [
+        {
+          "rotate": 0.0,
+          "flipH": false,
+          "flipV": false
+        },
+        {
+          "rotate": 0.0,
+          "flipH": false,
+          "flipV": false
+        }
+      ]
     },
     {
       "id": "EX100",
-      "category": "上肢トレーニング",
       "source_row": 32,
       "name": "チェストプレス",
       "purpose": "目的:前胸部・肩周囲筋の強化",
@@ -1319,11 +2812,25 @@ window.TSOC_EXERCISE_DATA = {
         "assets/exercise/ex100_1.jpeg",
         "assets/exercise/ex100_2.jpeg"
       ],
-      "qr_name": "QR_チェストプレス"
+      "qr_name": "QR_チェストプレス",
+      "categories": [
+        "上肢トレーニング"
+      ],
+      "image_transforms": [
+        {
+          "rotate": 0.0,
+          "flipH": false,
+          "flipV": false
+        },
+        {
+          "rotate": 0.0,
+          "flipH": false,
+          "flipV": false
+        }
+      ]
     },
     {
       "id": "EX101",
-      "category": "上肢トレーニング",
       "source_row": 33,
       "name": "オーバーヘッドプレス",
       "purpose": "目的:肩周囲筋力の強化",
@@ -1332,11 +2839,25 @@ window.TSOC_EXERCISE_DATA = {
         "assets/exercise/ex101_1.jpeg",
         "assets/exercise/ex101_2.jpeg"
       ],
-      "qr_name": "QR_オーバーヘッドプレス"
+      "qr_name": "QR_オーバーヘッドプレス",
+      "categories": [
+        "上肢トレーニング"
+      ],
+      "image_transforms": [
+        {
+          "rotate": 0.0,
+          "flipH": false,
+          "flipV": false
+        },
+        {
+          "rotate": 0.0,
+          "flipH": false,
+          "flipV": false
+        }
+      ]
     },
     {
       "id": "EX102",
-      "category": "上肢トレーニング",
       "source_row": 34,
       "name": "ラットプルダウン",
       "purpose": "目的:肩甲骨内転、下制の筋力強化",
@@ -1345,11 +2866,25 @@ window.TSOC_EXERCISE_DATA = {
         "assets/exercise/ex102_1.jpeg",
         "assets/exercise/ex102_2.jpeg"
       ],
-      "qr_name": "QR_ラットプルダウン"
+      "qr_name": "QR_ラットプルダウン",
+      "categories": [
+        "上肢トレーニング"
+      ],
+      "image_transforms": [
+        {
+          "rotate": 90.0,
+          "flipH": false,
+          "flipV": false
+        },
+        {
+          "rotate": 90.0,
+          "flipH": false,
+          "flipV": false
+        }
+      ]
     },
     {
       "id": "EX103",
-      "category": "上肢トレーニング",
       "source_row": 35,
       "name": "肩内転_座位_ボール",
       "purpose": "目的：肩関節の安定化、肩内転筋力の向上",
@@ -1358,11 +2893,25 @@ window.TSOC_EXERCISE_DATA = {
         "assets/exercise/ex103_1.jpeg",
         "assets/exercise/ex103_2.jpeg"
       ],
-      "qr_name": "QR_肩内転_座位_ボール"
+      "qr_name": "QR_肩内転_座位_ボール",
+      "categories": [
+        "上肢トレーニング"
+      ],
+      "image_transforms": [
+        {
+          "rotate": 90.0,
+          "flipH": false,
+          "flipV": false
+        },
+        {
+          "rotate": 90.0,
+          "flipH": false,
+          "flipV": false
+        }
+      ]
     },
     {
       "id": "EX104",
-      "category": "上肢トレーニング",
       "source_row": 36,
       "name": "WALL_BALL",
       "purpose": "目的:肩甲帯安定性向上、肩腱板筋の強化",
@@ -1370,11 +2919,20 @@ window.TSOC_EXERCISE_DATA = {
       "images": [
         "assets/exercise/ex104_1.png"
       ],
-      "qr_name": "QR_WALL_BALL"
+      "qr_name": "QR_WALL_BALL",
+      "categories": [
+        "上肢トレーニング"
+      ],
+      "image_transforms": [
+        {
+          "rotate": 0.0,
+          "flipH": false,
+          "flipV": false
+        }
+      ]
     },
     {
       "id": "EX105",
-      "category": "上肢トレーニング",
       "source_row": 37,
       "name": "WALL_CLOCKS",
       "purpose": "目的:肩甲帯安定性向上、肩腱板筋の強化",
@@ -1382,11 +2940,20 @@ window.TSOC_EXERCISE_DATA = {
       "images": [
         "assets/exercise/ex105_1.png"
       ],
-      "qr_name": "QR_WALL_CLOCKS"
+      "qr_name": "QR_WALL_CLOCKS",
+      "categories": [
+        "上肢トレーニング"
+      ],
+      "image_transforms": [
+        {
+          "rotate": 0.0,
+          "flipH": false,
+          "flipV": false
+        }
+      ]
     },
     {
       "id": "EX106",
-      "category": "上肢トレーニング",
       "source_row": 38,
       "name": "リストカール",
       "purpose": "目的:手首の筋力強化",
@@ -1394,11 +2961,20 @@ window.TSOC_EXERCISE_DATA = {
       "images": [
         "assets/exercise/ex106_1.png"
       ],
-      "qr_name": "QR_リストカール"
+      "qr_name": "QR_リストカール",
+      "categories": [
+        "上肢トレーニング"
+      ],
+      "image_transforms": [
+        {
+          "rotate": 0.0,
+          "flipH": false,
+          "flipV": false
+        }
+      ]
     },
     {
       "id": "EX107",
-      "category": "上肢トレーニング",
       "source_row": 39,
       "name": "リストハンマー_橈屈",
       "purpose": "目的:手首の筋力強化",
@@ -1406,11 +2982,20 @@ window.TSOC_EXERCISE_DATA = {
       "images": [
         "assets/exercise/ex107_1.png"
       ],
-      "qr_name": "QR_リストハンマー_橈屈"
+      "qr_name": "QR_リストハンマー_橈屈",
+      "categories": [
+        "上肢トレーニング"
+      ],
+      "image_transforms": [
+        {
+          "rotate": 0.0,
+          "flipH": false,
+          "flipV": false
+        }
+      ]
     },
     {
       "id": "EX108",
-      "category": "上肢トレーニング",
       "source_row": 40,
       "name": "リストハンマー_尺屈",
       "purpose": "目的:手首の筋力強化",
@@ -1418,11 +3003,20 @@ window.TSOC_EXERCISE_DATA = {
       "images": [
         "assets/exercise/ex108_1.png"
       ],
-      "qr_name": "QR_リストハンマー_尺屈"
+      "qr_name": "QR_リストハンマー_尺屈",
+      "categories": [
+        "上肢トレーニング"
+      ],
+      "image_transforms": [
+        {
+          "rotate": 0.0,
+          "flipH": false,
+          "flipV": false
+        }
+      ]
     },
     {
       "id": "EX109",
-      "category": "上肢トレーニング",
       "source_row": 41,
       "name": "FDSエクササイズ",
       "purpose": "目的:指の筋力強化、肘の安定性向上",
@@ -1430,11 +3024,20 @@ window.TSOC_EXERCISE_DATA = {
       "images": [
         "assets/exercise/ex109_1.png"
       ],
-      "qr_name": "QR_FDSエクササイズ"
+      "qr_name": "QR_FDSエクササイズ",
+      "categories": [
+        "上肢トレーニング"
+      ],
+      "image_transforms": [
+        {
+          "rotate": 0.0,
+          "flipH": false,
+          "flipV": false
+        }
+      ]
     },
     {
       "id": "EX110",
-      "category": "上肢トレーニング",
       "source_row": 42,
       "name": "FIERD_GOALS",
       "purpose": "目的:肩甲帯の安定性、可動性の向上",
@@ -1442,11 +3045,20 @@ window.TSOC_EXERCISE_DATA = {
       "images": [
         "assets/exercise/ex110_1.png"
       ],
-      "qr_name": "QR_FIERD_GOALS"
+      "qr_name": "QR_FIERD_GOALS",
+      "categories": [
+        "上肢トレーニング"
+      ],
+      "image_transforms": [
+        {
+          "rotate": 0.0,
+          "flipH": false,
+          "flipV": false
+        }
+      ]
     },
     {
       "id": "EX111",
-      "category": "上肢トレーニング",
       "source_row": 43,
       "name": "BODY_BLADE_下垂位_挙上位_外転位",
       "purpose": "目的:肩甲帯の安定性、肩腱板筋の強化",
@@ -1454,11 +3066,20 @@ window.TSOC_EXERCISE_DATA = {
       "images": [
         "assets/exercise/ex111_1.png"
       ],
-      "qr_name": "QR_BODY_BLADE_下垂位_挙上位_外転位"
+      "qr_name": "QR_BODY_BLADE_下垂位_挙上位_外転位",
+      "categories": [
+        "上肢トレーニング"
+      ],
+      "image_transforms": [
+        {
+          "rotate": 0.0,
+          "flipH": false,
+          "flipV": false
+        }
+      ]
     },
     {
       "id": "EX112",
-      "category": "下肢トレーニング",
       "source_row": 2,
       "name": "SLRエクササイズ",
       "purpose": "目的:下部体幹、もも前の筋力強化",
@@ -1467,11 +3088,25 @@ window.TSOC_EXERCISE_DATA = {
         "assets/exercise/ex112_1.jpeg",
         "assets/exercise/ex112_2.jpeg"
       ],
-      "qr_name": "QR_SLRエクササイズ"
+      "qr_name": "QR_SLRエクササイズ",
+      "categories": [
+        "下肢トレーニング"
+      ],
+      "image_transforms": [
+        {
+          "rotate": 0.0,
+          "flipH": false,
+          "flipV": false
+        },
+        {
+          "rotate": 0.0,
+          "flipH": false,
+          "flipV": false
+        }
+      ]
     },
     {
       "id": "EX113",
-      "category": "下肢トレーニング",
       "source_row": 3,
       "name": "うつ伏せ_股関節伸展",
       "purpose": "目的:下部体幹、股関節伸展筋の強化",
@@ -1480,11 +3115,25 @@ window.TSOC_EXERCISE_DATA = {
         "assets/exercise/ex113_1.jpeg",
         "assets/exercise/ex113_2.jpeg"
       ],
-      "qr_name": "QR_うつ伏せ_股関節伸展"
+      "qr_name": "QR_うつ伏せ_股関節伸展",
+      "categories": [
+        "下肢トレーニング"
+      ],
+      "image_transforms": [
+        {
+          "rotate": 0.0,
+          "flipH": false,
+          "flipV": false
+        },
+        {
+          "rotate": 0.0,
+          "flipH": false,
+          "flipV": false
+        }
+      ]
     },
     {
       "id": "EX114",
-      "category": "下肢トレーニング",
       "source_row": 4,
       "name": "股関節外転_横向き",
       "purpose": "目的:股関節外転筋の強化",
@@ -1493,11 +3142,25 @@ window.TSOC_EXERCISE_DATA = {
         "assets/exercise/ex114_1.jpeg",
         "assets/exercise/ex114_2.jpeg"
       ],
-      "qr_name": "QR_股関節外転_横向き"
+      "qr_name": "QR_股関節外転_横向き",
+      "categories": [
+        "下肢トレーニング"
+      ],
+      "image_transforms": [
+        {
+          "rotate": 0.0,
+          "flipH": false,
+          "flipV": false
+        },
+        {
+          "rotate": 0.0,
+          "flipH": false,
+          "flipV": false
+        }
+      ]
     },
     {
       "id": "EX115",
-      "category": "下肢トレーニング",
       "source_row": 5,
       "name": "クラムシェル",
       "purpose": "目的:股関節外旋筋の強化",
@@ -1506,11 +3169,26 @@ window.TSOC_EXERCISE_DATA = {
         "assets/exercise/ex115_1.jpeg",
         "assets/exercise/ex115_2.jpeg"
       ],
-      "qr_name": "QR_クラムシェル"
+      "qr_name": "QR_クラムシェル",
+      "categories": [
+        "下肢トレーニング",
+        "膝体操"
+      ],
+      "image_transforms": [
+        {
+          "rotate": 0.0,
+          "flipH": false,
+          "flipV": false
+        },
+        {
+          "rotate": 0.0,
+          "flipH": false,
+          "flipV": false
+        }
+      ]
     },
     {
       "id": "EX116",
-      "category": "下肢トレーニング",
       "source_row": 6,
       "name": "股関節内転_椅子",
       "purpose": "目的:股関節内転筋の強化",
@@ -1519,11 +3197,26 @@ window.TSOC_EXERCISE_DATA = {
         "assets/exercise/ex116_1.jpeg",
         "assets/exercise/ex116_2.jpeg"
       ],
-      "qr_name": "QR_股関節内転_椅子"
+      "qr_name": "QR_股関節内転_椅子",
+      "categories": [
+        "下肢トレーニング",
+        "膝体操"
+      ],
+      "image_transforms": [
+        {
+          "rotate": 90.0,
+          "flipH": false,
+          "flipV": false
+        },
+        {
+          "rotate": 90.0,
+          "flipH": false,
+          "flipV": false
+        }
+      ]
     },
     {
       "id": "EX117",
-      "category": "下肢トレーニング",
       "source_row": 7,
       "name": "股関節外転_椅子",
       "purpose": "目的:股関節外転筋の強化",
@@ -1532,11 +3225,25 @@ window.TSOC_EXERCISE_DATA = {
         "assets/exercise/ex117_1.jpeg",
         "assets/exercise/ex117_2.jpeg"
       ],
-      "qr_name": "QR_股関節外転_椅子"
+      "qr_name": "QR_股関節外転_椅子",
+      "categories": [
+        "下肢トレーニング"
+      ],
+      "image_transforms": [
+        {
+          "rotate": 90.0,
+          "flipH": false,
+          "flipV": false
+        },
+        {
+          "rotate": 90.0,
+          "flipH": false,
+          "flipV": false
+        }
+      ]
     },
     {
       "id": "EX118",
-      "category": "下肢トレーニング",
       "source_row": 8,
       "name": "ペルティックピルト",
       "purpose": "目的:骨盤後傾の可動性改善",
@@ -1545,11 +3252,25 @@ window.TSOC_EXERCISE_DATA = {
         "assets/exercise/ex118_1.jpeg",
         "assets/exercise/ex118_2.jpeg"
       ],
-      "qr_name": "QR_ペルティックピルト"
+      "qr_name": "QR_ペルティックピルト",
+      "categories": [
+        "下肢トレーニング"
+      ],
+      "image_transforms": [
+        {
+          "rotate": 0.0,
+          "flipH": false,
+          "flipV": false
+        },
+        {
+          "rotate": 0.0,
+          "flipH": false,
+          "flipV": false
+        }
+      ]
     },
     {
       "id": "EX119",
-      "category": "下肢トレーニング",
       "source_row": 9,
       "name": "ヒップリフト",
       "purpose": "目的:お尻、もも裏の筋力強化",
@@ -1558,11 +3279,27 @@ window.TSOC_EXERCISE_DATA = {
         "assets/exercise/ex119_1.jpeg",
         "assets/exercise/ex119_2.jpeg"
       ],
-      "qr_name": "QR_ヒップリフト"
+      "qr_name": "QR_ヒップリフト",
+      "categories": [
+        "下肢トレーニング",
+        "腰痛体操",
+        "膝体操"
+      ],
+      "image_transforms": [
+        {
+          "rotate": 0.0,
+          "flipH": false,
+          "flipV": false
+        },
+        {
+          "rotate": 0.0,
+          "flipH": false,
+          "flipV": false
+        }
+      ]
     },
     {
       "id": "EX120",
-      "category": "下肢トレーニング",
       "source_row": 10,
       "name": "片足ヒップリフト",
       "purpose": "目的:お尻、もも裏の筋力強化",
@@ -1571,11 +3308,26 @@ window.TSOC_EXERCISE_DATA = {
         "assets/exercise/ex120_1.jpeg",
         "assets/exercise/ex120_2.jpeg"
       ],
-      "qr_name": "QR_片足ヒップリフト"
+      "qr_name": "QR_片足ヒップリフト",
+      "categories": [
+        "下肢トレーニング",
+        "膝体操"
+      ],
+      "image_transforms": [
+        {
+          "rotate": 0.0,
+          "flipH": false,
+          "flipV": false
+        },
+        {
+          "rotate": 0.0,
+          "flipH": false,
+          "flipV": false
+        }
+      ]
     },
     {
       "id": "EX121",
-      "category": "下肢トレーニング",
       "source_row": 11,
       "name": "タオルつぶし",
       "purpose": "目的:膝のお皿の可動性\n__膝伸展筋の強化",
@@ -1584,11 +3336,26 @@ window.TSOC_EXERCISE_DATA = {
         "assets/exercise/ex121_1.jpeg",
         "assets/exercise/ex121_2.jpeg"
       ],
-      "qr_name": "QR_タオルつぶし"
+      "qr_name": "QR_タオルつぶし",
+      "categories": [
+        "下肢トレーニング",
+        "膝体操"
+      ],
+      "image_transforms": [
+        {
+          "rotate": 90.0,
+          "flipH": false,
+          "flipV": false
+        },
+        {
+          "rotate": 90.0,
+          "flipH": false,
+          "flipV": false
+        }
+      ]
     },
     {
       "id": "EX122",
-      "category": "下肢トレーニング",
       "source_row": 12,
       "name": "膝伸ばし_椅子",
       "purpose": "目的:膝伸展筋の強化",
@@ -1597,11 +3364,26 @@ window.TSOC_EXERCISE_DATA = {
         "assets/exercise/ex122_1.jpeg",
         "assets/exercise/ex122_2.jpeg"
       ],
-      "qr_name": "QR_膝伸ばし_椅子"
+      "qr_name": "QR_膝伸ばし_椅子",
+      "categories": [
+        "下肢トレーニング",
+        "膝体操"
+      ],
+      "image_transforms": [
+        {
+          "rotate": 90.0,
+          "flipH": false,
+          "flipV": false
+        },
+        {
+          "rotate": 90.0,
+          "flipH": false,
+          "flipV": false
+        }
+      ]
     },
     {
       "id": "EX123",
-      "category": "下肢トレーニング",
       "source_row": 13,
       "name": "かかと押し",
       "purpose": "目的:膝伸展筋の強化",
@@ -1610,11 +3392,26 @@ window.TSOC_EXERCISE_DATA = {
         "assets/exercise/ex123_1.jpeg",
         "assets/exercise/ex123_2.jpeg"
       ],
-      "qr_name": "QR_かかと押し"
+      "qr_name": "QR_かかと押し",
+      "categories": [
+        "下肢トレーニング",
+        "膝体操"
+      ],
+      "image_transforms": [
+        {
+          "rotate": 90.0,
+          "flipH": false,
+          "flipV": false
+        },
+        {
+          "rotate": 90.0,
+          "flipH": false,
+          "flipV": false
+        }
+      ]
     },
     {
       "id": "EX124",
-      "category": "下肢トレーニング",
       "source_row": 14,
       "name": "レッグカール_うつ伏せ",
       "purpose": "目的:膝屈曲の筋力強化",
@@ -1623,11 +3420,26 @@ window.TSOC_EXERCISE_DATA = {
         "assets/exercise/ex124_1.jpeg",
         "assets/exercise/ex124_2.jpeg"
       ],
-      "qr_name": "QR_レッグカール_うつ伏せ"
+      "qr_name": "QR_レッグカール_うつ伏せ",
+      "categories": [
+        "下肢トレーニング",
+        "膝体操"
+      ],
+      "image_transforms": [
+        {
+          "rotate": 0.0,
+          "flipH": false,
+          "flipV": false
+        },
+        {
+          "rotate": 0.0,
+          "flipH": false,
+          "flipV": false
+        }
+      ]
     },
     {
       "id": "EX125",
-      "category": "下肢トレーニング",
       "source_row": 15,
       "name": "レッグカール_椅子",
       "purpose": "目的:膝屈曲の筋力強化",
@@ -1636,11 +3448,25 @@ window.TSOC_EXERCISE_DATA = {
         "assets/exercise/ex125_1.jpeg",
         "assets/exercise/ex125_2.jpeg"
       ],
-      "qr_name": "QR_レッグカール_椅子"
+      "qr_name": "QR_レッグカール_椅子",
+      "categories": [
+        "下肢トレーニング"
+      ],
+      "image_transforms": [
+        {
+          "rotate": 90.0,
+          "flipH": false,
+          "flipV": false
+        },
+        {
+          "rotate": 90.0,
+          "flipH": false,
+          "flipV": false
+        }
+      ]
     },
     {
       "id": "EX126",
-      "category": "下肢トレーニング",
       "source_row": 16,
       "name": "レッグエクステンション",
       "purpose": "目的:膝伸展筋の強化",
@@ -1649,11 +3475,25 @@ window.TSOC_EXERCISE_DATA = {
         "assets/exercise/ex126_1.jpeg",
         "assets/exercise/ex126_2.jpeg"
       ],
-      "qr_name": "QR_レッグエクステンション"
+      "qr_name": "QR_レッグエクステンション",
+      "categories": [
+        "下肢トレーニング"
+      ],
+      "image_transforms": [
+        {
+          "rotate": 90.0,
+          "flipH": false,
+          "flipV": false
+        },
+        {
+          "rotate": 90.0,
+          "flipH": false,
+          "flipV": false
+        }
+      ]
     },
     {
       "id": "EX127",
-      "category": "下肢トレーニング",
       "source_row": 17,
       "name": "ランジ",
       "purpose": "目的:下肢筋力と協調性の強化",
@@ -1662,11 +3502,26 @@ window.TSOC_EXERCISE_DATA = {
         "assets/exercise/ex127_1.jpeg",
         "assets/exercise/ex127_2.jpeg"
       ],
-      "qr_name": "QR_ランジ"
+      "qr_name": "QR_ランジ",
+      "categories": [
+        "下肢トレーニング",
+        "膝体操"
+      ],
+      "image_transforms": [
+        {
+          "rotate": 90.0,
+          "flipH": false,
+          "flipV": false
+        },
+        {
+          "rotate": 90.0,
+          "flipH": false,
+          "flipV": false
+        }
+      ]
     },
     {
       "id": "EX128",
-      "category": "下肢トレーニング",
       "source_row": 18,
       "name": "フロントランジ",
       "purpose": "目的:下肢筋力と協調性の強化",
@@ -1675,11 +3530,25 @@ window.TSOC_EXERCISE_DATA = {
         "assets/exercise/ex128_1.jpeg",
         "assets/exercise/ex128_2.jpeg"
       ],
-      "qr_name": "QR_フロントランジ"
+      "qr_name": "QR_フロントランジ",
+      "categories": [
+        "下肢トレーニング"
+      ],
+      "image_transforms": [
+        {
+          "rotate": 90.0,
+          "flipH": false,
+          "flipV": false
+        },
+        {
+          "rotate": 90.0,
+          "flipH": false,
+          "flipV": false
+        }
+      ]
     },
     {
       "id": "EX129",
-      "category": "下肢トレーニング",
       "source_row": 19,
       "name": "バックランジ",
       "purpose": "目的:下肢筋力と協調性の強化",
@@ -1688,11 +3557,25 @@ window.TSOC_EXERCISE_DATA = {
         "assets/exercise/ex129_1.jpeg",
         "assets/exercise/ex129_2.jpeg"
       ],
-      "qr_name": "QR_バックランジ"
+      "qr_name": "QR_バックランジ",
+      "categories": [
+        "下肢トレーニング"
+      ],
+      "image_transforms": [
+        {
+          "rotate": 90.0,
+          "flipH": false,
+          "flipV": false
+        },
+        {
+          "rotate": 90.0,
+          "flipH": false,
+          "flipV": false
+        }
+      ]
     },
     {
       "id": "EX130",
-      "category": "下肢トレーニング",
       "source_row": 20,
       "name": "サイドランジ",
       "purpose": "目的:下肢筋力と協調性の強化",
@@ -1701,11 +3584,25 @@ window.TSOC_EXERCISE_DATA = {
         "assets/exercise/ex130_1.jpeg",
         "assets/exercise/ex130_2.jpeg"
       ],
-      "qr_name": "QR_サイドランジ"
+      "qr_name": "QR_サイドランジ",
+      "categories": [
+        "下肢トレーニング"
+      ],
+      "image_transforms": [
+        {
+          "rotate": 90.0,
+          "flipH": false,
+          "flipV": false
+        },
+        {
+          "rotate": 90.0,
+          "flipH": false,
+          "flipV": false
+        }
+      ]
     },
     {
       "id": "EX131",
-      "category": "下肢トレーニング",
       "source_row": 21,
       "name": "RDL",
       "purpose": "目的:下肢後面の筋力強化、協調性",
@@ -1714,11 +3611,25 @@ window.TSOC_EXERCISE_DATA = {
         "assets/exercise/ex131_1.jpeg",
         "assets/exercise/ex131_2.jpeg"
       ],
-      "qr_name": "QR_RDL"
+      "qr_name": "QR_RDL",
+      "categories": [
+        "下肢トレーニング"
+      ],
+      "image_transforms": [
+        {
+          "rotate": 90.0,
+          "flipH": false,
+          "flipV": false
+        },
+        {
+          "rotate": 90.0,
+          "flipH": false,
+          "flipV": false
+        }
+      ]
     },
     {
       "id": "EX132",
-      "category": "下肢トレーニング",
       "source_row": 22,
       "name": "デッドリフト",
       "purpose": "目的:下肢後面、\n______背中の筋力強化、協調性",
@@ -1727,11 +3638,25 @@ window.TSOC_EXERCISE_DATA = {
         "assets/exercise/ex132_1.jpeg",
         "assets/exercise/ex132_2.jpeg"
       ],
-      "qr_name": "QR_デッドリフト"
+      "qr_name": "QR_デッドリフト",
+      "categories": [
+        "下肢トレーニング"
+      ],
+      "image_transforms": [
+        {
+          "rotate": 90.0,
+          "flipH": false,
+          "flipV": false
+        },
+        {
+          "rotate": 90.0,
+          "flipH": false,
+          "flipV": false
+        }
+      ]
     },
     {
       "id": "EX133",
-      "category": "下肢トレーニング",
       "source_row": 23,
       "name": "チェアスクワット",
       "purpose": "目的:下肢筋力と協調性の強化",
@@ -1741,11 +3666,30 @@ window.TSOC_EXERCISE_DATA = {
         "assets/exercise/ex133_2.jpeg",
         "assets/exercise/ex133_3.jpeg"
       ],
-      "qr_name": "QR_チェアスクワット"
+      "qr_name": "QR_チェアスクワット",
+      "categories": [
+        "下肢トレーニング"
+      ],
+      "image_transforms": [
+        {
+          "rotate": 90.0,
+          "flipH": false,
+          "flipV": false
+        },
+        {
+          "rotate": 90.0,
+          "flipH": false,
+          "flipV": false
+        },
+        {
+          "rotate": 90.0,
+          "flipH": false,
+          "flipV": false
+        }
+      ]
     },
     {
       "id": "EX134",
-      "category": "下肢トレーニング",
       "source_row": 24,
       "name": "スクワット",
       "purpose": "目的:下肢筋力と協調性の強化",
@@ -1754,11 +3698,26 @@ window.TSOC_EXERCISE_DATA = {
         "assets/exercise/ex134_1.jpeg",
         "assets/exercise/ex134_2.jpeg"
       ],
-      "qr_name": "QR_スクワット"
+      "qr_name": "QR_スクワット",
+      "categories": [
+        "下肢トレーニング",
+        "膝体操"
+      ],
+      "image_transforms": [
+        {
+          "rotate": 90.0,
+          "flipH": false,
+          "flipV": false
+        },
+        {
+          "rotate": 90.0,
+          "flipH": false,
+          "flipV": false
+        }
+      ]
     },
     {
       "id": "EX135",
-      "category": "下肢トレーニング",
       "source_row": 25,
       "name": "ニーベントウォーク",
       "purpose": "目的:下肢筋力、協調性の向上",
@@ -1768,11 +3727,30 @@ window.TSOC_EXERCISE_DATA = {
         "assets/exercise/ex135_2.jpeg",
         "assets/exercise/ex135_3.jpeg"
       ],
-      "qr_name": "QR_ニーベントウォーク"
+      "qr_name": "QR_ニーベントウォーク",
+      "categories": [
+        "下肢トレーニング"
+      ],
+      "image_transforms": [
+        {
+          "rotate": 90.0,
+          "flipH": false,
+          "flipV": false
+        },
+        {
+          "rotate": 90.0,
+          "flipH": false,
+          "flipV": false
+        },
+        {
+          "rotate": 90.0,
+          "flipH": false,
+          "flipV": false
+        }
+      ]
     },
     {
       "id": "EX136",
-      "category": "下肢トレーニング",
       "source_row": 26,
       "name": "サイドステップ_反復横跳び",
       "purpose": "目的:股関節外転筋\n__下肢筋力の協調性向上",
@@ -1781,11 +3759,25 @@ window.TSOC_EXERCISE_DATA = {
         "assets/exercise/ex136_1.png",
         "assets/exercise/ex136_2.png"
       ],
-      "qr_name": "QR_サイドステップ_反復横跳び"
+      "qr_name": "QR_サイドステップ_反復横跳び",
+      "categories": [
+        "下肢トレーニング"
+      ],
+      "image_transforms": [
+        {
+          "rotate": 0.0,
+          "flipH": false,
+          "flipV": false
+        },
+        {
+          "rotate": 0.0,
+          "flipH": false,
+          "flipV": false
+        }
+      ]
     },
     {
       "id": "EX137",
-      "category": "下肢トレーニング",
       "source_row": 27,
       "name": "片脚立位バランス",
       "purpose": "目的:バランス、臀筋群の強化",
@@ -1794,11 +3786,25 @@ window.TSOC_EXERCISE_DATA = {
         "assets/exercise/ex137_1.jpeg",
         "assets/exercise/ex137_2.jpeg"
       ],
-      "qr_name": "QR_片脚立位バランス"
+      "qr_name": "QR_片脚立位バランス",
+      "categories": [
+        "下肢トレーニング"
+      ],
+      "image_transforms": [
+        {
+          "rotate": 90.0,
+          "flipH": false,
+          "flipV": false
+        },
+        {
+          "rotate": 90.0,
+          "flipH": false,
+          "flipV": false
+        }
+      ]
     },
     {
       "id": "EX138",
-      "category": "下肢トレーニング",
       "source_row": 28,
       "name": "片脚立位バランス_マット",
       "purpose": "目的:バランス、臀筋群の強化",
@@ -1807,11 +3813,25 @@ window.TSOC_EXERCISE_DATA = {
         "assets/exercise/ex138_1.jpeg",
         "assets/exercise/ex138_2.jpeg"
       ],
-      "qr_name": "QR_片脚立位バランス_マット"
+      "qr_name": "QR_片脚立位バランス_マット",
+      "categories": [
+        "下肢トレーニング"
+      ],
+      "image_transforms": [
+        {
+          "rotate": 90.0,
+          "flipH": false,
+          "flipV": false
+        },
+        {
+          "rotate": 90.0,
+          "flipH": false,
+          "flipV": false
+        }
+      ]
     },
     {
       "id": "EX139",
-      "category": "下肢トレーニング",
       "source_row": 29,
       "name": "片脚立位_上肢挙上",
       "purpose": "目的:バランス、臀筋群\n__下部腹筋の強化",
@@ -1820,11 +3840,25 @@ window.TSOC_EXERCISE_DATA = {
         "assets/exercise/ex139_1.jpeg",
         "assets/exercise/ex139_2.jpeg"
       ],
-      "qr_name": "QR_片脚立位_上肢挙上"
+      "qr_name": "QR_片脚立位_上肢挙上",
+      "categories": [
+        "下肢トレーニング"
+      ],
+      "image_transforms": [
+        {
+          "rotate": 90.0,
+          "flipH": false,
+          "flipV": false
+        },
+        {
+          "rotate": 90.0,
+          "flipH": false,
+          "flipV": false
+        }
+      ]
     },
     {
       "id": "EX140",
-      "category": "下肢トレーニング",
       "source_row": 30,
       "name": "片脚立位_バンザイ交互",
       "purpose": "目的:バランス、臀筋群\n__下部腹筋の強化",
@@ -1833,11 +3867,25 @@ window.TSOC_EXERCISE_DATA = {
         "assets/exercise/ex140_1.jpeg",
         "assets/exercise/ex140_2.jpeg"
       ],
-      "qr_name": "QR_片脚立位_バンザイ交互"
+      "qr_name": "QR_片脚立位_バンザイ交互",
+      "categories": [
+        "下肢トレーニング"
+      ],
+      "image_transforms": [
+        {
+          "rotate": 90.0,
+          "flipH": false,
+          "flipV": false
+        },
+        {
+          "rotate": 90.0,
+          "flipH": false,
+          "flipV": false
+        }
+      ]
     },
     {
       "id": "EX141",
-      "category": "下肢トレーニング",
       "source_row": 31,
       "name": "片脚スイング_左右",
       "purpose": "目的:バランス、臀筋群の強化",
@@ -1846,11 +3894,25 @@ window.TSOC_EXERCISE_DATA = {
         "assets/exercise/ex141_1.jpeg",
         "assets/exercise/ex141_2.jpeg"
       ],
-      "qr_name": "QR_片脚スイング_左右"
+      "qr_name": "QR_片脚スイング_左右",
+      "categories": [
+        "下肢トレーニング"
+      ],
+      "image_transforms": [
+        {
+          "rotate": 90.0,
+          "flipH": false,
+          "flipV": false
+        },
+        {
+          "rotate": 90.0,
+          "flipH": false,
+          "flipV": false
+        }
+      ]
     },
     {
       "id": "EX142",
-      "category": "下肢トレーニング",
       "source_row": 32,
       "name": "片脚スイング_前後",
       "purpose": "目的:バランス、臀筋群の強化",
@@ -1859,11 +3921,25 @@ window.TSOC_EXERCISE_DATA = {
         "assets/exercise/ex142_1.jpeg",
         "assets/exercise/ex142_2.jpeg"
       ],
-      "qr_name": "QR_片脚スイング_前後"
+      "qr_name": "QR_片脚スイング_前後",
+      "categories": [
+        "下肢トレーニング"
+      ],
+      "image_transforms": [
+        {
+          "rotate": 90.0,
+          "flipH": false,
+          "flipV": false
+        },
+        {
+          "rotate": 90.0,
+          "flipH": false,
+          "flipV": false
+        }
+      ]
     },
     {
       "id": "EX143",
-      "category": "下肢トレーニング",
       "source_row": 33,
       "name": "片脚立位_体幹回旋",
       "purpose": "目的:バランス、臀筋群の強化",
@@ -1872,11 +3948,25 @@ window.TSOC_EXERCISE_DATA = {
         "assets/exercise/ex143_1.jpeg",
         "assets/exercise/ex143_2.jpeg"
       ],
-      "qr_name": "QR_片脚立位_体幹回旋"
+      "qr_name": "QR_片脚立位_体幹回旋",
+      "categories": [
+        "下肢トレーニング"
+      ],
+      "image_transforms": [
+        {
+          "rotate": 90.0,
+          "flipH": false,
+          "flipV": false
+        },
+        {
+          "rotate": 90.0,
+          "flipH": false,
+          "flipV": false
+        }
+      ]
     },
     {
       "id": "EX144",
-      "category": "下肢トレーニング",
       "source_row": 34,
       "name": "片脚立位_回排",
       "purpose": "目的:バランス、臀筋群の強化",
@@ -1885,11 +3975,25 @@ window.TSOC_EXERCISE_DATA = {
         "assets/exercise/ex144_1.jpeg",
         "assets/exercise/ex144_2.jpeg"
       ],
-      "qr_name": "QR_片脚立位_回排"
+      "qr_name": "QR_片脚立位_回排",
+      "categories": [
+        "下肢トレーニング"
+      ],
+      "image_transforms": [
+        {
+          "rotate": 90.0,
+          "flipH": false,
+          "flipV": false
+        },
+        {
+          "rotate": 90.0,
+          "flipH": false,
+          "flipV": false
+        }
+      ]
     },
     {
       "id": "EX145",
-      "category": "下肢トレーニング",
       "source_row": 35,
       "name": "ブルガリアンSQ",
       "purpose": "目的:下肢筋力の強化",
@@ -1898,11 +4002,25 @@ window.TSOC_EXERCISE_DATA = {
         "assets/exercise/ex145_1.jpeg",
         "assets/exercise/ex145_2.jpeg"
       ],
-      "qr_name": "QR_ブルガリアンSQ"
+      "qr_name": "QR_ブルガリアンSQ",
+      "categories": [
+        "下肢トレーニング"
+      ],
+      "image_transforms": [
+        {
+          "rotate": 90.0,
+          "flipH": false,
+          "flipV": false
+        },
+        {
+          "rotate": 90.0,
+          "flipH": false,
+          "flipV": false
+        }
+      ]
     },
     {
       "id": "EX146",
-      "category": "下肢トレーニング",
       "source_row": 36,
       "name": "リーチバランス",
       "purpose": "目的:下肢後面の筋力と協調性の強化",
@@ -1911,11 +4029,25 @@ window.TSOC_EXERCISE_DATA = {
         "assets/exercise/ex146_1.jpeg",
         "assets/exercise/ex146_2.jpeg"
       ],
-      "qr_name": "QR_リーチバランス"
+      "qr_name": "QR_リーチバランス",
+      "categories": [
+        "下肢トレーニング"
+      ],
+      "image_transforms": [
+        {
+          "rotate": 90.0,
+          "flipH": false,
+          "flipV": false
+        },
+        {
+          "rotate": 90.0,
+          "flipH": false,
+          "flipV": false
+        }
+      ]
     },
     {
       "id": "EX147",
-      "category": "下肢トレーニング",
       "source_row": 37,
       "name": "ステップアップ",
       "purpose": "目的:下肢筋力の強化",
@@ -1924,11 +4056,25 @@ window.TSOC_EXERCISE_DATA = {
         "assets/exercise/ex147_1.jpeg",
         "assets/exercise/ex147_2.jpeg"
       ],
-      "qr_name": "QR_ステップアップ"
+      "qr_name": "QR_ステップアップ",
+      "categories": [
+        "下肢トレーニング"
+      ],
+      "image_transforms": [
+        {
+          "rotate": 90.0,
+          "flipH": false,
+          "flipV": false
+        },
+        {
+          "rotate": 90.0,
+          "flipH": false,
+          "flipV": false
+        }
+      ]
     },
     {
       "id": "EX148",
-      "category": "下肢トレーニング",
       "source_row": 38,
       "name": "片脚スクワット",
       "purpose": "目的:下肢筋力の強化",
@@ -1938,11 +4084,30 @@ window.TSOC_EXERCISE_DATA = {
         "assets/exercise/ex148_2.jpeg",
         "assets/exercise/ex148_3.jpeg"
       ],
-      "qr_name": "QR_片脚スクワット"
+      "qr_name": "QR_片脚スクワット",
+      "categories": [
+        "下肢トレーニング"
+      ],
+      "image_transforms": [
+        {
+          "rotate": 90.0,
+          "flipH": false,
+          "flipV": false
+        },
+        {
+          "rotate": 90.0,
+          "flipH": false,
+          "flipV": false
+        },
+        {
+          "rotate": 90.0,
+          "flipH": false,
+          "flipV": false
+        }
+      ]
     },
     {
       "id": "EX149",
-      "category": "下肢トレーニング",
       "source_row": 39,
       "name": "BOSS_キープスタンド",
       "purpose": "目的:バランス能力の強化",
@@ -1951,11 +4116,25 @@ window.TSOC_EXERCISE_DATA = {
         "assets/exercise/ex149_1.jpeg",
         "assets/exercise/ex149_2.jpeg"
       ],
-      "qr_name": "QR_BOSS_キープスタンド"
+      "qr_name": "QR_BOSS_キープスタンド",
+      "categories": [
+        "下肢トレーニング"
+      ],
+      "image_transforms": [
+        {
+          "rotate": 90.0,
+          "flipH": false,
+          "flipV": false
+        },
+        {
+          "rotate": 90.0,
+          "flipH": false,
+          "flipV": false
+        }
+      ]
     },
     {
       "id": "EX150",
-      "category": "下肢トレーニング",
       "source_row": 40,
       "name": "BOSS_スクワット",
       "purpose": "目的:_:バランス能力、下肢筋力の強化",
@@ -1964,11 +4143,25 @@ window.TSOC_EXERCISE_DATA = {
         "assets/exercise/ex150_1.jpeg",
         "assets/exercise/ex150_2.jpeg"
       ],
-      "qr_name": "QR_BOSS_スクワット"
+      "qr_name": "QR_BOSS_スクワット",
+      "categories": [
+        "下肢トレーニング"
+      ],
+      "image_transforms": [
+        {
+          "rotate": 90.0,
+          "flipH": false,
+          "flipV": false
+        },
+        {
+          "rotate": 90.0,
+          "flipH": false,
+          "flipV": false
+        }
+      ]
     },
     {
       "id": "EX151",
-      "category": "下肢トレーニング",
       "source_row": 41,
       "name": "スクワットジャンプ",
       "purpose": "目的:下肢筋力と協調性の強化",
@@ -1977,11 +4170,25 @@ window.TSOC_EXERCISE_DATA = {
         "assets/exercise/ex151_1.png",
         "assets/exercise/ex151_2.png"
       ],
-      "qr_name": "QR_スクワットジャンプ"
+      "qr_name": "QR_スクワットジャンプ",
+      "categories": [
+        "下肢トレーニング"
+      ],
+      "image_transforms": [
+        {
+          "rotate": 0.0,
+          "flipH": false,
+          "flipV": false
+        },
+        {
+          "rotate": 0.0,
+          "flipH": false,
+          "flipV": false
+        }
+      ]
     },
     {
       "id": "EX152",
-      "category": "下肢トレーニング",
       "source_row": 42,
       "name": "ターンジャンプ",
       "purpose": "目的:下肢筋力と協調性の強化",
@@ -1990,11 +4197,25 @@ window.TSOC_EXERCISE_DATA = {
         "assets/exercise/ex152_1.jpeg",
         "assets/exercise/ex152_2.jpeg"
       ],
-      "qr_name": "QR_ターンジャンプ"
+      "qr_name": "QR_ターンジャンプ",
+      "categories": [
+        "下肢トレーニング"
+      ],
+      "image_transforms": [
+        {
+          "rotate": 90.0,
+          "flipH": false,
+          "flipV": false
+        },
+        {
+          "rotate": 90.0,
+          "flipH": false,
+          "flipV": false
+        }
+      ]
     },
     {
       "id": "EX153",
-      "category": "下肢トレーニング",
       "source_row": 43,
       "name": "ボールマッサージ",
       "purpose": "目的:足底の柔軟性改善",
@@ -2003,11 +4224,25 @@ window.TSOC_EXERCISE_DATA = {
         "assets/exercise/ex153_1.jpeg",
         "assets/exercise/ex153_2.jpeg"
       ],
-      "qr_name": "QR_ボールマッサージ"
+      "qr_name": "QR_ボールマッサージ",
+      "categories": [
+        "下肢トレーニング"
+      ],
+      "image_transforms": [
+        {
+          "rotate": 180.0,
+          "flipH": false,
+          "flipV": false
+        },
+        {
+          "rotate": 180.0,
+          "flipH": false,
+          "flipV": false
+        }
+      ]
     },
     {
       "id": "EX154",
-      "category": "下肢トレーニング",
       "source_row": 44,
       "name": "足指グーパー運動",
       "purpose": "目的:足部内在筋の強化",
@@ -2016,11 +4251,25 @@ window.TSOC_EXERCISE_DATA = {
         "assets/exercise/ex154_1.jpeg",
         "assets/exercise/ex154_2.jpeg"
       ],
-      "qr_name": "QR_足指グーパー運動"
+      "qr_name": "QR_足指グーパー運動",
+      "categories": [
+        "下肢トレーニング"
+      ],
+      "image_transforms": [
+        {
+          "rotate": 180.0,
+          "flipH": false,
+          "flipV": false
+        },
+        {
+          "rotate": 180.0,
+          "flipH": false,
+          "flipV": false
+        }
+      ]
     },
     {
       "id": "EX155",
-      "category": "下肢トレーニング",
       "source_row": 45,
       "name": "タオルギャザー",
       "purpose": "目的:足部内在筋の強化",
@@ -2029,11 +4278,25 @@ window.TSOC_EXERCISE_DATA = {
         "assets/exercise/ex155_1.jpeg",
         "assets/exercise/ex155_2.jpeg"
       ],
-      "qr_name": "QR_タオルギャザー"
+      "qr_name": "QR_タオルギャザー",
+      "categories": [
+        "下肢トレーニング"
+      ],
+      "image_transforms": [
+        {
+          "rotate": 0.0,
+          "flipH": false,
+          "flipV": false
+        },
+        {
+          "rotate": 0.0,
+          "flipH": false,
+          "flipV": false
+        }
+      ]
     },
     {
       "id": "EX156",
-      "category": "下肢トレーニング",
       "source_row": 46,
       "name": "ドレミドリル",
       "purpose": "目的:足部内在筋の強化",
@@ -2042,11 +4305,25 @@ window.TSOC_EXERCISE_DATA = {
         "assets/exercise/ex156_1.jpeg",
         "assets/exercise/ex156_2.jpeg"
       ],
-      "qr_name": "QR_ドレミドリル"
+      "qr_name": "QR_ドレミドリル",
+      "categories": [
+        "下肢トレーニング"
+      ],
+      "image_transforms": [
+        {
+          "rotate": 180.0,
+          "flipH": false,
+          "flipV": false
+        },
+        {
+          "rotate": 180.0,
+          "flipH": false,
+          "flipV": false
+        }
+      ]
     },
     {
       "id": "EX157",
-      "category": "下肢トレーニング",
       "source_row": 47,
       "name": "足部_外反エクササイズ",
       "purpose": "目的:足部外反筋の強化",
@@ -2055,11 +4332,25 @@ window.TSOC_EXERCISE_DATA = {
         "assets/exercise/ex157_1.jpeg",
         "assets/exercise/ex157_2.jpeg"
       ],
-      "qr_name": "QR_足部_外反エクササイズ"
+      "qr_name": "QR_足部_外反エクササイズ",
+      "categories": [
+        "下肢トレーニング"
+      ],
+      "image_transforms": [
+        {
+          "rotate": 90.0,
+          "flipH": false,
+          "flipV": false
+        },
+        {
+          "rotate": 90.0,
+          "flipH": false,
+          "flipV": false
+        }
+      ]
     },
     {
       "id": "EX158",
-      "category": "下肢トレーニング",
       "source_row": 48,
       "name": "足部_内反エクササイズ",
       "purpose": "目的:足部内反筋の強化",
@@ -2068,11 +4359,25 @@ window.TSOC_EXERCISE_DATA = {
         "assets/exercise/ex158_1.jpeg",
         "assets/exercise/ex158_2.jpeg"
       ],
-      "qr_name": "QR_足部_内反エクササイズ"
+      "qr_name": "QR_足部_内反エクササイズ",
+      "categories": [
+        "下肢トレーニング"
+      ],
+      "image_transforms": [
+        {
+          "rotate": 90.0,
+          "flipH": false,
+          "flipV": false
+        },
+        {
+          "rotate": 90.0,
+          "flipH": false,
+          "flipV": false
+        }
+      ]
     },
     {
       "id": "EX159",
-      "category": "下肢トレーニング",
       "source_row": 49,
       "name": "足部_底屈エクササイズ",
       "purpose": "目的:足部底屈筋の強化",
@@ -2081,11 +4386,25 @@ window.TSOC_EXERCISE_DATA = {
         "assets/exercise/ex159_1.jpeg",
         "assets/exercise/ex159_2.jpeg"
       ],
-      "qr_name": "QR_足部_底屈エクササイズ"
+      "qr_name": "QR_足部_底屈エクササイズ",
+      "categories": [
+        "下肢トレーニング"
+      ],
+      "image_transforms": [
+        {
+          "rotate": 0.0,
+          "flipH": false,
+          "flipV": false
+        },
+        {
+          "rotate": 0.0,
+          "flipH": false,
+          "flipV": false
+        }
+      ]
     },
     {
       "id": "EX160",
-      "category": "下肢トレーニング",
       "source_row": 50,
       "name": "足部_背屈エクササイズ",
       "purpose": "目的:足関節背屈筋の強化",
@@ -2094,11 +4413,25 @@ window.TSOC_EXERCISE_DATA = {
         "assets/exercise/ex160_1.jpeg",
         "assets/exercise/ex160_2.jpeg"
       ],
-      "qr_name": "QR_足部_背屈エクササイズ"
+      "qr_name": "QR_足部_背屈エクササイズ",
+      "categories": [
+        "下肢トレーニング"
+      ],
+      "image_transforms": [
+        {
+          "rotate": 0.0,
+          "flipH": false,
+          "flipV": false
+        },
+        {
+          "rotate": 0.0,
+          "flipH": false,
+          "flipV": false
+        }
+      ]
     },
     {
       "id": "EX161",
-      "category": "下肢トレーニング",
       "source_row": 51,
       "name": "ヒールレイズ_両足",
       "purpose": "目的:ふくらはぎの筋力強化",
@@ -2111,11 +4444,45 @@ window.TSOC_EXERCISE_DATA = {
         "assets/exercise/ex161_5.jpeg",
         "assets/exercise/ex161_6.jpeg"
       ],
-      "qr_name": "QR_ヒールレイズ_両足"
+      "qr_name": "QR_ヒールレイズ_両足",
+      "categories": [
+        "下肢トレーニング"
+      ],
+      "image_transforms": [
+        {
+          "rotate": 90.0,
+          "flipH": false,
+          "flipV": false
+        },
+        {
+          "rotate": 90.0,
+          "flipH": false,
+          "flipV": false
+        },
+        {
+          "rotate": 90.0,
+          "flipH": false,
+          "flipV": false
+        },
+        {
+          "rotate": 90.0,
+          "flipH": false,
+          "flipV": false
+        },
+        {
+          "rotate": 90.0,
+          "flipH": false,
+          "flipV": false
+        },
+        {
+          "rotate": 90.0,
+          "flipH": false,
+          "flipV": false
+        }
+      ]
     },
     {
       "id": "EX162",
-      "category": "下肢トレーニング",
       "source_row": 52,
       "name": "片足ドロップSQ",
       "purpose": "目的:片足着地動作の獲得",
@@ -2123,11 +4490,20 @@ window.TSOC_EXERCISE_DATA = {
       "images": [
         "assets/exercise/ex162_1.png"
       ],
-      "qr_name": "QR_片足ドロップSQ"
+      "qr_name": "QR_片足ドロップSQ",
+      "categories": [
+        "下肢トレーニング"
+      ],
+      "image_transforms": [
+        {
+          "rotate": 0.0,
+          "flipH": false,
+          "flipV": false
+        }
+      ]
     },
     {
       "id": "EX163",
-      "category": "下肢トレーニング",
       "source_row": 53,
       "name": "片足ターンジャンプ",
       "purpose": "目的:片足の筋力強化と片足着地の安定性改善",
@@ -2135,11 +4511,20 @@ window.TSOC_EXERCISE_DATA = {
       "images": [
         "assets/exercise/ex163_1.png"
       ],
-      "qr_name": "QR_片足ターンジャンプ"
+      "qr_name": "QR_片足ターンジャンプ",
+      "categories": [
+        "下肢トレーニング"
+      ],
+      "image_transforms": [
+        {
+          "rotate": 0.0,
+          "flipH": false,
+          "flipV": false
+        }
+      ]
     },
     {
       "id": "EX164",
-      "category": "下肢トレーニング",
       "source_row": 54,
       "name": "四股SQ",
       "purpose": "目的:股関節外転/外旋筋の強化",
@@ -2147,11 +4532,20 @@ window.TSOC_EXERCISE_DATA = {
       "images": [
         "assets/exercise/ex164_1.png"
       ],
-      "qr_name": "QR_四股SQ"
+      "qr_name": "QR_四股SQ",
+      "categories": [
+        "下肢トレーニング"
+      ],
+      "image_transforms": [
+        {
+          "rotate": 0.0,
+          "flipH": false,
+          "flipV": false
+        }
+      ]
     },
     {
       "id": "EX165",
-      "category": "下肢トレーニング",
       "source_row": 55,
       "name": "ハーフシッティングSQ",
       "purpose": "目的:下肢後面筋の強化",
@@ -2159,11 +4553,20 @@ window.TSOC_EXERCISE_DATA = {
       "images": [
         "assets/exercise/ex165_1.png"
       ],
-      "qr_name": "QR_ハーフシッティングSQ"
+      "qr_name": "QR_ハーフシッティングSQ",
+      "categories": [
+        "下肢トレーニング"
+      ],
+      "image_transforms": [
+        {
+          "rotate": 0.0,
+          "flipH": false,
+          "flipV": false
+        }
+      ]
     },
     {
       "id": "EX166",
-      "category": "下肢トレーニング",
       "source_row": 56,
       "name": "ヒップローテーション",
       "purpose": "目的:下肢後面筋と臀筋の強化、股関節の柔軟性改善",
@@ -2171,11 +4574,20 @@ window.TSOC_EXERCISE_DATA = {
       "images": [
         "assets/exercise/ex166_1.png"
       ],
-      "qr_name": "QR_ヒップローテーション"
+      "qr_name": "QR_ヒップローテーション",
+      "categories": [
+        "下肢トレーニング"
+      ],
+      "image_transforms": [
+        {
+          "rotate": 0.0,
+          "flipH": false,
+          "flipV": false
+        }
+      ]
     },
     {
       "id": "EX167",
-      "category": "下肢トレーニング",
       "source_row": 57,
       "name": "スケーティングジャンプ",
       "purpose": "目的:着地動作獲得、カッティング動作の獲得",
@@ -2183,11 +4595,20 @@ window.TSOC_EXERCISE_DATA = {
       "images": [
         "assets/exercise/ex167_1.png"
       ],
-      "qr_name": "QR_スケーティングジャンプ"
+      "qr_name": "QR_スケーティングジャンプ",
+      "categories": [
+        "下肢トレーニング"
+      ],
+      "image_transforms": [
+        {
+          "rotate": 0.0,
+          "flipH": false,
+          "flipV": false
+        }
+      ]
     },
     {
       "id": "EX168",
-      "category": "下肢トレーニング",
       "source_row": 58,
       "name": "アンクルホップ",
       "purpose": "目的:アキレス腱の筋力強化",
@@ -2195,11 +4616,20 @@ window.TSOC_EXERCISE_DATA = {
       "images": [
         "assets/exercise/ex168_1.png"
       ],
-      "qr_name": "QR_アンクルホップ"
+      "qr_name": "QR_アンクルホップ",
+      "categories": [
+        "下肢トレーニング"
+      ],
+      "image_transforms": [
+        {
+          "rotate": 0.0,
+          "flipH": false,
+          "flipV": false
+        }
+      ]
     },
     {
       "id": "EX169",
-      "category": "下肢トレーニング",
       "source_row": 59,
       "name": "wall_drill_１_前",
       "purpose": "目的:走動作の獲得",
@@ -2207,11 +4637,20 @@ window.TSOC_EXERCISE_DATA = {
       "images": [
         "assets/exercise/ex169_1.png"
       ],
-      "qr_name": "QR_wall_drill_１_前"
+      "qr_name": "QR_wall_drill_１_前",
+      "categories": [
+        "下肢トレーニング"
+      ],
+      "image_transforms": [
+        {
+          "rotate": 0.0,
+          "flipH": false,
+          "flipV": false
+        }
+      ]
     },
     {
       "id": "EX170",
-      "category": "下肢トレーニング",
       "source_row": 60,
       "name": "wall_drill_２_前",
       "purpose": "目的:走動作の獲得",
@@ -2219,11 +4658,20 @@ window.TSOC_EXERCISE_DATA = {
       "images": [
         "assets/exercise/ex170_1.png"
       ],
-      "qr_name": "QR_wall_drill_２_前"
+      "qr_name": "QR_wall_drill_２_前",
+      "categories": [
+        "下肢トレーニング"
+      ],
+      "image_transforms": [
+        {
+          "rotate": 0.0,
+          "flipH": false,
+          "flipV": false
+        }
+      ]
     },
     {
       "id": "EX171",
-      "category": "下肢トレーニング",
       "source_row": 61,
       "name": "wall_drill_横",
       "purpose": "目的:カッティング動作、アジリティ動作の獲得",
@@ -2231,11 +4679,20 @@ window.TSOC_EXERCISE_DATA = {
       "images": [
         "assets/exercise/ex171_1.png"
       ],
-      "qr_name": "QR_wall_drill_横"
+      "qr_name": "QR_wall_drill_横",
+      "categories": [
+        "下肢トレーニング"
+      ],
+      "image_transforms": [
+        {
+          "rotate": 0.0,
+          "flipH": false,
+          "flipV": false
+        }
+      ]
     },
     {
       "id": "EX172",
-      "category": "下肢トレーニング",
       "source_row": 62,
       "name": "MONSTER WALKS",
       "purpose": "目的:下肢筋力の強化",
@@ -2243,11 +4700,20 @@ window.TSOC_EXERCISE_DATA = {
       "images": [
         "assets/exercise/ex172_1.png"
       ],
-      "qr_name": "QR_MONSTER WALKS"
+      "qr_name": "QR_MONSTER WALKS",
+      "categories": [
+        "下肢トレーニング"
+      ],
+      "image_transforms": [
+        {
+          "rotate": 0.0,
+          "flipH": false,
+          "flipV": false
+        }
+      ]
     },
     {
       "id": "EX173",
-      "category": "下肢トレーニング",
       "source_row": 63,
       "name": "CAPTAIN MORORGAN",
       "purpose": "目的:水平方向への筋力発揮の強化",
@@ -2255,11 +4721,20 @@ window.TSOC_EXERCISE_DATA = {
       "images": [
         "assets/exercise/ex173_1.png"
       ],
-      "qr_name": "QR_CAPTAIN MORORGAN"
+      "qr_name": "QR_CAPTAIN MORORGAN",
+      "categories": [
+        "下肢トレーニング"
+      ],
+      "image_transforms": [
+        {
+          "rotate": 0.0,
+          "flipH": false,
+          "flipV": false
+        }
+      ]
     },
     {
       "id": "EX174",
-      "category": "下肢トレーニング",
       "source_row": 64,
       "name": "ヒールスライド",
       "purpose": "目的:膝屈曲可動性の改善",
@@ -2267,11 +4742,20 @@ window.TSOC_EXERCISE_DATA = {
       "images": [
         "assets/exercise/ex174_1.png"
       ],
-      "qr_name": "QR_ヒールスライド"
+      "qr_name": "QR_ヒールスライド",
+      "categories": [
+        "下肢トレーニング"
+      ],
+      "image_transforms": [
+        {
+          "rotate": 0.0,
+          "flipH": false,
+          "flipV": false
+        }
+      ]
     },
     {
       "id": "EX175",
-      "category": "下肢トレーニング",
       "source_row": 65,
       "name": "立位セッティング_膝",
       "purpose": "目的:膝伸展可動域の改善と強化",
@@ -2279,11 +4763,20 @@ window.TSOC_EXERCISE_DATA = {
       "images": [
         "assets/exercise/ex175_1.png"
       ],
-      "qr_name": "QR_立位セッティング_膝"
+      "qr_name": "QR_立位セッティング_膝",
+      "categories": [
+        "下肢トレーニング"
+      ],
+      "image_transforms": [
+        {
+          "rotate": 0.0,
+          "flipH": false,
+          "flipV": false
+        }
+      ]
     },
     {
       "id": "EX176",
-      "category": "体幹トレーニング",
       "source_row": 2,
       "name": "腹式呼吸",
       "purpose": "目的:腹横筋の活性化",
@@ -2292,11 +4785,26 @@ window.TSOC_EXERCISE_DATA = {
         "assets/exercise/ex176_1.jpeg",
         "assets/exercise/ex176_2.jpeg"
       ],
-      "qr_name": "QR_腹式呼吸"
+      "qr_name": "QR_腹式呼吸",
+      "categories": [
+        "体幹トレーニング",
+        "腰痛体操"
+      ],
+      "image_transforms": [
+        {
+          "rotate": 0.0,
+          "flipH": false,
+          "flipV": false
+        },
+        {
+          "rotate": 0.0,
+          "flipH": false,
+          "flipV": false
+        }
+      ]
     },
     {
       "id": "EX177",
-      "category": "体幹トレーニング",
       "source_row": 3,
       "name": "四つ這い腹式呼吸",
       "purpose": "目的:腹横筋の活性化\n_",
@@ -2305,11 +4813,26 @@ window.TSOC_EXERCISE_DATA = {
         "assets/exercise/ex177_1.jpeg",
         "assets/exercise/ex177_2.jpeg"
       ],
-      "qr_name": "QR_四つ這い腹式呼吸"
+      "qr_name": "QR_四つ這い腹式呼吸",
+      "categories": [
+        "体幹トレーニング",
+        "腰痛体操"
+      ],
+      "image_transforms": [
+        {
+          "rotate": 0.0,
+          "flipH": false,
+          "flipV": false
+        },
+        {
+          "rotate": 0.0,
+          "flipH": false,
+          "flipV": false
+        }
+      ]
     },
     {
       "id": "EX178",
-      "category": "体幹トレーニング",
       "source_row": 4,
       "name": "ドローイン",
       "purpose": "目的:体幹深部筋の活性化と安定性",
@@ -2320,11 +4843,35 @@ window.TSOC_EXERCISE_DATA = {
         "assets/exercise/ex178_3.jpeg",
         "assets/exercise/ex178_4.jpeg"
       ],
-      "qr_name": "QR_ドローイン"
+      "qr_name": "QR_ドローイン",
+      "categories": [
+        "体幹トレーニング"
+      ],
+      "image_transforms": [
+        {
+          "rotate": 90.0,
+          "flipH": false,
+          "flipV": false
+        },
+        {
+          "rotate": 90.0,
+          "flipH": false,
+          "flipV": false
+        },
+        {
+          "rotate": 0.0,
+          "flipH": false,
+          "flipV": false
+        },
+        {
+          "rotate": 0.0,
+          "flipH": false,
+          "flipV": false
+        }
+      ]
     },
     {
       "id": "EX179",
-      "category": "体幹トレーニング",
       "source_row": 5,
       "name": "ドローイン_股関節屈曲",
       "purpose": "目的:深部体幹筋力の強化",
@@ -2333,11 +4880,25 @@ window.TSOC_EXERCISE_DATA = {
         "assets/exercise/ex179_1.jpeg",
         "assets/exercise/ex179_2.jpeg"
       ],
-      "qr_name": "QR_ドローイン_股関節屈曲"
+      "qr_name": "QR_ドローイン_股関節屈曲",
+      "categories": [
+        "体幹トレーニング"
+      ],
+      "image_transforms": [
+        {
+          "rotate": 0.0,
+          "flipH": false,
+          "flipV": false
+        },
+        {
+          "rotate": 0.0,
+          "flipH": false,
+          "flipV": false
+        }
+      ]
     },
     {
       "id": "EX180",
-      "category": "体幹トレーニング",
       "source_row": 6,
       "name": "ドローイン_ヒールスライド",
       "purpose": "目的:体幹深部筋の活性化と安定性",
@@ -2346,11 +4907,25 @@ window.TSOC_EXERCISE_DATA = {
         "assets/exercise/ex180_1.jpeg",
         "assets/exercise/ex180_2.jpeg"
       ],
-      "qr_name": "QR_ドローイン_ヒールスライド"
+      "qr_name": "QR_ドローイン_ヒールスライド",
+      "categories": [
+        "体幹トレーニング"
+      ],
+      "image_transforms": [
+        {
+          "rotate": 0.0,
+          "flipH": false,
+          "flipV": false
+        },
+        {
+          "rotate": 0.0,
+          "flipH": false,
+          "flipV": false
+        }
+      ]
     },
     {
       "id": "EX181",
-      "category": "体幹トレーニング",
       "source_row": 7,
       "name": "ドローイン_上肢挙上",
       "purpose": "目的:体幹深部筋の活性化と安定性_",
@@ -2359,11 +4934,25 @@ window.TSOC_EXERCISE_DATA = {
         "assets/exercise/ex181_1.jpeg",
         "assets/exercise/ex181_2.jpeg"
       ],
-      "qr_name": "QR_ドローイン_上肢挙上"
+      "qr_name": "QR_ドローイン_上肢挙上",
+      "categories": [
+        "体幹トレーニング"
+      ],
+      "image_transforms": [
+        {
+          "rotate": 0.0,
+          "flipH": false,
+          "flipV": false
+        },
+        {
+          "rotate": 0.0,
+          "flipH": false,
+          "flipV": false
+        }
+      ]
     },
     {
       "id": "EX182",
-      "category": "体幹トレーニング",
       "source_row": 8,
       "name": "SP_ドローインEX",
       "purpose": "目的:深部体幹筋力の協調性向上",
@@ -2373,11 +4962,30 @@ window.TSOC_EXERCISE_DATA = {
         "assets/exercise/ex182_2.jpeg",
         "assets/exercise/ex182_3.jpeg"
       ],
-      "qr_name": "QR_SP_ドローインEX"
+      "qr_name": "QR_SP_ドローインEX",
+      "categories": [
+        "体幹トレーニング"
+      ],
+      "image_transforms": [
+        {
+          "rotate": 0.0,
+          "flipH": false,
+          "flipV": false
+        },
+        {
+          "rotate": 0.0,
+          "flipH": false,
+          "flipV": false
+        },
+        {
+          "rotate": 0.0,
+          "flipH": false,
+          "flipV": false
+        }
+      ]
     },
     {
       "id": "EX183",
-      "category": "体幹トレーニング",
       "source_row": 9,
       "name": "プランク",
       "purpose": "目的:体幹の安定性の強化",
@@ -2386,11 +4994,25 @@ window.TSOC_EXERCISE_DATA = {
         "assets/exercise/ex183_1.jpeg",
         "assets/exercise/ex183_2.jpeg"
       ],
-      "qr_name": "QR_プランク"
+      "qr_name": "QR_プランク",
+      "categories": [
+        "体幹トレーニング"
+      ],
+      "image_transforms": [
+        {
+          "rotate": 0.0,
+          "flipH": false,
+          "flipV": false
+        },
+        {
+          "rotate": 0.0,
+          "flipH": false,
+          "flipV": false
+        }
+      ]
     },
     {
       "id": "EX184",
-      "category": "体幹トレーニング",
       "source_row": 10,
       "name": "プランク_膝付き",
       "purpose": "目的:体幹の安定性の強化",
@@ -2399,11 +5021,25 @@ window.TSOC_EXERCISE_DATA = {
         "assets/exercise/ex184_1.jpeg",
         "assets/exercise/ex184_2.jpeg"
       ],
-      "qr_name": "QR_プランク_膝付き"
+      "qr_name": "QR_プランク_膝付き",
+      "categories": [
+        "体幹トレーニング"
+      ],
+      "image_transforms": [
+        {
+          "rotate": 0.0,
+          "flipH": false,
+          "flipV": false
+        },
+        {
+          "rotate": 0.0,
+          "flipH": false,
+          "flipV": false
+        }
+      ]
     },
     {
       "id": "EX185",
-      "category": "体幹トレーニング",
       "source_row": 11,
       "name": "サイドプランク",
       "purpose": "目的:体幹の安定性の強化（腹斜筋）",
@@ -2412,11 +5048,25 @@ window.TSOC_EXERCISE_DATA = {
         "assets/exercise/ex185_1.jpeg",
         "assets/exercise/ex185_2.jpeg"
       ],
-      "qr_name": "QR_サイドプランク"
+      "qr_name": "QR_サイドプランク",
+      "categories": [
+        "体幹トレーニング"
+      ],
+      "image_transforms": [
+        {
+          "rotate": 0.0,
+          "flipH": false,
+          "flipV": false
+        },
+        {
+          "rotate": 0.0,
+          "flipH": false,
+          "flipV": false
+        }
+      ]
     },
     {
       "id": "EX186",
-      "category": "体幹トレーニング",
       "source_row": 12,
       "name": "サイドプランク_膝付き",
       "purpose": "目的:体幹の安定性の強化（腹斜筋）",
@@ -2425,11 +5075,25 @@ window.TSOC_EXERCISE_DATA = {
         "assets/exercise/ex186_1.jpeg",
         "assets/exercise/ex186_2.jpeg"
       ],
-      "qr_name": "QR_サイドプランク_膝付き"
+      "qr_name": "QR_サイドプランク_膝付き",
+      "categories": [
+        "体幹トレーニング"
+      ],
+      "image_transforms": [
+        {
+          "rotate": 0.0,
+          "flipH": false,
+          "flipV": false
+        },
+        {
+          "rotate": 0.0,
+          "flipH": false,
+          "flipV": false
+        }
+      ]
     },
     {
       "id": "EX187",
-      "category": "体幹トレーニング",
       "source_row": 13,
       "name": "クロスクランチ",
       "purpose": "目的:体幹前斜系の強化",
@@ -2438,11 +5102,25 @@ window.TSOC_EXERCISE_DATA = {
         "assets/exercise/ex187_1.jpeg",
         "assets/exercise/ex187_2.jpeg"
       ],
-      "qr_name": "QR_クロスクランチ"
+      "qr_name": "QR_クロスクランチ",
+      "categories": [
+        "体幹トレーニング"
+      ],
+      "image_transforms": [
+        {
+          "rotate": 0.0,
+          "flipH": false,
+          "flipV": false
+        },
+        {
+          "rotate": 0.0,
+          "flipH": false,
+          "flipV": false
+        }
+      ]
     },
     {
       "id": "EX188",
-      "category": "体幹トレーニング",
       "source_row": 14,
       "name": "クロスエクステンション_うつ伏せ",
       "purpose": "目的:体幹後斜系の強化",
@@ -2451,11 +5129,25 @@ window.TSOC_EXERCISE_DATA = {
         "assets/exercise/ex188_1.jpeg",
         "assets/exercise/ex188_2.jpeg"
       ],
-      "qr_name": "QR_クロスエクステンション_うつ伏せ"
+      "qr_name": "QR_クロスエクステンション_うつ伏せ",
+      "categories": [
+        "体幹トレーニング"
+      ],
+      "image_transforms": [
+        {
+          "rotate": 0.0,
+          "flipH": false,
+          "flipV": false
+        },
+        {
+          "rotate": 0.0,
+          "flipH": false,
+          "flipV": false
+        }
+      ]
     },
     {
       "id": "EX189",
-      "category": "体幹トレーニング",
       "source_row": 15,
       "name": "クロスエクステンション_四つ這い",
       "purpose": "目的:体幹の安定性の強化",
@@ -2464,11 +5156,25 @@ window.TSOC_EXERCISE_DATA = {
         "assets/exercise/ex189_1.png",
         "assets/exercise/ex189_2.png"
       ],
-      "qr_name": "QR_クロスエクステンション_四つ這い"
+      "qr_name": "QR_クロスエクステンション_四つ這い",
+      "categories": [
+        "体幹トレーニング"
+      ],
+      "image_transforms": [
+        {
+          "rotate": 0.0,
+          "flipH": false,
+          "flipV": false
+        },
+        {
+          "rotate": 0.0,
+          "flipH": false,
+          "flipV": false
+        }
+      ]
     },
     {
       "id": "EX190",
-      "category": "体幹トレーニング",
       "source_row": 16,
       "name": "ペルビックティルト",
       "purpose": "目的:骨盤後傾の可動性改善",
@@ -2477,11 +5183,26 @@ window.TSOC_EXERCISE_DATA = {
         "assets/exercise/ex190_1.jpeg",
         "assets/exercise/ex190_2.jpeg"
       ],
-      "qr_name": "QR_ペルビックティルト"
+      "qr_name": "QR_ペルビックティルト",
+      "categories": [
+        "体幹トレーニング",
+        "腰痛体操"
+      ],
+      "image_transforms": [
+        {
+          "rotate": 0.0,
+          "flipH": false,
+          "flipV": false
+        },
+        {
+          "rotate": 0.0,
+          "flipH": false,
+          "flipV": false
+        }
+      ]
     },
     {
       "id": "EX191",
-      "category": "体幹トレーニング",
       "source_row": 17,
       "name": "クランチ",
       "purpose": "目的:腹直筋の強化",
@@ -2490,11 +5211,25 @@ window.TSOC_EXERCISE_DATA = {
         "assets/exercise/ex191_1.jpeg",
         "assets/exercise/ex191_2.jpeg"
       ],
-      "qr_name": "QR_クランチ"
+      "qr_name": "QR_クランチ",
+      "categories": [
+        "体幹トレーニング"
+      ],
+      "image_transforms": [
+        {
+          "rotate": 0.0,
+          "flipH": false,
+          "flipV": false
+        },
+        {
+          "rotate": 0.0,
+          "flipH": false,
+          "flipV": false
+        }
+      ]
     },
     {
       "id": "EX192",
-      "category": "体幹トレーニング",
       "source_row": 18,
       "name": "ツイストクランチ",
       "purpose": "目的:腹斜筋の強化",
@@ -2503,11 +5238,26 @@ window.TSOC_EXERCISE_DATA = {
         "assets/exercise/ex192_1.jpeg",
         "assets/exercise/ex192_2.jpeg"
       ],
-      "qr_name": "QR_ツイストクランチ"
+      "qr_name": "QR_ツイストクランチ",
+      "categories": [
+        "体幹トレーニング",
+        "野球パターン"
+      ],
+      "image_transforms": [
+        {
+          "rotate": 0.0,
+          "flipH": false,
+          "flipV": false
+        },
+        {
+          "rotate": 0.0,
+          "flipH": false,
+          "flipV": false
+        }
+      ]
     },
     {
       "id": "EX193",
-      "category": "体幹トレーニング",
       "source_row": 19,
       "name": "ゲットアップ",
       "purpose": "目的:腹斜筋と腸腰筋の連動性強化",
@@ -2516,11 +5266,26 @@ window.TSOC_EXERCISE_DATA = {
         "assets/exercise/ex193_1.png",
         "assets/exercise/ex193_2.png"
       ],
-      "qr_name": "QR_ゲットアップ"
+      "qr_name": "QR_ゲットアップ",
+      "categories": [
+        "体幹トレーニング",
+        "野球パターン"
+      ],
+      "image_transforms": [
+        {
+          "rotate": 0.0,
+          "flipH": false,
+          "flipV": false
+        },
+        {
+          "rotate": 0.0,
+          "flipH": false,
+          "flipV": false
+        }
+      ]
     },
     {
       "id": "EX194",
-      "category": "体幹トレーニング",
       "source_row": 20,
       "name": "骨盤前後傾_椅子",
       "purpose": "目的:骨盤前後傾の可動性改善",
@@ -2529,11 +5294,27 @@ window.TSOC_EXERCISE_DATA = {
         "assets/exercise/ex194_1.jpeg",
         "assets/exercise/ex194_2.jpeg"
       ],
-      "qr_name": "QR_骨盤前後傾_椅子"
+      "qr_name": "QR_骨盤前後傾_椅子",
+      "categories": [
+        "体幹トレーニング",
+        "腰痛体操",
+        "肩体操"
+      ],
+      "image_transforms": [
+        {
+          "rotate": 90.0,
+          "flipH": false,
+          "flipV": false
+        },
+        {
+          "rotate": 90.0,
+          "flipH": false,
+          "flipV": false
+        }
+      ]
     },
     {
       "id": "EX195",
-      "category": "体幹トレーニング",
       "source_row": 21,
       "name": "キャット_ドッグ",
       "purpose": "目的:骨盤、脊柱の可動性改善",
@@ -2542,11 +5323,27 @@ window.TSOC_EXERCISE_DATA = {
         "assets/exercise/ex195_1.jpeg",
         "assets/exercise/ex195_2.jpeg"
       ],
-      "qr_name": "QR_キャット_ドッグ"
+      "qr_name": "QR_キャット_ドッグ",
+      "categories": [
+        "体幹トレーニング",
+        "腰痛体操",
+        "肩体操"
+      ],
+      "image_transforms": [
+        {
+          "rotate": 0.0,
+          "flipH": false,
+          "flipV": false
+        },
+        {
+          "rotate": 0.0,
+          "flipH": false,
+          "flipV": false
+        }
+      ]
     },
     {
       "id": "EX196",
-      "category": "体幹トレーニング",
       "source_row": 22,
       "name": "バード_ドッグ",
       "purpose": "目的:体幹の安定性の強化",
@@ -2557,11 +5354,35 @@ window.TSOC_EXERCISE_DATA = {
         "assets/exercise/ex196_3.png",
         "assets/exercise/ex196_4.png"
       ],
-      "qr_name": "QR_バード_ドッグ"
+      "qr_name": "QR_バード_ドッグ",
+      "categories": [
+        "体幹トレーニング"
+      ],
+      "image_transforms": [
+        {
+          "rotate": 0.0,
+          "flipH": false,
+          "flipV": false
+        },
+        {
+          "rotate": 0.0,
+          "flipH": false,
+          "flipV": false
+        },
+        {
+          "rotate": 0.0,
+          "flipH": false,
+          "flipV": false
+        },
+        {
+          "rotate": 0.0,
+          "flipH": false,
+          "flipV": false
+        }
+      ]
     },
     {
       "id": "EX197",
-      "category": "体幹トレーニング",
       "source_row": 23,
       "name": "スコーピオン",
       "purpose": "目的:胸郭、腰背部の柔軟性の改善",
@@ -2570,11 +5391,25 @@ window.TSOC_EXERCISE_DATA = {
         "assets/exercise/ex197_1.jpeg",
         "assets/exercise/ex197_2.jpeg"
       ],
-      "qr_name": "QR_スコーピオン"
+      "qr_name": "QR_スコーピオン",
+      "categories": [
+        "体幹トレーニング"
+      ],
+      "image_transforms": [
+        {
+          "rotate": 0.0,
+          "flipH": false,
+          "flipV": false
+        },
+        {
+          "rotate": 0.0,
+          "flipH": false,
+          "flipV": false
+        }
+      ]
     },
     {
       "id": "EX198",
-      "category": "体幹トレーニング",
       "source_row": 24,
       "name": "サイドリーチ",
       "purpose": "目的:胸郭の柔軟性の改善",
@@ -2583,11 +5418,25 @@ window.TSOC_EXERCISE_DATA = {
         "assets/exercise/ex198_1.jpeg",
         "assets/exercise/ex198_2.jpeg"
       ],
-      "qr_name": "QR_サイドリーチ"
+      "qr_name": "QR_サイドリーチ",
+      "categories": [
+        "体幹トレーニング"
+      ],
+      "image_transforms": [
+        {
+          "rotate": 90.0,
+          "flipH": false,
+          "flipV": false
+        },
+        {
+          "rotate": 90.0,
+          "flipH": false,
+          "flipV": false
+        }
+      ]
     },
     {
       "id": "EX199",
-      "category": "体幹トレーニング",
       "source_row": 25,
       "name": "ホスラー_前後",
       "purpose": "目的:骨盤の可動性の改善",
@@ -2596,11 +5445,25 @@ window.TSOC_EXERCISE_DATA = {
         "assets/exercise/ex199_1.jpeg",
         "assets/exercise/ex199_2.jpeg"
       ],
-      "qr_name": "QR_ホスラー_前後"
+      "qr_name": "QR_ホスラー_前後",
+      "categories": [
+        "体幹トレーニング"
+      ],
+      "image_transforms": [
+        {
+          "rotate": 90.0,
+          "flipH": false,
+          "flipV": false
+        },
+        {
+          "rotate": 90.0,
+          "flipH": false,
+          "flipV": false
+        }
+      ]
     },
     {
       "id": "EX200",
-      "category": "体幹トレーニング",
       "source_row": 26,
       "name": "ホスラー_左右",
       "purpose": "目的:骨盤の可動性の改善",
@@ -2609,11 +5472,25 @@ window.TSOC_EXERCISE_DATA = {
         "assets/exercise/ex200_1.jpeg",
         "assets/exercise/ex200_2.jpeg"
       ],
-      "qr_name": "QR_ホスラー_左右"
+      "qr_name": "QR_ホスラー_左右",
+      "categories": [
+        "体幹トレーニング"
+      ],
+      "image_transforms": [
+        {
+          "rotate": 90.0,
+          "flipH": false,
+          "flipV": false
+        },
+        {
+          "rotate": 90.0,
+          "flipH": false,
+          "flipV": false
+        }
+      ]
     },
     {
       "id": "EX201",
-      "category": "体幹トレーニング",
       "source_row": 27,
       "name": "ホスラー_脊柱前後",
       "purpose": "目的:骨盤、胸郭の可動性改善",
@@ -2622,11 +5499,25 @@ window.TSOC_EXERCISE_DATA = {
         "assets/exercise/ex201_1.jpeg",
         "assets/exercise/ex201_2.jpeg"
       ],
-      "qr_name": "QR_ホスラー_脊柱前後"
+      "qr_name": "QR_ホスラー_脊柱前後",
+      "categories": [
+        "体幹トレーニング"
+      ],
+      "image_transforms": [
+        {
+          "rotate": 90.0,
+          "flipH": false,
+          "flipV": false
+        },
+        {
+          "rotate": 90.0,
+          "flipH": false,
+          "flipV": false
+        }
+      ]
     },
     {
       "id": "EX202",
-      "category": "体幹トレーニング",
       "source_row": 28,
       "name": "ホスラー_脊柱側屈",
       "purpose": "目的:骨盤、胸郭の可動性改善",
@@ -2635,11 +5526,25 @@ window.TSOC_EXERCISE_DATA = {
         "assets/exercise/ex202_1.jpeg",
         "assets/exercise/ex202_2.jpeg"
       ],
-      "qr_name": "QR_ホスラー_脊柱側屈"
+      "qr_name": "QR_ホスラー_脊柱側屈",
+      "categories": [
+        "体幹トレーニング"
+      ],
+      "image_transforms": [
+        {
+          "rotate": 90.0,
+          "flipH": false,
+          "flipV": false
+        },
+        {
+          "rotate": 90.0,
+          "flipH": false,
+          "flipV": false
+        }
+      ]
     },
     {
       "id": "EX203",
-      "category": "体幹トレーニング",
       "source_row": 29,
       "name": "胸郭伸展エクササイズ",
       "purpose": "目的:胸郭伸展の柔軟性の改善",
@@ -2648,11 +5553,26 @@ window.TSOC_EXERCISE_DATA = {
         "assets/exercise/ex203_1.jpeg",
         "assets/exercise/ex203_2.jpeg"
       ],
-      "qr_name": "QR_胸郭伸展エクササイズ"
+      "qr_name": "QR_胸郭伸展エクササイズ",
+      "categories": [
+        "体幹トレーニング",
+        "肩体操"
+      ],
+      "image_transforms": [
+        {
+          "rotate": 0.0,
+          "flipH": false,
+          "flipV": false
+        },
+        {
+          "rotate": 0.0,
+          "flipH": false,
+          "flipV": false
+        }
+      ]
     },
     {
       "id": "EX204",
-      "category": "体幹トレーニング",
       "source_row": 30,
       "name": "胸郭伸展_GRID",
       "purpose": "目的:胸郭伸展の柔軟性の改善",
@@ -2661,11 +5581,26 @@ window.TSOC_EXERCISE_DATA = {
         "assets/exercise/ex204_1.jpeg",
         "assets/exercise/ex204_2.jpeg"
       ],
-      "qr_name": "QR_胸郭伸展_GRID"
+      "qr_name": "QR_胸郭伸展_GRID",
+      "categories": [
+        "体幹トレーニング",
+        "野球パターン"
+      ],
+      "image_transforms": [
+        {
+          "rotate": 0.0,
+          "flipH": false,
+          "flipV": false
+        },
+        {
+          "rotate": 0.0,
+          "flipH": false,
+          "flipV": false
+        }
+      ]
     },
     {
       "id": "EX205",
-      "category": "体幹トレーニング",
       "source_row": 31,
       "name": "胸郭回旋エクササイズ",
       "purpose": "目的:胸郭回旋の柔軟性の改善",
@@ -2674,11 +5609,26 @@ window.TSOC_EXERCISE_DATA = {
         "assets/exercise/ex205_1.jpeg",
         "assets/exercise/ex205_2.jpeg"
       ],
-      "qr_name": "QR_胸郭回旋エクササイズ"
+      "qr_name": "QR_胸郭回旋エクササイズ",
+      "categories": [
+        "体幹トレーニング",
+        "肩体操"
+      ],
+      "image_transforms": [
+        {
+          "rotate": 0.0,
+          "flipH": false,
+          "flipV": false
+        },
+        {
+          "rotate": 0.0,
+          "flipH": false,
+          "flipV": false
+        }
+      ]
     },
     {
       "id": "EX206",
-      "category": "体幹トレーニング",
       "source_row": 32,
       "name": "胸郭回旋_肘屈曲",
       "purpose": "目的:胸郭回旋の柔軟性の改善",
@@ -2687,11 +5637,26 @@ window.TSOC_EXERCISE_DATA = {
         "assets/exercise/ex206_1.jpeg",
         "assets/exercise/ex206_2.jpeg"
       ],
-      "qr_name": "QR_胸郭回旋_肘屈曲"
+      "qr_name": "QR_胸郭回旋_肘屈曲",
+      "categories": [
+        "体幹トレーニング",
+        "肩体操"
+      ],
+      "image_transforms": [
+        {
+          "rotate": 0.0,
+          "flipH": false,
+          "flipV": false
+        },
+        {
+          "rotate": 0.0,
+          "flipH": false,
+          "flipV": false
+        }
+      ]
     },
     {
       "id": "EX207",
-      "category": "体幹トレーニング",
       "source_row": 33,
       "name": "四つ這い胸郭回旋",
       "purpose": "目的:胸郭回旋の柔軟性の改善\n__体幹の安定性の強化",
@@ -2700,11 +5665,28 @@ window.TSOC_EXERCISE_DATA = {
         "assets/exercise/ex207_1.jpeg",
         "assets/exercise/ex207_2.jpeg"
       ],
-      "qr_name": "QR_四つ這い胸郭回旋"
+      "qr_name": "QR_四つ這い胸郭回旋",
+      "categories": [
+        "体幹トレーニング",
+        "野球パターン",
+        "腰痛体操",
+        "肩体操"
+      ],
+      "image_transforms": [
+        {
+          "rotate": 0.0,
+          "flipH": false,
+          "flipV": false
+        },
+        {
+          "rotate": 0.0,
+          "flipH": false,
+          "flipV": false
+        }
+      ]
     },
     {
       "id": "EX208",
-      "category": "体幹トレーニング",
       "source_row": 34,
       "name": "サイドツイスト",
       "purpose": "目的:胸郭の柔軟性の改善",
@@ -2713,11 +5695,25 @@ window.TSOC_EXERCISE_DATA = {
         "assets/exercise/ex208_1.png",
         "assets/exercise/ex208_2.png"
       ],
-      "qr_name": "QR_サイドツイスト"
+      "qr_name": "QR_サイドツイスト",
+      "categories": [
+        "体幹トレーニング"
+      ],
+      "image_transforms": [
+        {
+          "rotate": 0.0,
+          "flipH": false,
+          "flipV": false
+        },
+        {
+          "rotate": 0.0,
+          "flipH": false,
+          "flipV": false
+        }
+      ]
     },
     {
       "id": "EX209",
-      "category": "体幹トレーニング",
       "source_row": 35,
       "name": "四つ這いクロスモーション",
       "purpose": "目的:体幹筋力の強化",
@@ -2726,11 +5722,25 @@ window.TSOC_EXERCISE_DATA = {
         "assets/exercise/ex209_1.jpeg",
         "assets/exercise/ex209_2.jpeg"
       ],
-      "qr_name": "QR_四つ這いクロスモーション"
+      "qr_name": "QR_四つ這いクロスモーション",
+      "categories": [
+        "体幹トレーニング"
+      ],
+      "image_transforms": [
+        {
+          "rotate": 0.0,
+          "flipH": false,
+          "flipV": false
+        },
+        {
+          "rotate": 0.0,
+          "flipH": false,
+          "flipV": false
+        }
+      ]
     },
     {
       "id": "EX210",
-      "category": "体幹トレーニング",
       "source_row": 36,
       "name": "デッドバグ",
       "purpose": "目的:下部体幹筋の安定性向上",
@@ -2738,11 +5748,20 @@ window.TSOC_EXERCISE_DATA = {
       "images": [
         "assets/exercise/ex210_1.png"
       ],
-      "qr_name": "QR_デッドバグ"
+      "qr_name": "QR_デッドバグ",
+      "categories": [
+        "体幹トレーニング"
+      ],
+      "image_transforms": [
+        {
+          "rotate": 0.0,
+          "flipH": false,
+          "flipV": false
+        }
+      ]
     },
     {
       "id": "EX211",
-      "category": "体幹トレーニング",
       "source_row": 37,
       "name": "サイドブリッジ_股関節外転",
       "purpose": "目的:腹斜筋と臀筋群の強化",
@@ -2750,11 +5769,20 @@ window.TSOC_EXERCISE_DATA = {
       "images": [
         "assets/exercise/ex211_1.png"
       ],
-      "qr_name": "QR_サイドブリッジ_股関節外転"
+      "qr_name": "QR_サイドブリッジ_股関節外転",
+      "categories": [
+        "体幹トレーニング"
+      ],
+      "image_transforms": [
+        {
+          "rotate": 0.0,
+          "flipH": false,
+          "flipV": false
+        }
+      ]
     },
     {
       "id": "EX212",
-      "category": "体幹トレーニング",
       "source_row": 38,
       "name": "バルーンツイスト",
       "purpose": "目的:体幹機能の改善",
@@ -2762,11 +5790,20 @@ window.TSOC_EXERCISE_DATA = {
       "images": [
         "assets/exercise/ex212_1.png"
       ],
-      "qr_name": "QR_バルーンツイスト"
+      "qr_name": "QR_バルーンツイスト",
+      "categories": [
+        "体幹トレーニング"
+      ],
+      "image_transforms": [
+        {
+          "rotate": 0.0,
+          "flipH": false,
+          "flipV": false
+        }
+      ]
     },
     {
       "id": "EX213",
-      "category": "体幹トレーニング",
       "source_row": 39,
       "name": "PB_伸展",
       "purpose": "目的:脊柱柔軟性改善",
@@ -2774,11 +5811,20 @@ window.TSOC_EXERCISE_DATA = {
       "images": [
         "assets/exercise/ex213_1.png"
       ],
-      "qr_name": "QR_PB_伸展"
+      "qr_name": "QR_PB_伸展",
+      "categories": [
+        "体幹トレーニング"
+      ],
+      "image_transforms": [
+        {
+          "rotate": 0.0,
+          "flipH": false,
+          "flipV": false
+        }
+      ]
     },
     {
       "id": "EX214",
-      "category": "体幹トレーニング",
       "source_row": 40,
       "name": "PB_側屈",
       "purpose": "目的:脊柱柔軟性改善",
@@ -2786,11 +5832,20 @@ window.TSOC_EXERCISE_DATA = {
       "images": [
         "assets/exercise/ex214_1.png"
       ],
-      "qr_name": "QR_PB_側屈"
+      "qr_name": "QR_PB_側屈",
+      "categories": [
+        "体幹トレーニング"
+      ],
+      "image_transforms": [
+        {
+          "rotate": 0.0,
+          "flipH": false,
+          "flipV": false
+        }
+      ]
     },
     {
       "id": "EX215",
-      "category": "体幹トレーニング",
       "source_row": 41,
       "name": "プレッツェル2_0",
       "purpose": "目的:広背筋と臀筋の柔軟性改善、肩甲骨可動性改善",
@@ -2798,11 +5853,20 @@ window.TSOC_EXERCISE_DATA = {
       "images": [
         "assets/exercise/ex215_1.png"
       ],
-      "qr_name": "QR_プレッツェル2_0"
+      "qr_name": "QR_プレッツェル2_0",
+      "categories": [
+        "体幹トレーニング"
+      ],
+      "image_transforms": [
+        {
+          "rotate": 0.0,
+          "flipH": false,
+          "flipV": false
+        }
+      ]
     },
     {
       "id": "EX216",
-      "category": "体幹トレーニング",
       "source_row": 42,
       "name": "スイングストレッチ_上下肢挙上",
       "purpose": "目的:体幹安定性向上",
@@ -2810,11 +5874,20 @@ window.TSOC_EXERCISE_DATA = {
       "images": [
         "assets/exercise/ex216_1.png"
       ],
-      "qr_name": "QR_スイングストレッチ_上下肢挙上"
+      "qr_name": "QR_スイングストレッチ_上下肢挙上",
+      "categories": [
+        "体幹トレーニング"
+      ],
+      "image_transforms": [
+        {
+          "rotate": 0.0,
+          "flipH": false,
+          "flipV": false
+        }
+      ]
     },
     {
       "id": "EX217",
-      "category": "体幹トレーニング",
       "source_row": 43,
       "name": "スイングストレッチ_Y",
       "purpose": "目的:体幹安定性向上",
@@ -2822,11 +5895,20 @@ window.TSOC_EXERCISE_DATA = {
       "images": [
         "assets/exercise/ex217_1.png"
       ],
-      "qr_name": "QR_スイングストレッチ_Y"
+      "qr_name": "QR_スイングストレッチ_Y",
+      "categories": [
+        "体幹トレーニング"
+      ],
+      "image_transforms": [
+        {
+          "rotate": 0.0,
+          "flipH": false,
+          "flipV": false
+        }
+      ]
     },
     {
       "id": "EX218",
-      "category": "体幹トレーニング",
       "source_row": 44,
       "name": "スイングストレッチ_胸郭回旋",
       "purpose": "目的:体幹安定性向上",
@@ -2834,119 +5916,26 @@ window.TSOC_EXERCISE_DATA = {
       "images": [
         "assets/exercise/ex218_1.png"
       ],
-      "qr_name": "QR_スイングストレッチ_胸郭回旋"
+      "qr_name": "QR_スイングストレッチ_胸郭回旋",
+      "categories": [
+        "体幹トレーニング"
+      ],
+      "image_transforms": [
+        {
+          "rotate": 0.0,
+          "flipH": false,
+          "flipV": false
+        }
+      ]
     }
   ],
-  "presets": [
-    {
-      "id": "preset_1",
-      "name": "野球パターン",
-      "exercise_ids": [
-        "EX073",
-        "EX083",
-        "EX084",
-        "EX085",
-        "EX086",
-        "EX087",
-        "EX207",
-        "EX067",
-        "EX204",
-        "EX053",
-        "EX054",
-        "EX055",
-        "EX079",
-        "EX080",
-        "EX081",
-        "EX192",
-        "EX193"
-      ]
-    },
-    {
-      "id": "preset_2",
-      "name": "腰痛体操",
-      "exercise_ids": [
-        "EX025",
-        "EX023",
-        "EX024",
-        "EX021",
-        "EX022",
-        "EX042",
-        "EX033",
-        "EX028",
-        "EX032",
-        "EX019",
-        "EX195",
-        "EX207",
-        "EX176",
-        "EX190",
-        "EX177",
-        "EX194",
-        "EX041",
-        "EX119"
-      ]
-    },
-    {
-      "id": "preset_3",
-      "name": "肩体操",
-      "exercise_ids": [
-        "EX045",
-        "EX060",
-        "EX061",
-        "EX062",
-        "EX063",
-        "EX054",
-        "EX052",
-        "EX053",
-        "EX205",
-        "EX206",
-        "EX023",
-        "EX066",
-        "EX067",
-        "EX068",
-        "EX203",
-        "EX094",
-        "EX070",
-        "EX071",
-        "EX079",
-        "EX015",
-        "EX016",
-        "EX076",
-        "EX001",
-        "EX002",
-        "EX007",
-        "EX008",
-        "EX011",
-        "EX013",
-        "EX194",
-        "EX195",
-        "EX207"
-      ]
-    },
-    {
-      "id": "preset_4",
-      "name": "膝体操",
-      "exercise_ids": [
-        "EX025",
-        "EX026",
-        "EX036",
-        "EX039",
-        "EX042",
-        "EX121",
-        "EX122",
-        "EX116",
-        "EX119",
-        "EX123",
-        "EX124",
-        "EX018",
-        "EX032",
-        "EX033",
-        "EX037",
-        "EX044",
-        "EX115",
-        "EX120",
-        "EX127",
-        "EX134"
-      ]
-    }
-  ]
+  "source_output_workbook": "TSOC_Exercise_2v4_output.xlsm",
+  "print_layout": {
+    "paper": "A4",
+    "orientation": "landscape",
+    "exercises_per_page": 4,
+    "columns": 2,
+    "rows": 2,
+    "max_pages": 2
+  }
 };
