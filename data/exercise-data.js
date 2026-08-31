@@ -1,5 +1,5 @@
 window.TSOC_EXERCISE_DATA = {
-  "app_version": "1.1.0",
+  "app_version": "1.2.0",
   "source_workbook": "TSOC_Exercise_2v4.xlsm",
   "max_selection": 8,
   "categories": [
@@ -48,7 +48,8 @@ window.TSOC_EXERCISE_DATA = {
           "flipH": false,
           "flipV": false
         }
-      ]
+      ],
+      "qr": "assets/qr/EX001.png"
     },
     {
       "id": "EX002",
@@ -82,7 +83,8 @@ window.TSOC_EXERCISE_DATA = {
           "flipH": false,
           "flipV": false
         }
-      ]
+      ],
+      "qr": "assets/qr/EX002.png"
     },
     {
       "id": "EX003",
@@ -109,7 +111,8 @@ window.TSOC_EXERCISE_DATA = {
           "flipH": false,
           "flipV": false
         }
-      ]
+      ],
+      "qr": "assets/qr/EX003.png"
     },
     {
       "id": "EX004",
@@ -136,7 +139,8 @@ window.TSOC_EXERCISE_DATA = {
           "flipH": false,
           "flipV": false
         }
-      ]
+      ],
+      "qr": "assets/qr/EX004.png"
     },
     {
       "id": "EX005",
@@ -163,7 +167,8 @@ window.TSOC_EXERCISE_DATA = {
           "flipH": false,
           "flipV": false
         }
-      ]
+      ],
+      "qr": "assets/qr/EX005.png"
     },
     {
       "id": "EX006",
@@ -190,7 +195,8 @@ window.TSOC_EXERCISE_DATA = {
           "flipH": false,
           "flipV": false
         }
-      ]
+      ],
+      "qr": "assets/qr/EX006.png"
     },
     {
       "id": "EX007",
@@ -218,7 +224,8 @@ window.TSOC_EXERCISE_DATA = {
           "flipH": false,
           "flipV": false
         }
-      ]
+      ],
+      "qr": "assets/qr/EX007.png"
     },
     {
       "id": "EX008",
@@ -246,7 +253,8 @@ window.TSOC_EXERCISE_DATA = {
           "flipH": false,
           "flipV": false
         }
-      ]
+      ],
+      "qr": "assets/qr/EX008.png"
     },
     {
       "id": "EX009",
@@ -273,7 +281,8 @@ window.TSOC_EXERCISE_DATA = {
           "flipH": false,
           "flipV": false
         }
-      ]
+      ],
+      "qr": "assets/qr/EX009.png"
     },
     {
       "id": "EX010",
@@ -300,7 +309,8 @@ window.TSOC_EXERCISE_DATA = {
           "flipH": false,
           "flipV": false
         }
-      ]
+      ],
+      "qr": "assets/qr/EX010.png"
     },
     {
       "id": "EX011",
@@ -328,7 +338,8 @@ window.TSOC_EXERCISE_DATA = {
           "flipH": false,
           "flipV": false
         }
-      ]
+      ],
+      "qr": "assets/qr/EX011.png"
     },
     {
       "id": "EX012",
@@ -361,7 +372,8 @@ window.TSOC_EXERCISE_DATA = {
           "flipH": false,
           "flipV": false
         }
-      ]
+      ],
+      "qr": "assets/qr/EX012.png"
     },
     {
       "id": "EX013",
@@ -389,7 +401,8 @@ window.TSOC_EXERCISE_DATA = {
           "flipH": false,
           "flipV": false
         }
-      ]
+      ],
+      "qr": "assets/qr/EX013.png"
     },
     {
       "id": "EX014",
@@ -416,7 +429,8 @@ window.TSOC_EXERCISE_DATA = {
           "flipH": false,
           "flipV": false
         }
-      ]
+      ],
+      "qr": "assets/qr/EX014.png"
     },
     {
       "id": "EX015",
@@ -444,7 +458,8 @@ window.TSOC_EXERCISE_DATA = {
           "flipH": false,
           "flipV": false
         }
-      ]
+      ],
+      "qr": "assets/qr/EX015.png"
     },
     {
       "id": "EX016",
@@ -472,7 +487,8 @@ window.TSOC_EXERCISE_DATA = {
           "flipH": false,
           "flipV": false
         }
-      ]
+      ],
+      "qr": "assets/qr/EX016.png"
     },
     {
       "id": "EX017",
@@ -499,7 +515,8 @@ window.TSOC_EXERCISE_DATA = {
           "flipH": false,
           "flipV": false
         }
-      ]
+      ],
+      "qr": "assets/qr/EX017.png"
     },
     {
       "id": "EX018",
@@ -527,7 +544,8 @@ window.TSOC_EXERCISE_DATA = {
           "flipH": false,
           "flipV": false
         }
-      ]
+      ],
+      "qr": "assets/qr/EX018.png"
     },
     {
       "id": "EX019",
@@ -555,7 +573,8 @@ window.TSOC_EXERCISE_DATA = {
           "flipH": false,
           "flipV": false
         }
-      ]
+      ],
+      "qr": "assets/qr/EX019.png"
     },
     {
       "id": "EX020",
@@ -582,7 +601,8 @@ window.TSOC_EXERCISE_DATA = {
           "flipH": false,
           "flipV": false
         }
-      ]
+      ],
+      "qr": "assets/qr/EX020.png"
     },
     {
       "id": "EX021",
@@ -610,7 +630,8 @@ window.TSOC_EXERCISE_DATA = {
           "flipH": false,
           "flipV": false
         }
-      ]
+      ],
+      "qr": "assets/qr/EX021.png"
     },
     {
       "id": "EX022",
@@ -638,7 +659,8 @@ window.TSOC_EXERCISE_DATA = {
           "flipH": false,
           "flipV": false
         }
-      ]
+      ],
+      "qr": "assets/qr/EX022.png"
     },
     {
       "id": "EX023",
@@ -667,7 +689,8 @@ window.TSOC_EXERCISE_DATA = {
           "flipH": false,
           "flipV": false
         }
-      ]
+      ],
+      "qr": "assets/qr/EX023.png"
     },
     {
       "id": "EX024",
@@ -695,7 +718,8 @@ window.TSOC_EXERCISE_DATA = {
           "flipH": false,
           "flipV": false
         }
-      ]
+      ],
+      "qr": "assets/qr/EX024.png"
     },
     {
       "id": "EX025",
@@ -724,7 +748,8 @@ window.TSOC_EXERCISE_DATA = {
           "flipH": false,
           "flipV": false
         }
-      ]
+      ],
+      "qr": "assets/qr/EX025.png"
     },
     {
       "id": "EX026",
@@ -752,7 +777,8 @@ window.TSOC_EXERCISE_DATA = {
           "flipH": false,
           "flipV": false
         }
-      ]
+      ],
+      "qr": "assets/qr/EX026.png"
     },
     {
       "id": "EX027",
@@ -779,7 +805,8 @@ window.TSOC_EXERCISE_DATA = {
           "flipH": false,
           "flipV": false
         }
-      ]
+      ],
+      "qr": "assets/qr/EX027.png"
     },
     {
       "id": "EX028",
@@ -807,7 +834,8 @@ window.TSOC_EXERCISE_DATA = {
           "flipH": false,
           "flipV": false
         }
-      ]
+      ],
+      "qr": "assets/qr/EX028.png"
     },
     {
       "id": "EX029",
@@ -834,7 +862,8 @@ window.TSOC_EXERCISE_DATA = {
           "flipH": false,
           "flipV": false
         }
-      ]
+      ],
+      "qr": "assets/qr/EX029.png"
     },
     {
       "id": "EX030",
@@ -861,7 +890,8 @@ window.TSOC_EXERCISE_DATA = {
           "flipH": false,
           "flipV": false
         }
-      ]
+      ],
+      "qr": "assets/qr/EX030.png"
     },
     {
       "id": "EX031",
@@ -888,7 +918,8 @@ window.TSOC_EXERCISE_DATA = {
           "flipH": false,
           "flipV": false
         }
-      ]
+      ],
+      "qr": "assets/qr/EX031.png"
     },
     {
       "id": "EX032",
@@ -917,7 +948,8 @@ window.TSOC_EXERCISE_DATA = {
           "flipH": false,
           "flipV": false
         }
-      ]
+      ],
+      "qr": "assets/qr/EX032.png"
     },
     {
       "id": "EX033",
@@ -946,7 +978,8 @@ window.TSOC_EXERCISE_DATA = {
           "flipH": false,
           "flipV": false
         }
-      ]
+      ],
+      "qr": "assets/qr/EX033.png"
     },
     {
       "id": "EX034",
@@ -973,7 +1006,8 @@ window.TSOC_EXERCISE_DATA = {
           "flipH": false,
           "flipV": false
         }
-      ]
+      ],
+      "qr": "assets/qr/EX034.png"
     },
     {
       "id": "EX035",
@@ -1000,7 +1034,8 @@ window.TSOC_EXERCISE_DATA = {
           "flipH": false,
           "flipV": false
         }
-      ]
+      ],
+      "qr": "assets/qr/EX035.png"
     },
     {
       "id": "EX036",
@@ -1028,7 +1063,8 @@ window.TSOC_EXERCISE_DATA = {
           "flipH": false,
           "flipV": false
         }
-      ]
+      ],
+      "qr": "assets/qr/EX036.png"
     },
     {
       "id": "EX037",
@@ -1056,7 +1092,8 @@ window.TSOC_EXERCISE_DATA = {
           "flipH": false,
           "flipV": false
         }
-      ]
+      ],
+      "qr": "assets/qr/EX037.png"
     },
     {
       "id": "EX038",
@@ -1083,7 +1120,8 @@ window.TSOC_EXERCISE_DATA = {
           "flipH": false,
           "flipV": false
         }
-      ]
+      ],
+      "qr": "assets/qr/EX038.png"
     },
     {
       "id": "EX039",
@@ -1111,7 +1149,8 @@ window.TSOC_EXERCISE_DATA = {
           "flipH": false,
           "flipV": false
         }
-      ]
+      ],
+      "qr": "assets/qr/EX039.png"
     },
     {
       "id": "EX040",
@@ -1138,7 +1177,8 @@ window.TSOC_EXERCISE_DATA = {
           "flipH": false,
           "flipV": false
         }
-      ]
+      ],
+      "qr": "assets/qr/EX040.png"
     },
     {
       "id": "EX041",
@@ -1166,7 +1206,8 @@ window.TSOC_EXERCISE_DATA = {
           "flipH": false,
           "flipV": false
         }
-      ]
+      ],
+      "qr": "assets/qr/EX041.png"
     },
     {
       "id": "EX042",
@@ -1195,7 +1236,8 @@ window.TSOC_EXERCISE_DATA = {
           "flipH": false,
           "flipV": false
         }
-      ]
+      ],
+      "qr": "assets/qr/EX042.png"
     },
     {
       "id": "EX043",
@@ -1222,7 +1264,8 @@ window.TSOC_EXERCISE_DATA = {
           "flipH": false,
           "flipV": false
         }
-      ]
+      ],
+      "qr": "assets/qr/EX043.png"
     },
     {
       "id": "EX044",
@@ -1250,7 +1293,8 @@ window.TSOC_EXERCISE_DATA = {
           "flipH": false,
           "flipV": false
         }
-      ]
+      ],
+      "qr": "assets/qr/EX044.png"
     },
     {
       "id": "EX045",
@@ -1278,7 +1322,8 @@ window.TSOC_EXERCISE_DATA = {
           "flipH": false,
           "flipV": false
         }
-      ]
+      ],
+      "qr": "assets/qr/EX045.png"
     },
     {
       "id": "EX046",
@@ -1305,7 +1350,8 @@ window.TSOC_EXERCISE_DATA = {
           "flipH": false,
           "flipV": false
         }
-      ]
+      ],
+      "qr": "assets/qr/EX046.png"
     },
     {
       "id": "EX047",
@@ -1332,7 +1378,8 @@ window.TSOC_EXERCISE_DATA = {
           "flipH": false,
           "flipV": false
         }
-      ]
+      ],
+      "qr": "assets/qr/EX047.png"
     },
     {
       "id": "EX048",
@@ -1359,7 +1406,8 @@ window.TSOC_EXERCISE_DATA = {
           "flipH": false,
           "flipV": false
         }
-      ]
+      ],
+      "qr": "assets/qr/EX048.png"
     },
     {
       "id": "EX049",
@@ -1386,7 +1434,8 @@ window.TSOC_EXERCISE_DATA = {
           "flipH": false,
           "flipV": false
         }
-      ]
+      ],
+      "qr": "assets/qr/EX049.png"
     },
     {
       "id": "EX050",
@@ -1413,7 +1462,8 @@ window.TSOC_EXERCISE_DATA = {
           "flipH": false,
           "flipV": false
         }
-      ]
+      ],
+      "qr": "assets/qr/EX050.png"
     },
     {
       "id": "EX051",
@@ -1440,7 +1490,8 @@ window.TSOC_EXERCISE_DATA = {
           "flipH": false,
           "flipV": false
         }
-      ]
+      ],
+      "qr": "assets/qr/EX051.png"
     },
     {
       "id": "EX052",
@@ -1468,7 +1519,8 @@ window.TSOC_EXERCISE_DATA = {
           "flipH": false,
           "flipV": false
         }
-      ]
+      ],
+      "qr": "assets/qr/EX052.png"
     },
     {
       "id": "EX053",
@@ -1497,7 +1549,8 @@ window.TSOC_EXERCISE_DATA = {
           "flipH": false,
           "flipV": false
         }
-      ]
+      ],
+      "qr": "assets/qr/EX053.png"
     },
     {
       "id": "EX054",
@@ -1526,7 +1579,8 @@ window.TSOC_EXERCISE_DATA = {
           "flipH": false,
           "flipV": false
         }
-      ]
+      ],
+      "qr": "assets/qr/EX054.png"
     },
     {
       "id": "EX055",
@@ -1554,7 +1608,8 @@ window.TSOC_EXERCISE_DATA = {
           "flipH": false,
           "flipV": false
         }
-      ]
+      ],
+      "qr": "assets/qr/EX055.png"
     },
     {
       "id": "EX056",
@@ -1581,7 +1636,8 @@ window.TSOC_EXERCISE_DATA = {
           "flipH": false,
           "flipV": false
         }
-      ]
+      ],
+      "qr": "assets/qr/EX056.png"
     },
     {
       "id": "EX057",
@@ -1608,7 +1664,8 @@ window.TSOC_EXERCISE_DATA = {
           "flipH": false,
           "flipV": false
         }
-      ]
+      ],
+      "qr": "assets/qr/EX057.png"
     },
     {
       "id": "EX058",
@@ -1641,7 +1698,8 @@ window.TSOC_EXERCISE_DATA = {
           "flipH": false,
           "flipV": false
         }
-      ]
+      ],
+      "qr": "assets/qr/EX058.png"
     },
     {
       "id": "EX059",
@@ -1668,7 +1726,8 @@ window.TSOC_EXERCISE_DATA = {
           "flipH": false,
           "flipV": false
         }
-      ]
+      ],
+      "qr": "assets/qr/EX059.png"
     },
     {
       "id": "EX060",
@@ -1696,7 +1755,8 @@ window.TSOC_EXERCISE_DATA = {
           "flipH": false,
           "flipV": false
         }
-      ]
+      ],
+      "qr": "assets/qr/EX060.png"
     },
     {
       "id": "EX061",
@@ -1724,7 +1784,8 @@ window.TSOC_EXERCISE_DATA = {
           "flipH": false,
           "flipV": false
         }
-      ]
+      ],
+      "qr": "assets/qr/EX061.png"
     },
     {
       "id": "EX062",
@@ -1752,7 +1813,8 @@ window.TSOC_EXERCISE_DATA = {
           "flipH": false,
           "flipV": false
         }
-      ]
+      ],
+      "qr": "assets/qr/EX062.png"
     },
     {
       "id": "EX063",
@@ -1780,7 +1842,8 @@ window.TSOC_EXERCISE_DATA = {
           "flipH": false,
           "flipV": false
         }
-      ]
+      ],
+      "qr": "assets/qr/EX063.png"
     },
     {
       "id": "EX064",
@@ -1825,7 +1888,8 @@ window.TSOC_EXERCISE_DATA = {
           "flipH": false,
           "flipV": true
         }
-      ]
+      ],
+      "qr": "assets/qr/EX064.png"
     },
     {
       "id": "EX065",
@@ -1852,7 +1916,8 @@ window.TSOC_EXERCISE_DATA = {
           "flipH": false,
           "flipV": false
         }
-      ]
+      ],
+      "qr": "assets/qr/EX065.png"
     },
     {
       "id": "EX066",
@@ -1880,7 +1945,8 @@ window.TSOC_EXERCISE_DATA = {
           "flipH": false,
           "flipV": false
         }
-      ]
+      ],
+      "qr": "assets/qr/EX066.png"
     },
     {
       "id": "EX067",
@@ -1909,7 +1975,8 @@ window.TSOC_EXERCISE_DATA = {
           "flipH": false,
           "flipV": false
         }
-      ]
+      ],
+      "qr": "assets/qr/EX067.png"
     },
     {
       "id": "EX068",
@@ -1937,7 +2004,8 @@ window.TSOC_EXERCISE_DATA = {
           "flipH": false,
           "flipV": false
         }
-      ]
+      ],
+      "qr": "assets/qr/EX068.png"
     },
     {
       "id": "EX069",
@@ -1964,7 +2032,8 @@ window.TSOC_EXERCISE_DATA = {
           "flipH": false,
           "flipV": false
         }
-      ]
+      ],
+      "qr": "assets/qr/EX069.png"
     },
     {
       "id": "EX070",
@@ -1992,7 +2061,8 @@ window.TSOC_EXERCISE_DATA = {
           "flipH": false,
           "flipV": false
         }
-      ]
+      ],
+      "qr": "assets/qr/EX070.png"
     },
     {
       "id": "EX071",
@@ -2020,7 +2090,8 @@ window.TSOC_EXERCISE_DATA = {
           "flipH": false,
           "flipV": false
         }
-      ]
+      ],
+      "qr": "assets/qr/EX071.png"
     },
     {
       "id": "EX072",
@@ -2047,7 +2118,8 @@ window.TSOC_EXERCISE_DATA = {
           "flipH": false,
           "flipV": false
         }
-      ]
+      ],
+      "qr": "assets/qr/EX072.png"
     },
     {
       "id": "EX073",
@@ -2075,7 +2147,8 @@ window.TSOC_EXERCISE_DATA = {
           "flipH": false,
           "flipV": false
         }
-      ]
+      ],
+      "qr": "assets/qr/EX073.png"
     },
     {
       "id": "EX074",
@@ -2102,7 +2175,8 @@ window.TSOC_EXERCISE_DATA = {
           "flipH": false,
           "flipV": false
         }
-      ]
+      ],
+      "qr": "assets/qr/EX074.png"
     },
     {
       "id": "EX075",
@@ -2129,7 +2203,8 @@ window.TSOC_EXERCISE_DATA = {
           "flipH": false,
           "flipV": false
         }
-      ]
+      ],
+      "qr": "assets/qr/EX075.png"
     },
     {
       "id": "EX076",
@@ -2157,7 +2232,8 @@ window.TSOC_EXERCISE_DATA = {
           "flipH": false,
           "flipV": false
         }
-      ]
+      ],
+      "qr": "assets/qr/EX076.png"
     },
     {
       "id": "EX077",
@@ -2184,7 +2260,8 @@ window.TSOC_EXERCISE_DATA = {
           "flipH": false,
           "flipV": false
         }
-      ]
+      ],
+      "qr": "assets/qr/EX077.png"
     },
     {
       "id": "EX078",
@@ -2217,7 +2294,8 @@ window.TSOC_EXERCISE_DATA = {
           "flipH": false,
           "flipV": false
         }
-      ]
+      ],
+      "qr": "assets/qr/EX078.png"
     },
     {
       "id": "EX079",
@@ -2246,7 +2324,8 @@ window.TSOC_EXERCISE_DATA = {
           "flipH": false,
           "flipV": false
         }
-      ]
+      ],
+      "qr": "assets/qr/EX079.png"
     },
     {
       "id": "EX080",
@@ -2274,7 +2353,8 @@ window.TSOC_EXERCISE_DATA = {
           "flipH": false,
           "flipV": false
         }
-      ]
+      ],
+      "qr": "assets/qr/EX080.png"
     },
     {
       "id": "EX081",
@@ -2302,7 +2382,8 @@ window.TSOC_EXERCISE_DATA = {
           "flipH": false,
           "flipV": false
         }
-      ]
+      ],
+      "qr": "assets/qr/EX081.png"
     },
     {
       "id": "EX082",
@@ -2329,7 +2410,8 @@ window.TSOC_EXERCISE_DATA = {
           "flipH": false,
           "flipV": false
         }
-      ]
+      ],
+      "qr": "assets/qr/EX082.png"
     },
     {
       "id": "EX083",
@@ -2357,7 +2439,8 @@ window.TSOC_EXERCISE_DATA = {
           "flipH": false,
           "flipV": false
         }
-      ]
+      ],
+      "qr": "assets/qr/EX083.png"
     },
     {
       "id": "EX084",
@@ -2385,7 +2468,8 @@ window.TSOC_EXERCISE_DATA = {
           "flipH": false,
           "flipV": false
         }
-      ]
+      ],
+      "qr": "assets/qr/EX084.png"
     },
     {
       "id": "EX085",
@@ -2413,7 +2497,8 @@ window.TSOC_EXERCISE_DATA = {
           "flipH": false,
           "flipV": false
         }
-      ]
+      ],
+      "qr": "assets/qr/EX085.png"
     },
     {
       "id": "EX086",
@@ -2441,7 +2526,8 @@ window.TSOC_EXERCISE_DATA = {
           "flipH": false,
           "flipV": false
         }
-      ]
+      ],
+      "qr": "assets/qr/EX086.png"
     },
     {
       "id": "EX087",
@@ -2469,7 +2555,8 @@ window.TSOC_EXERCISE_DATA = {
           "flipH": false,
           "flipV": false
         }
-      ]
+      ],
+      "qr": "assets/qr/EX087.png"
     },
     {
       "id": "EX088",
@@ -2496,7 +2583,8 @@ window.TSOC_EXERCISE_DATA = {
           "flipH": false,
           "flipV": false
         }
-      ]
+      ],
+      "qr": "assets/qr/EX088.png"
     },
     {
       "id": "EX089",
@@ -2523,7 +2611,8 @@ window.TSOC_EXERCISE_DATA = {
           "flipH": false,
           "flipV": false
         }
-      ]
+      ],
+      "qr": "assets/qr/EX089.png"
     },
     {
       "id": "EX090",
@@ -2550,7 +2639,8 @@ window.TSOC_EXERCISE_DATA = {
           "flipH": false,
           "flipV": false
         }
-      ]
+      ],
+      "qr": "assets/qr/EX090.png"
     },
     {
       "id": "EX091",
@@ -2577,7 +2667,8 @@ window.TSOC_EXERCISE_DATA = {
           "flipH": false,
           "flipV": false
         }
-      ]
+      ],
+      "qr": "assets/qr/EX091.png"
     },
     {
       "id": "EX092",
@@ -2604,7 +2695,8 @@ window.TSOC_EXERCISE_DATA = {
           "flipH": false,
           "flipV": false
         }
-      ]
+      ],
+      "qr": "assets/qr/EX092.png"
     },
     {
       "id": "EX093",
@@ -2631,7 +2723,8 @@ window.TSOC_EXERCISE_DATA = {
           "flipH": false,
           "flipV": false
         }
-      ]
+      ],
+      "qr": "assets/qr/EX093.png"
     },
     {
       "id": "EX094",
@@ -2659,7 +2752,8 @@ window.TSOC_EXERCISE_DATA = {
           "flipH": false,
           "flipV": false
         }
-      ]
+      ],
+      "qr": "assets/qr/EX094.png"
     },
     {
       "id": "EX095",
@@ -2686,7 +2780,8 @@ window.TSOC_EXERCISE_DATA = {
           "flipH": false,
           "flipV": false
         }
-      ]
+      ],
+      "qr": "assets/qr/EX095.png"
     },
     {
       "id": "EX096",
@@ -2719,7 +2814,8 @@ window.TSOC_EXERCISE_DATA = {
           "flipH": false,
           "flipV": false
         }
-      ]
+      ],
+      "qr": "assets/qr/EX096.png"
     },
     {
       "id": "EX097",
@@ -2746,7 +2842,8 @@ window.TSOC_EXERCISE_DATA = {
           "flipH": false,
           "flipV": false
         }
-      ]
+      ],
+      "qr": "assets/qr/EX097.png"
     },
     {
       "id": "EX098",
@@ -2773,7 +2870,8 @@ window.TSOC_EXERCISE_DATA = {
           "flipH": false,
           "flipV": false
         }
-      ]
+      ],
+      "qr": "assets/qr/EX098.png"
     },
     {
       "id": "EX099",
@@ -2800,7 +2898,8 @@ window.TSOC_EXERCISE_DATA = {
           "flipH": false,
           "flipV": false
         }
-      ]
+      ],
+      "qr": "assets/qr/EX099.png"
     },
     {
       "id": "EX100",
@@ -2827,7 +2926,8 @@ window.TSOC_EXERCISE_DATA = {
           "flipH": false,
           "flipV": false
         }
-      ]
+      ],
+      "qr": "assets/qr/EX100.png"
     },
     {
       "id": "EX101",
@@ -2854,7 +2954,8 @@ window.TSOC_EXERCISE_DATA = {
           "flipH": false,
           "flipV": false
         }
-      ]
+      ],
+      "qr": "assets/qr/EX101.png"
     },
     {
       "id": "EX102",
@@ -2881,7 +2982,8 @@ window.TSOC_EXERCISE_DATA = {
           "flipH": false,
           "flipV": false
         }
-      ]
+      ],
+      "qr": "assets/qr/EX102.png"
     },
     {
       "id": "EX103",
@@ -2908,7 +3010,8 @@ window.TSOC_EXERCISE_DATA = {
           "flipH": false,
           "flipV": false
         }
-      ]
+      ],
+      "qr": "assets/qr/EX103.png"
     },
     {
       "id": "EX104",
@@ -2929,7 +3032,8 @@ window.TSOC_EXERCISE_DATA = {
           "flipH": false,
           "flipV": false
         }
-      ]
+      ],
+      "qr": "assets/qr/EX104.png"
     },
     {
       "id": "EX105",
@@ -2950,7 +3054,8 @@ window.TSOC_EXERCISE_DATA = {
           "flipH": false,
           "flipV": false
         }
-      ]
+      ],
+      "qr": "assets/qr/EX105.png"
     },
     {
       "id": "EX106",
@@ -2971,7 +3076,8 @@ window.TSOC_EXERCISE_DATA = {
           "flipH": false,
           "flipV": false
         }
-      ]
+      ],
+      "qr": "assets/qr/EX106.png"
     },
     {
       "id": "EX107",
@@ -2992,7 +3098,8 @@ window.TSOC_EXERCISE_DATA = {
           "flipH": false,
           "flipV": false
         }
-      ]
+      ],
+      "qr": "assets/qr/EX107.png"
     },
     {
       "id": "EX108",
@@ -3013,7 +3120,8 @@ window.TSOC_EXERCISE_DATA = {
           "flipH": false,
           "flipV": false
         }
-      ]
+      ],
+      "qr": "assets/qr/EX108.png"
     },
     {
       "id": "EX109",
@@ -3034,7 +3142,8 @@ window.TSOC_EXERCISE_DATA = {
           "flipH": false,
           "flipV": false
         }
-      ]
+      ],
+      "qr": "assets/qr/EX109.png"
     },
     {
       "id": "EX110",
@@ -3055,7 +3164,8 @@ window.TSOC_EXERCISE_DATA = {
           "flipH": false,
           "flipV": false
         }
-      ]
+      ],
+      "qr": "assets/qr/EX110.png"
     },
     {
       "id": "EX111",
@@ -3076,7 +3186,8 @@ window.TSOC_EXERCISE_DATA = {
           "flipH": false,
           "flipV": false
         }
-      ]
+      ],
+      "qr": "assets/qr/EX111.png"
     },
     {
       "id": "EX112",
@@ -3103,7 +3214,8 @@ window.TSOC_EXERCISE_DATA = {
           "flipH": false,
           "flipV": false
         }
-      ]
+      ],
+      "qr": "assets/qr/EX112.png"
     },
     {
       "id": "EX113",
@@ -3130,7 +3242,8 @@ window.TSOC_EXERCISE_DATA = {
           "flipH": false,
           "flipV": false
         }
-      ]
+      ],
+      "qr": "assets/qr/EX113.png"
     },
     {
       "id": "EX114",
@@ -3157,7 +3270,8 @@ window.TSOC_EXERCISE_DATA = {
           "flipH": false,
           "flipV": false
         }
-      ]
+      ],
+      "qr": "assets/qr/EX114.png"
     },
     {
       "id": "EX115",
@@ -3185,7 +3299,8 @@ window.TSOC_EXERCISE_DATA = {
           "flipH": false,
           "flipV": false
         }
-      ]
+      ],
+      "qr": "assets/qr/EX115.png"
     },
     {
       "id": "EX116",
@@ -3213,7 +3328,8 @@ window.TSOC_EXERCISE_DATA = {
           "flipH": false,
           "flipV": false
         }
-      ]
+      ],
+      "qr": "assets/qr/EX116.png"
     },
     {
       "id": "EX117",
@@ -3240,7 +3356,8 @@ window.TSOC_EXERCISE_DATA = {
           "flipH": false,
           "flipV": false
         }
-      ]
+      ],
+      "qr": "assets/qr/EX117.png"
     },
     {
       "id": "EX118",
@@ -3267,7 +3384,8 @@ window.TSOC_EXERCISE_DATA = {
           "flipH": false,
           "flipV": false
         }
-      ]
+      ],
+      "qr": "assets/qr/EX118.png"
     },
     {
       "id": "EX119",
@@ -3296,7 +3414,8 @@ window.TSOC_EXERCISE_DATA = {
           "flipH": false,
           "flipV": false
         }
-      ]
+      ],
+      "qr": "assets/qr/EX119.png"
     },
     {
       "id": "EX120",
@@ -3324,7 +3443,8 @@ window.TSOC_EXERCISE_DATA = {
           "flipH": false,
           "flipV": false
         }
-      ]
+      ],
+      "qr": "assets/qr/EX120.png"
     },
     {
       "id": "EX121",
@@ -3352,7 +3472,8 @@ window.TSOC_EXERCISE_DATA = {
           "flipH": false,
           "flipV": false
         }
-      ]
+      ],
+      "qr": "assets/qr/EX121.png"
     },
     {
       "id": "EX122",
@@ -3380,7 +3501,8 @@ window.TSOC_EXERCISE_DATA = {
           "flipH": false,
           "flipV": false
         }
-      ]
+      ],
+      "qr": "assets/qr/EX122.png"
     },
     {
       "id": "EX123",
@@ -3408,7 +3530,8 @@ window.TSOC_EXERCISE_DATA = {
           "flipH": false,
           "flipV": false
         }
-      ]
+      ],
+      "qr": "assets/qr/EX123.png"
     },
     {
       "id": "EX124",
@@ -3436,7 +3559,8 @@ window.TSOC_EXERCISE_DATA = {
           "flipH": false,
           "flipV": false
         }
-      ]
+      ],
+      "qr": "assets/qr/EX124.png"
     },
     {
       "id": "EX125",
@@ -3463,7 +3587,8 @@ window.TSOC_EXERCISE_DATA = {
           "flipH": false,
           "flipV": false
         }
-      ]
+      ],
+      "qr": "assets/qr/EX125.png"
     },
     {
       "id": "EX126",
@@ -3490,7 +3615,8 @@ window.TSOC_EXERCISE_DATA = {
           "flipH": false,
           "flipV": false
         }
-      ]
+      ],
+      "qr": "assets/qr/EX126.png"
     },
     {
       "id": "EX127",
@@ -3518,7 +3644,8 @@ window.TSOC_EXERCISE_DATA = {
           "flipH": false,
           "flipV": false
         }
-      ]
+      ],
+      "qr": "assets/qr/EX127.png"
     },
     {
       "id": "EX128",
@@ -3545,7 +3672,8 @@ window.TSOC_EXERCISE_DATA = {
           "flipH": false,
           "flipV": false
         }
-      ]
+      ],
+      "qr": "assets/qr/EX128.png"
     },
     {
       "id": "EX129",
@@ -3572,7 +3700,8 @@ window.TSOC_EXERCISE_DATA = {
           "flipH": false,
           "flipV": false
         }
-      ]
+      ],
+      "qr": "assets/qr/EX129.png"
     },
     {
       "id": "EX130",
@@ -3599,7 +3728,8 @@ window.TSOC_EXERCISE_DATA = {
           "flipH": false,
           "flipV": false
         }
-      ]
+      ],
+      "qr": "assets/qr/EX130.png"
     },
     {
       "id": "EX131",
@@ -3626,7 +3756,8 @@ window.TSOC_EXERCISE_DATA = {
           "flipH": false,
           "flipV": false
         }
-      ]
+      ],
+      "qr": "assets/qr/EX131.png"
     },
     {
       "id": "EX132",
@@ -3653,7 +3784,8 @@ window.TSOC_EXERCISE_DATA = {
           "flipH": false,
           "flipV": false
         }
-      ]
+      ],
+      "qr": "assets/qr/EX132.png"
     },
     {
       "id": "EX133",
@@ -3686,7 +3818,8 @@ window.TSOC_EXERCISE_DATA = {
           "flipH": false,
           "flipV": false
         }
-      ]
+      ],
+      "qr": "assets/qr/EX133.png"
     },
     {
       "id": "EX134",
@@ -3714,7 +3847,8 @@ window.TSOC_EXERCISE_DATA = {
           "flipH": false,
           "flipV": false
         }
-      ]
+      ],
+      "qr": "assets/qr/EX134.png"
     },
     {
       "id": "EX135",
@@ -3747,7 +3881,8 @@ window.TSOC_EXERCISE_DATA = {
           "flipH": false,
           "flipV": false
         }
-      ]
+      ],
+      "qr": "assets/qr/EX135.png"
     },
     {
       "id": "EX136",
@@ -3774,7 +3909,8 @@ window.TSOC_EXERCISE_DATA = {
           "flipH": false,
           "flipV": false
         }
-      ]
+      ],
+      "qr": "assets/qr/EX136.png"
     },
     {
       "id": "EX137",
@@ -3801,7 +3937,8 @@ window.TSOC_EXERCISE_DATA = {
           "flipH": false,
           "flipV": false
         }
-      ]
+      ],
+      "qr": "assets/qr/EX137.png"
     },
     {
       "id": "EX138",
@@ -3828,7 +3965,8 @@ window.TSOC_EXERCISE_DATA = {
           "flipH": false,
           "flipV": false
         }
-      ]
+      ],
+      "qr": "assets/qr/EX138.png"
     },
     {
       "id": "EX139",
@@ -3855,7 +3993,8 @@ window.TSOC_EXERCISE_DATA = {
           "flipH": false,
           "flipV": false
         }
-      ]
+      ],
+      "qr": "assets/qr/EX139.png"
     },
     {
       "id": "EX140",
@@ -3882,7 +4021,8 @@ window.TSOC_EXERCISE_DATA = {
           "flipH": false,
           "flipV": false
         }
-      ]
+      ],
+      "qr": "assets/qr/EX140.png"
     },
     {
       "id": "EX141",
@@ -3909,7 +4049,8 @@ window.TSOC_EXERCISE_DATA = {
           "flipH": false,
           "flipV": false
         }
-      ]
+      ],
+      "qr": "assets/qr/EX141.png"
     },
     {
       "id": "EX142",
@@ -3936,7 +4077,8 @@ window.TSOC_EXERCISE_DATA = {
           "flipH": false,
           "flipV": false
         }
-      ]
+      ],
+      "qr": "assets/qr/EX142.png"
     },
     {
       "id": "EX143",
@@ -3963,7 +4105,8 @@ window.TSOC_EXERCISE_DATA = {
           "flipH": false,
           "flipV": false
         }
-      ]
+      ],
+      "qr": "assets/qr/EX143.png"
     },
     {
       "id": "EX144",
@@ -3990,7 +4133,8 @@ window.TSOC_EXERCISE_DATA = {
           "flipH": false,
           "flipV": false
         }
-      ]
+      ],
+      "qr": "assets/qr/EX144.png"
     },
     {
       "id": "EX145",
@@ -4017,7 +4161,8 @@ window.TSOC_EXERCISE_DATA = {
           "flipH": false,
           "flipV": false
         }
-      ]
+      ],
+      "qr": "assets/qr/EX145.png"
     },
     {
       "id": "EX146",
@@ -4044,7 +4189,8 @@ window.TSOC_EXERCISE_DATA = {
           "flipH": false,
           "flipV": false
         }
-      ]
+      ],
+      "qr": "assets/qr/EX146.png"
     },
     {
       "id": "EX147",
@@ -4071,7 +4217,8 @@ window.TSOC_EXERCISE_DATA = {
           "flipH": false,
           "flipV": false
         }
-      ]
+      ],
+      "qr": "assets/qr/EX147.png"
     },
     {
       "id": "EX148",
@@ -4104,7 +4251,8 @@ window.TSOC_EXERCISE_DATA = {
           "flipH": false,
           "flipV": false
         }
-      ]
+      ],
+      "qr": "assets/qr/EX148.png"
     },
     {
       "id": "EX149",
@@ -4131,7 +4279,8 @@ window.TSOC_EXERCISE_DATA = {
           "flipH": false,
           "flipV": false
         }
-      ]
+      ],
+      "qr": "assets/qr/EX149.png"
     },
     {
       "id": "EX150",
@@ -4158,7 +4307,8 @@ window.TSOC_EXERCISE_DATA = {
           "flipH": false,
           "flipV": false
         }
-      ]
+      ],
+      "qr": "assets/qr/EX150.png"
     },
     {
       "id": "EX151",
@@ -4185,7 +4335,8 @@ window.TSOC_EXERCISE_DATA = {
           "flipH": false,
           "flipV": false
         }
-      ]
+      ],
+      "qr": "assets/qr/EX151.png"
     },
     {
       "id": "EX152",
@@ -4212,7 +4363,8 @@ window.TSOC_EXERCISE_DATA = {
           "flipH": false,
           "flipV": false
         }
-      ]
+      ],
+      "qr": "assets/qr/EX152.png"
     },
     {
       "id": "EX153",
@@ -4239,7 +4391,8 @@ window.TSOC_EXERCISE_DATA = {
           "flipH": false,
           "flipV": false
         }
-      ]
+      ],
+      "qr": "assets/qr/EX153.png"
     },
     {
       "id": "EX154",
@@ -4266,7 +4419,8 @@ window.TSOC_EXERCISE_DATA = {
           "flipH": false,
           "flipV": false
         }
-      ]
+      ],
+      "qr": "assets/qr/EX154.png"
     },
     {
       "id": "EX155",
@@ -4293,7 +4447,8 @@ window.TSOC_EXERCISE_DATA = {
           "flipH": false,
           "flipV": false
         }
-      ]
+      ],
+      "qr": "assets/qr/EX155.png"
     },
     {
       "id": "EX156",
@@ -4320,7 +4475,8 @@ window.TSOC_EXERCISE_DATA = {
           "flipH": false,
           "flipV": false
         }
-      ]
+      ],
+      "qr": "assets/qr/EX156.png"
     },
     {
       "id": "EX157",
@@ -4347,7 +4503,8 @@ window.TSOC_EXERCISE_DATA = {
           "flipH": false,
           "flipV": false
         }
-      ]
+      ],
+      "qr": "assets/qr/EX157.png"
     },
     {
       "id": "EX158",
@@ -4374,7 +4531,8 @@ window.TSOC_EXERCISE_DATA = {
           "flipH": false,
           "flipV": false
         }
-      ]
+      ],
+      "qr": "assets/qr/EX158.png"
     },
     {
       "id": "EX159",
@@ -4401,7 +4559,8 @@ window.TSOC_EXERCISE_DATA = {
           "flipH": false,
           "flipV": false
         }
-      ]
+      ],
+      "qr": "assets/qr/EX159.png"
     },
     {
       "id": "EX160",
@@ -4428,7 +4587,8 @@ window.TSOC_EXERCISE_DATA = {
           "flipH": false,
           "flipV": false
         }
-      ]
+      ],
+      "qr": "assets/qr/EX160.png"
     },
     {
       "id": "EX161",
@@ -4479,7 +4639,8 @@ window.TSOC_EXERCISE_DATA = {
           "flipH": false,
           "flipV": false
         }
-      ]
+      ],
+      "qr": "assets/qr/EX161.png"
     },
     {
       "id": "EX162",
@@ -4500,7 +4661,8 @@ window.TSOC_EXERCISE_DATA = {
           "flipH": false,
           "flipV": false
         }
-      ]
+      ],
+      "qr": "assets/qr/EX162.png"
     },
     {
       "id": "EX163",
@@ -4521,7 +4683,8 @@ window.TSOC_EXERCISE_DATA = {
           "flipH": false,
           "flipV": false
         }
-      ]
+      ],
+      "qr": "assets/qr/EX163.png"
     },
     {
       "id": "EX164",
@@ -4542,7 +4705,8 @@ window.TSOC_EXERCISE_DATA = {
           "flipH": false,
           "flipV": false
         }
-      ]
+      ],
+      "qr": "assets/qr/EX164.png"
     },
     {
       "id": "EX165",
@@ -4563,7 +4727,8 @@ window.TSOC_EXERCISE_DATA = {
           "flipH": false,
           "flipV": false
         }
-      ]
+      ],
+      "qr": "assets/qr/EX165.png"
     },
     {
       "id": "EX166",
@@ -4584,7 +4749,8 @@ window.TSOC_EXERCISE_DATA = {
           "flipH": false,
           "flipV": false
         }
-      ]
+      ],
+      "qr": "assets/qr/EX166.png"
     },
     {
       "id": "EX167",
@@ -4605,7 +4771,8 @@ window.TSOC_EXERCISE_DATA = {
           "flipH": false,
           "flipV": false
         }
-      ]
+      ],
+      "qr": "assets/qr/EX167.png"
     },
     {
       "id": "EX168",
@@ -4626,7 +4793,8 @@ window.TSOC_EXERCISE_DATA = {
           "flipH": false,
           "flipV": false
         }
-      ]
+      ],
+      "qr": "assets/qr/EX168.png"
     },
     {
       "id": "EX169",
@@ -4647,7 +4815,8 @@ window.TSOC_EXERCISE_DATA = {
           "flipH": false,
           "flipV": false
         }
-      ]
+      ],
+      "qr": "assets/qr/EX169.png"
     },
     {
       "id": "EX170",
@@ -4668,7 +4837,8 @@ window.TSOC_EXERCISE_DATA = {
           "flipH": false,
           "flipV": false
         }
-      ]
+      ],
+      "qr": "assets/qr/EX170.png"
     },
     {
       "id": "EX171",
@@ -4689,7 +4859,8 @@ window.TSOC_EXERCISE_DATA = {
           "flipH": false,
           "flipV": false
         }
-      ]
+      ],
+      "qr": "assets/qr/EX171.png"
     },
     {
       "id": "EX172",
@@ -4710,7 +4881,8 @@ window.TSOC_EXERCISE_DATA = {
           "flipH": false,
           "flipV": false
         }
-      ]
+      ],
+      "qr": "assets/qr/EX172.png"
     },
     {
       "id": "EX173",
@@ -4731,7 +4903,8 @@ window.TSOC_EXERCISE_DATA = {
           "flipH": false,
           "flipV": false
         }
-      ]
+      ],
+      "qr": "assets/qr/EX173.png"
     },
     {
       "id": "EX174",
@@ -4752,7 +4925,8 @@ window.TSOC_EXERCISE_DATA = {
           "flipH": false,
           "flipV": false
         }
-      ]
+      ],
+      "qr": "assets/qr/EX174.png"
     },
     {
       "id": "EX175",
@@ -4773,7 +4947,8 @@ window.TSOC_EXERCISE_DATA = {
           "flipH": false,
           "flipV": false
         }
-      ]
+      ],
+      "qr": "assets/qr/EX175.png"
     },
     {
       "id": "EX176",
@@ -4801,7 +4976,8 @@ window.TSOC_EXERCISE_DATA = {
           "flipH": false,
           "flipV": false
         }
-      ]
+      ],
+      "qr": "assets/qr/EX176.png"
     },
     {
       "id": "EX177",
@@ -4829,7 +5005,8 @@ window.TSOC_EXERCISE_DATA = {
           "flipH": false,
           "flipV": false
         }
-      ]
+      ],
+      "qr": "assets/qr/EX177.png"
     },
     {
       "id": "EX178",
@@ -4868,7 +5045,8 @@ window.TSOC_EXERCISE_DATA = {
           "flipH": false,
           "flipV": false
         }
-      ]
+      ],
+      "qr": "assets/qr/EX178.png"
     },
     {
       "id": "EX179",
@@ -4895,7 +5073,8 @@ window.TSOC_EXERCISE_DATA = {
           "flipH": false,
           "flipV": false
         }
-      ]
+      ],
+      "qr": "assets/qr/EX179.png"
     },
     {
       "id": "EX180",
@@ -4922,7 +5101,8 @@ window.TSOC_EXERCISE_DATA = {
           "flipH": false,
           "flipV": false
         }
-      ]
+      ],
+      "qr": "assets/qr/EX180.png"
     },
     {
       "id": "EX181",
@@ -4949,7 +5129,8 @@ window.TSOC_EXERCISE_DATA = {
           "flipH": false,
           "flipV": false
         }
-      ]
+      ],
+      "qr": "assets/qr/EX181.png"
     },
     {
       "id": "EX182",
@@ -4982,7 +5163,8 @@ window.TSOC_EXERCISE_DATA = {
           "flipH": false,
           "flipV": false
         }
-      ]
+      ],
+      "qr": "assets/qr/EX182.png"
     },
     {
       "id": "EX183",
@@ -5009,7 +5191,8 @@ window.TSOC_EXERCISE_DATA = {
           "flipH": false,
           "flipV": false
         }
-      ]
+      ],
+      "qr": "assets/qr/EX183.png"
     },
     {
       "id": "EX184",
@@ -5036,7 +5219,8 @@ window.TSOC_EXERCISE_DATA = {
           "flipH": false,
           "flipV": false
         }
-      ]
+      ],
+      "qr": "assets/qr/EX184.png"
     },
     {
       "id": "EX185",
@@ -5063,7 +5247,8 @@ window.TSOC_EXERCISE_DATA = {
           "flipH": false,
           "flipV": false
         }
-      ]
+      ],
+      "qr": "assets/qr/EX185.png"
     },
     {
       "id": "EX186",
@@ -5090,7 +5275,8 @@ window.TSOC_EXERCISE_DATA = {
           "flipH": false,
           "flipV": false
         }
-      ]
+      ],
+      "qr": "assets/qr/EX186.png"
     },
     {
       "id": "EX187",
@@ -5117,7 +5303,8 @@ window.TSOC_EXERCISE_DATA = {
           "flipH": false,
           "flipV": false
         }
-      ]
+      ],
+      "qr": "assets/qr/EX187.png"
     },
     {
       "id": "EX188",
@@ -5144,7 +5331,8 @@ window.TSOC_EXERCISE_DATA = {
           "flipH": false,
           "flipV": false
         }
-      ]
+      ],
+      "qr": "assets/qr/EX188.png"
     },
     {
       "id": "EX189",
@@ -5171,7 +5359,8 @@ window.TSOC_EXERCISE_DATA = {
           "flipH": false,
           "flipV": false
         }
-      ]
+      ],
+      "qr": "assets/qr/EX189.png"
     },
     {
       "id": "EX190",
@@ -5199,7 +5388,8 @@ window.TSOC_EXERCISE_DATA = {
           "flipH": false,
           "flipV": false
         }
-      ]
+      ],
+      "qr": "assets/qr/EX190.png"
     },
     {
       "id": "EX191",
@@ -5226,7 +5416,8 @@ window.TSOC_EXERCISE_DATA = {
           "flipH": false,
           "flipV": false
         }
-      ]
+      ],
+      "qr": "assets/qr/EX191.png"
     },
     {
       "id": "EX192",
@@ -5254,7 +5445,8 @@ window.TSOC_EXERCISE_DATA = {
           "flipH": false,
           "flipV": false
         }
-      ]
+      ],
+      "qr": "assets/qr/EX192.png"
     },
     {
       "id": "EX193",
@@ -5282,7 +5474,8 @@ window.TSOC_EXERCISE_DATA = {
           "flipH": false,
           "flipV": false
         }
-      ]
+      ],
+      "qr": "assets/qr/EX193.png"
     },
     {
       "id": "EX194",
@@ -5311,7 +5504,8 @@ window.TSOC_EXERCISE_DATA = {
           "flipH": false,
           "flipV": false
         }
-      ]
+      ],
+      "qr": "assets/qr/EX194.png"
     },
     {
       "id": "EX195",
@@ -5340,7 +5534,8 @@ window.TSOC_EXERCISE_DATA = {
           "flipH": false,
           "flipV": false
         }
-      ]
+      ],
+      "qr": "assets/qr/EX195.png"
     },
     {
       "id": "EX196",
@@ -5379,7 +5574,8 @@ window.TSOC_EXERCISE_DATA = {
           "flipH": false,
           "flipV": false
         }
-      ]
+      ],
+      "qr": "assets/qr/EX196.png"
     },
     {
       "id": "EX197",
@@ -5406,7 +5602,8 @@ window.TSOC_EXERCISE_DATA = {
           "flipH": false,
           "flipV": false
         }
-      ]
+      ],
+      "qr": "assets/qr/EX197.png"
     },
     {
       "id": "EX198",
@@ -5433,7 +5630,8 @@ window.TSOC_EXERCISE_DATA = {
           "flipH": false,
           "flipV": false
         }
-      ]
+      ],
+      "qr": "assets/qr/EX198.png"
     },
     {
       "id": "EX199",
@@ -5460,7 +5658,8 @@ window.TSOC_EXERCISE_DATA = {
           "flipH": false,
           "flipV": false
         }
-      ]
+      ],
+      "qr": "assets/qr/EX199.png"
     },
     {
       "id": "EX200",
@@ -5487,7 +5686,8 @@ window.TSOC_EXERCISE_DATA = {
           "flipH": false,
           "flipV": false
         }
-      ]
+      ],
+      "qr": "assets/qr/EX200.png"
     },
     {
       "id": "EX201",
@@ -5514,7 +5714,8 @@ window.TSOC_EXERCISE_DATA = {
           "flipH": false,
           "flipV": false
         }
-      ]
+      ],
+      "qr": "assets/qr/EX201.png"
     },
     {
       "id": "EX202",
@@ -5541,7 +5742,8 @@ window.TSOC_EXERCISE_DATA = {
           "flipH": false,
           "flipV": false
         }
-      ]
+      ],
+      "qr": "assets/qr/EX202.png"
     },
     {
       "id": "EX203",
@@ -5569,7 +5771,8 @@ window.TSOC_EXERCISE_DATA = {
           "flipH": false,
           "flipV": false
         }
-      ]
+      ],
+      "qr": "assets/qr/EX203.png"
     },
     {
       "id": "EX204",
@@ -5597,7 +5800,8 @@ window.TSOC_EXERCISE_DATA = {
           "flipH": false,
           "flipV": false
         }
-      ]
+      ],
+      "qr": "assets/qr/EX204.png"
     },
     {
       "id": "EX205",
@@ -5625,7 +5829,8 @@ window.TSOC_EXERCISE_DATA = {
           "flipH": false,
           "flipV": false
         }
-      ]
+      ],
+      "qr": "assets/qr/EX205.png"
     },
     {
       "id": "EX206",
@@ -5653,7 +5858,8 @@ window.TSOC_EXERCISE_DATA = {
           "flipH": false,
           "flipV": false
         }
-      ]
+      ],
+      "qr": "assets/qr/EX206.png"
     },
     {
       "id": "EX207",
@@ -5683,7 +5889,8 @@ window.TSOC_EXERCISE_DATA = {
           "flipH": false,
           "flipV": false
         }
-      ]
+      ],
+      "qr": "assets/qr/EX207.png"
     },
     {
       "id": "EX208",
@@ -5710,7 +5917,8 @@ window.TSOC_EXERCISE_DATA = {
           "flipH": false,
           "flipV": false
         }
-      ]
+      ],
+      "qr": "assets/qr/EX208.png"
     },
     {
       "id": "EX209",
@@ -5737,7 +5945,8 @@ window.TSOC_EXERCISE_DATA = {
           "flipH": false,
           "flipV": false
         }
-      ]
+      ],
+      "qr": "assets/qr/EX209.png"
     },
     {
       "id": "EX210",
@@ -5758,7 +5967,8 @@ window.TSOC_EXERCISE_DATA = {
           "flipH": false,
           "flipV": false
         }
-      ]
+      ],
+      "qr": "assets/qr/EX210.png"
     },
     {
       "id": "EX211",
@@ -5779,7 +5989,8 @@ window.TSOC_EXERCISE_DATA = {
           "flipH": false,
           "flipV": false
         }
-      ]
+      ],
+      "qr": "assets/qr/EX211.png"
     },
     {
       "id": "EX212",
@@ -5800,7 +6011,8 @@ window.TSOC_EXERCISE_DATA = {
           "flipH": false,
           "flipV": false
         }
-      ]
+      ],
+      "qr": "assets/qr/EX212.png"
     },
     {
       "id": "EX213",
@@ -5821,7 +6033,8 @@ window.TSOC_EXERCISE_DATA = {
           "flipH": false,
           "flipV": false
         }
-      ]
+      ],
+      "qr": "assets/qr/EX213.png"
     },
     {
       "id": "EX214",
@@ -5842,7 +6055,8 @@ window.TSOC_EXERCISE_DATA = {
           "flipH": false,
           "flipV": false
         }
-      ]
+      ],
+      "qr": "assets/qr/EX214.png"
     },
     {
       "id": "EX215",
@@ -5863,7 +6077,8 @@ window.TSOC_EXERCISE_DATA = {
           "flipH": false,
           "flipV": false
         }
-      ]
+      ],
+      "qr": "assets/qr/EX215.png"
     },
     {
       "id": "EX216",
@@ -5884,7 +6099,8 @@ window.TSOC_EXERCISE_DATA = {
           "flipH": false,
           "flipV": false
         }
-      ]
+      ],
+      "qr": "assets/qr/EX216.png"
     },
     {
       "id": "EX217",
@@ -5905,7 +6121,8 @@ window.TSOC_EXERCISE_DATA = {
           "flipH": false,
           "flipV": false
         }
-      ]
+      ],
+      "qr": "assets/qr/EX217.png"
     },
     {
       "id": "EX218",
@@ -5926,7 +6143,8 @@ window.TSOC_EXERCISE_DATA = {
           "flipH": false,
           "flipV": false
         }
-      ]
+      ],
+      "qr": "assets/qr/EX218.png"
     }
   ],
   "source_output_workbook": "TSOC_Exercise_2v4_output.xlsm",

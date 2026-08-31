@@ -1,7 +1,19 @@
-# TSOC Exercise Web v1.1.0
+# TSOC Exercise Web v1.2.0
 
-現行TSOC Exercise ExcelをWebシステムとして再構築するプロジェクトです。
+TSOC Exercise のWeb移植・再構築版です。
 
-GitHub Pagesではリポジトリ直下の `index.html` を公開してください。
+## 公開
+GitHub Pages で `main` / `/(root)` を公開対象にします。
 
-仕様の基準は `SYSTEM_SPEC.md`、更新時の回帰確認は `TEST_CHECKLIST.md` を参照してください。
+## データ
+- `data/exercise-data.js`: 運動マスター、カテゴリー、画像、QR
+- `data/app-config.js`: 回数/時間・セット数など運用設定
+
+## 仕様・変更履歴
+- `SYSTEM_SPEC.md`: 現行仕様と移植方針
+- `TEST_CHECKLIST.md`: 回帰・受入確認項目
+- `CHANGELOG.md`: バージョンごとの変更点
+- `VERSION.md`: 現在バージョン
+
+## 注意
+患者情報はGitHubへ保存しません。ブラウザ上で入力した患者名は印刷/PDF生成にのみ使用します。
