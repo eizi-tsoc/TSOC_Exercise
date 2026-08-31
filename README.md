@@ -1,4 +1,4 @@
-# TSOC Exercise Web v1.2.0
+# TSOC Exercise Web v1.2.1
 
 TSOC Exercise のWeb移植・再構築版です。
 
@@ -17,3 +17,7 @@ GitHub Pages で `main` / `/(root)` を公開対象にします。
 
 ## 注意
 患者情報はGitHubへ保存しません。ブラウザ上で入力した患者名は印刷/PDF生成にのみ使用します。
+
+
+## 印刷用高解像度画像
+選択画面は従来の `images` を使用します。運動データに `print_images` を登録すると、印刷/PDFではそちらを優先します。未登録時は `images` へ自動フォールバックします。元印刷用Excelの `xl/media` から高解像度画像を整理し、段階的に移行できます。

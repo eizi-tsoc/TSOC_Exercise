@@ -1,5 +1,5 @@
 window.TSOC_EXERCISE_DATA = {
-  "app_version": "1.2.0",
+  "app_version": "1.2.1",
   "source_workbook": "TSOC_Exercise_2v4.xlsm",
   "max_selection": 8,
   "categories": [

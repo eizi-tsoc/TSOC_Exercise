@@ -32,7 +32,7 @@
 - 単位: 回 / 秒。
 - セット数: 1～10 を選択可能。
 - 上記選択肢は `data/app-config.js` で変更可能とし、将来管理画面から編集できる構造へ発展させる。
-- 患者名を入力。
+- 患者名を入力。印刷ヘッダーでは入力された氏名の後ろに「様」のみを表示する。
 - 同一運動の重複選択は不可。
 
 ## 4. Print / PDF
@@ -48,8 +48,10 @@
 
 ## 5. QR / Image policy
 - 全運動のQRは `TSOC_Exercise_2v4_output.xlsm` Sheet7 を基準に対応付ける。
-- Web選択画面: 軽量画像を使用。
-- 印刷/PDF: 将来、高解像度画像を別参照できる二層構成とする。
+- Web選択画面: `images` の軽量画像を使用。
+- 印刷/PDF: `print_images` が設定されている場合は高解像度画像を優先使用する。
+- `print_images` が未設定の場合は `images` を自動使用し、既存運動を欠落させない。
+- 印刷用画像専用の回転情報は `print_image_transforms` で保持可能。高解像度画像が未設定の場合は `image_transforms` を使用する。
 - 画像の回転情報は選択用ExcelのDrawingMLから保持する。
 
 ## 6. Future management
