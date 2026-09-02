@@ -416,3 +416,6 @@ fieldset{border:1px solid #d7e0e9;border-radius:8px;margin:0 0 12px;padding:10px
 .order-footer{margin-top:12px}
 
 .github-test-banner{background:#fff3cd;border-bottom:1px solid #e2c56e;color:#6b5400;padding:7px 12px;text-align:center;font-size:12px;font-weight:700;position:relative;z-index:10000}
+
+/* Rebuild19: 公開ボタン等の hidden 属性を確実に有効化 */
+[hidden]{display:none !important;}

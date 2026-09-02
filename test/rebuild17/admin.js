@@ -1,6 +1,6 @@
-// TSOC Exercise Rebuild18 PublishModelFix
-// Existing/published exercises: Save = update published content.
-// Only never-published new exercises require the initial Publish action.
+// TSOC Exercise Rebuild19 - Published Save Fix
+// 公開済み運動は「管理データ保存」で公開内容を更新。
+// 「公開する」は初回公開前の新規運動だけに表示。
 
 const BASE = window.TSOC_EXERCISE_DATA || {};
 const baseExercises = Array.isArray(BASE.exercises) ? BASE.exercises : [];
@@ -160,10 +160,12 @@ function publicSnapshotFor(e){
   if(p?.data)return p.data;
   return e._new ? null : baseMap[e.id] || null;
 }
+
+/* Rebuild19: 既存218運動は初期状態から公開済み。
+   「初回公開」が必要なのは、まだ公開スナップショットを持たない新規運動だけ。 */
 function needsInitialPublish(e){
   return !!e?._new && !pubState?.[e.id]?.data;
 }
-
 function isPublished(e){
   const p=publicSnapshotFor(e);
   return !!p && !p.hidden;
@@ -267,14 +269,14 @@ async function openEdit(key){
   $("#editTitle").textContent=`運動編集：${e.id} ${e.name}`;
   $("#fImage").value="";
 
-  const firstPublish=needsInitialPublish(e);
+  const initialPublish=needsInitialPublish(e);
   const publishBtn=$("#editPublishBtn");
   const hint=$("#editPublishHint");
-  if(publishBtn)publishBtn.hidden=!firstPublish;
+  if(publishBtn) publishBtn.hidden=!initialPublish;
   if(hint){
-    hint.textContent=firstPublish
-      ? "この新規運動はまだ未公開です。「管理データ保存」で内容を保存し、確認後に「公開する」を押してください。"
-      : "この運動は公開中です。「管理データ保存」で変更内容が利用画面へ反映されます。";
+    hint.textContent=initialPublish
+      ? "この新規運動は未公開です。内容を保存・確認した後に「公開する」を押してください。"
+      : "この運動は公開中です。「管理データ保存」で変更内容が選択画面へ反映されます。";
   }
 
   await updateEditPreview();
@@ -350,19 +352,18 @@ $("#editForm").addEventListener("submit",async ev=>{
     if(file) await idbPut(key,file);
 
     const qrFile=$("#fQrImage")?.files?.[0];
-    if(qrFile)await saveQrForKey(key,qrFile);
-
-    const updated=itemByKey(key);
+    if(qrFile) await saveQrForKey(key,qrFile);
 
     /*
-      Rebuild18:
-      ・既存218運動 = もともと公開中 → 保存時に公開内容も更新
-      ・一度公開済みの新規運動 → 保存時に公開内容も更新
-      ・初回公開前の新規運動だけは、保存しても未公開のまま
+      Rebuild19 公開モデル:
+      - 既存218運動は最初から公開済み → 保存した内容を公開スナップショットへ即時反映
+      - 一度公開済みの新規運動 → 同様に保存で即時反映
+      - 初回公開前の新規運動 → 保存しても未公開のまま
     */
+    const updated=itemByKey(key);
     if(updated && !needsInitialPublish(updated)){
       let imageKey=pubState?.[updated.id]?.imageKey||null;
-      try{if(await idbGet(key))imageKey=key}catch(_){}
+      try{ if(await idbGet(key)) imageKey=key; }catch(_){}
       pubState[updated.id]={
         data:cleanForPublish(updated),
         imageKey,
@@ -397,6 +398,7 @@ $("#revertBtn").addEventListener("click",async()=>{
     delete drafts[key];
     localStorage.setItem(DRAFT_KEY,JSON.stringify(drafts));
     await idbDelete(key);
+    await idbDelete(qrBlobKey(key)).catch(()=>{});
     if(pubState[key]){
       delete pubState[key];
       persistPub();
@@ -809,14 +811,24 @@ $("#editPublishBtn")?.addEventListener("click",async()=>{
   if(!saved)return;
 
   if(!needsInitialPublish(saved)){
-    alert("この運動はすでに公開中です。変更は「管理データ保存」で利用画面へ反映されます。");
+    alert("この運動はすでに公開中です。変更は「管理データ保存」で選択画面へ反映されます。");
     return;
   }
 
   const liveName=$("#fName").value.trim();
+  const livePurpose=$("#fPurpose").value.trim();
+  const liveDescription=$("#fDescription").value;
   const liveCategories=selectedCats($("#categoryChecks"));
-  if(liveName!==String(saved.name||"") ||
-     JSON.stringify(liveCategories)!==JSON.stringify(saved.categories||[])){
+  const unsaved=
+    liveName!==String(saved.name||"") ||
+    livePurpose!==String(saved.purpose||"") ||
+    liveDescription!==desc(saved) ||
+    JSON.stringify(liveCategories)!==JSON.stringify(saved.categories||[]) ||
+    $("#fHidden").checked!==!!saved.hidden ||
+    !!$("#fImage")?.files?.[0] ||
+    !!$("#fQrImage")?.files?.[0];
+
+  if(unsaved){
     alert("先に「管理データ保存」を押してください。\n保存後に「公開する」を押してください。");
     return;
   }
@@ -825,9 +837,10 @@ $("#editPublishBtn")?.addEventListener("click",async()=>{
 
   const latest=itemByKey(key);
   if(latest && !needsInitialPublish(latest)){
-    $("#editPublishBtn").hidden=true;
+    const publishBtn=$("#editPublishBtn");
+    if(publishBtn)publishBtn.hidden=true;
     const hint=$("#editPublishHint");
-    if(hint)hint.textContent="この運動は公開中です。今後の変更は「管理データ保存」で利用画面へ反映されます。";
+    if(hint)hint.textContent="この運動は公開中です。今後の変更は「管理データ保存」で選択画面へ反映されます。";
   }
 });
 
