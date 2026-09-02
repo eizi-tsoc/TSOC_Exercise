@@ -1,3 +1,6 @@
+// TSOC Exercise Rebuild18 PublishModelFix
+// Existing/published exercises: Save = update published content.
+// Only never-published new exercises require the initial Publish action.
 
 const BASE = window.TSOC_EXERCISE_DATA || {};
 const baseExercises = Array.isArray(BASE.exercises) ? BASE.exercises : [];
@@ -157,6 +160,10 @@ function publicSnapshotFor(e){
   if(p?.data)return p.data;
   return e._new ? null : baseMap[e.id] || null;
 }
+function needsInitialPublish(e){
+  return !!e?._new && !pubState?.[e.id]?.data;
+}
+
 function isPublished(e){
   const p=publicSnapshotFor(e);
   return !!p && !p.hidden;
@@ -259,6 +266,17 @@ async function openEdit(key){
   categoryChecks($("#categoryChecks"),e.categories||[]);
   $("#editTitle").textContent=`運動編集：${e.id} ${e.name}`;
   $("#fImage").value="";
+
+  const firstPublish=needsInitialPublish(e);
+  const publishBtn=$("#editPublishBtn");
+  const hint=$("#editPublishHint");
+  if(publishBtn)publishBtn.hidden=!firstPublish;
+  if(hint){
+    hint.textContent=firstPublish
+      ? "この新規運動はまだ未公開です。「管理データ保存」で内容を保存し、確認後に「公開する」を押してください。"
+      : "この運動は公開中です。「管理データ保存」で変更内容が利用画面へ反映されます。";
+  }
+
   await updateEditPreview();
   $("#editModal").hidden=false;
 }
@@ -329,7 +347,29 @@ $("#editForm").addEventListener("submit",async ev=>{
     }
 
     const file=$("#fImage").files[0];
-    if(file)if(file) await idbPut(key,file);
+    if(file) await idbPut(key,file);
+
+    const qrFile=$("#fQrImage")?.files?.[0];
+    if(qrFile)await saveQrForKey(key,qrFile);
+
+    const updated=itemByKey(key);
+
+    /*
+      Rebuild18:
+      ・既存218運動 = もともと公開中 → 保存時に公開内容も更新
+      ・一度公開済みの新規運動 → 保存時に公開内容も更新
+      ・初回公開前の新規運動だけは、保存しても未公開のまま
+    */
+    if(updated && !needsInitialPublish(updated)){
+      let imageKey=pubState?.[updated.id]?.imageKey||null;
+      try{if(await idbGet(key))imageKey=key}catch(_){}
+      pubState[updated.id]={
+        data:cleanForPublish(updated),
+        imageKey,
+        publishedAt:new Date().toISOString()
+      };
+      persistPub();
+    }
 
     if(tempEditImageURL){
       URL.revokeObjectURL(tempEditImageURL);
@@ -353,7 +393,15 @@ $("#editForm").addEventListener("submit",async ev=>{
 $("#revertBtn").addEventListener("click",async()=>{
   const key=currentEditId;if(!key)return;
   if(key.startsWith("NEW:")){if(!confirm("この新規運動を下書きから削除しますか？"))return;newItems=newItems.filter(x=>x._key!==key);localStorage.setItem(NEW_KEY,JSON.stringify(newItems));await idbDelete(key)}
-  else{delete drafts[key];localStorage.setItem(DRAFT_KEY,JSON.stringify(drafts));await idbDelete(key)}
+  else{
+    delete drafts[key];
+    localStorage.setItem(DRAFT_KEY,JSON.stringify(drafts));
+    await idbDelete(key);
+    if(pubState[key]){
+      delete pubState[key];
+      persistPub();
+    }
+  }
   $("#editModal").hidden=true;setupCategoryFilters();render();
 });
 document.querySelectorAll("[data-close-edit]").forEach(x=>x.onclick=()=>{
@@ -757,13 +805,30 @@ async function publishExerciseByKey(key){
 $("#editPublishBtn")?.addEventListener("click",async()=>{
   if(!currentEditId)return;
   const key=currentEditId;
-  const liveName=$("#fName").value.trim();
   const saved=itemByKey(key);
-  if(saved && liveName!==String(saved.name||"")){
-    alert("先に「管理データ保存」を押してください。\n保存後にもう一度開き、「公開する」を押します。");
+  if(!saved)return;
+
+  if(!needsInitialPublish(saved)){
+    alert("この運動はすでに公開中です。変更は「管理データ保存」で利用画面へ反映されます。");
     return;
   }
+
+  const liveName=$("#fName").value.trim();
+  const liveCategories=selectedCats($("#categoryChecks"));
+  if(liveName!==String(saved.name||"") ||
+     JSON.stringify(liveCategories)!==JSON.stringify(saved.categories||[])){
+    alert("先に「管理データ保存」を押してください。\n保存後に「公開する」を押してください。");
+    return;
+  }
+
   await publishExerciseByKey(key);
+
+  const latest=itemByKey(key);
+  if(latest && !needsInitialPublish(latest)){
+    $("#editPublishBtn").hidden=true;
+    const hint=$("#editPublishHint");
+    if(hint)hint.textContent="この運動は公開中です。今後の変更は「管理データ保存」で利用画面へ反映されます。";
+  }
 });
 
 
