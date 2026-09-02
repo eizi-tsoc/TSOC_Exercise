@@ -272,12 +272,16 @@ async function openEdit(key){
 
   const initialPublish=needsInitialPublish(e);
   const publishBtn=$("#editPublishBtn");
+  const saveBtn=$("#editForm button[type='submit']");
   const hint=$("#editPublishHint");
   if(publishBtn) publishBtn.hidden=!initialPublish;
+  if(saveBtn) saveBtn.textContent=initialPublish ? "下書き保存" : "変更を保存";
   if(hint){
     hint.textContent=initialPublish
-      ? "この新規運動は未公開です。内容を保存・確認した後に「公開する」を押してください。"
-      : "この運動は公開中です。「管理データ保存」で変更内容が選択画面へ反映されます。";
+      ? "未公開：下書き保存では選択画面に表示されません。内容を確認後、「公開する」を押してください。"
+      : (e.hidden
+          ? "非表示中：変更は保存されますが、選択画面には表示されません。"
+          : "公開中：「変更を保存」すると選択画面にも反映されます。");
   }
 
   await updateEditPreview();
@@ -830,7 +834,7 @@ $("#editPublishBtn")?.addEventListener("click",async()=>{
     !!$("#fQrImage")?.files?.[0];
 
   if(unsaved){
-    alert("先に「管理データ保存」を押してください。\n保存後に「公開する」を押してください。");
+    alert("先に「下書き保存」を押してください。\n保存後に「公開する」を押してください。");
     return;
   }
 
@@ -841,7 +845,7 @@ $("#editPublishBtn")?.addEventListener("click",async()=>{
     const publishBtn=$("#editPublishBtn");
     if(publishBtn)publishBtn.hidden=true;
     const hint=$("#editPublishHint");
-    if(hint)hint.textContent="この運動は公開中です。今後の変更は「管理データ保存」で選択画面へ反映されます。";
+    if(hint)hint.textContent="公開中：「変更を保存」すると選択画面にも反映されます。";
     /* 初回公開が完了したことを明確にし、古い編集状態を残さない */
     $("#editModal").hidden=true;
     setupCategoryFilters();
