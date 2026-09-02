@@ -1,6 +1,6 @@
 window.TSOC_BUILD_INFO = {
   channel: "GitHub TEST",
-  version: "Rebuild21",
-  label: "GitHub TEST Rebuild21",
+  version: "Rebuild22",
+  label: "GitHub TEST Rebuild22",
   date: "2026-09-02"
 };

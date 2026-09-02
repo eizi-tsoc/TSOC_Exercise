@@ -169,3 +169,15 @@
   background:rgba(255,255,255,.94);font-size:11px;line-height:1.2;
   color:#536476;box-shadow:0 1px 5px rgba(0,0,0,.08);pointer-events:none;
 }
+
+
+/* Rebuild22: 選択画面の最下段カードが画面下端に隠れないようにする */
+.exercise-grid{
+  padding-bottom:72px !important;
+  scroll-padding-bottom:72px;
+}
+.main-content,
+.exercise-list,
+.center-pane{
+  min-height:0;
+}
