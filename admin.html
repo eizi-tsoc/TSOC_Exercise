@@ -1,0 +1,359 @@
+<!doctype html>
+<html lang="ja">
+<head><meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>TSOC Exercise 管理画面</title>
+  <link rel="stylesheet" href="admin.css">
+</head>
+<body><div class="tsoc-version-badge" title="現在表示中のWeb版">TSOC Exercise Web v2.0.0</div><header class="admin-header">
+    <div>
+      <h1>TSOC Exercise 管理画面</h1>
+      <div class="sub">Web v2.0.0：管理・公開ワークフロー</div>
+    </div>
+    <div class="header-actions">
+      <button id="newBtn" class="primary">＋ 新規追加</button>
+      <button id="displayOrderBtn">表示順編集</button>
+      <button id="adminSettingsBtn">管理者設定</button>
+      <a class="back-link" href="index.html">選択画面へ</a>
+      <button id="adminLogoutBtn">ログアウト</button>
+    </div>
+  </header>
+
+  <section class="dashboard">
+    <div class="stat-card"><span class="stat-label">元データ</span><strong id="statBase">218</strong></div>
+    <div class="stat-card"><span class="stat-label">現在の登録数</span><strong id="statTotal">218</strong></div>
+    <div class="stat-card"><span class="stat-label">非表示</span><strong id="statHidden">0</strong></div>
+    <div class="stat-card"><span class="stat-label">未公開</span><strong id="statChanged">0</strong></div>
+  </section>
+
+  <section class="controls">
+    <input id="searchBox" type="search" placeholder="EX番号・運動名・目的・説明文から検索">
+    <select id="categoryFilter"><option value="">すべてのカテゴリー</option></select>
+    <select id="visibilityFilter">
+      <option value="all">すべて</option>
+      <option value="visible">表示中のみ</option>
+      <option value="hidden">非表示のみ</option>
+      <option value="changed">未公開のみ</option>
+    </select>
+    <select id="displayMode">
+      <option value="cards">カード表示</option>
+      <option value="table">一覧表示</option>
+    </select>
+    <button id="clearBtn" type="button">条件クリア</button>
+  </section>
+
+  <section class="result-bar">
+    <div><strong id="resultCount">218</strong> 件表示</div>
+    <div class="draft-badge">管理データはこのPC・ブラウザ内に保存されます（GitHub上のファイルは自動変更されません）</div>
+  </section>
+
+  <main>
+    <div id="cardView" class="card-grid"></div>
+    <div id="tableView" class="table-wrap" hidden>
+      <table class="admin-table">
+        <thead><tr><th>ID</th><th>完成画像</th><th>運動名</th><th>カテゴリー</th><th>目的</th><th>状態</th><th>操作</th></tr></thead>
+        <tbody id="tableBody"></tbody>
+      </table>
+    </div>
+  </main>
+
+  <div id="editModal" class="modal" hidden>
+    <div class="modal-backdrop" data-close-edit="1"></div>
+    <article class="modal-panel edit-panel">
+      <button class="modal-close" data-close-edit="1">×</button>
+      <h2 id="editTitle">運動編集</h2>
+      <form id="editForm">
+        <div class="edit-grid">
+          <section class="form-side">
+            <label>ID
+              <input id="fId" readonly>
+            </label>
+            <label>運動名
+              <input id="fName" required>
+            </label>
+            <label>目的
+              <textarea id="fPurpose" rows="3"></textarea>
+            </label>
+            <label>説明文
+              <textarea id="fDescription" rows="7"></textarea>
+            </label>
+
+            <fieldset>
+              <legend>カテゴリー（複数選択可）</legend>
+              <div id="categoryChecks" class="category-checks"></div>
+            </fieldset>
+
+            <fieldset class="visual-source-box">
+  <legend>運動画像</legend>
+  <button type="button" id="editVisualEditorBtn" class="primary visual-editor-open">画像レイアウト編集</button>
+  <div class="hint">写真を複数追加し、配置・拡大縮小・回転・罫線・矢印・丸・文字を編集できます。</div>
+  <details class="direct-image-details">
+    <summary>完成画像1枚をそのまま使う場合</summary>
+    <label class="file-label">完成画像を選択
+      <input id="fImage" type="file" accept="image/png,image/jpeg,image/webp">
+    </label>
+  </details>
+</fieldset>
+<fieldset class="qr-source-box">
+  <legend>QR画像</legend>
+  <label class="file-label">QR画像を選択
+    <input id="fQrImage" type="file" accept="image/png,image/jpeg,image/webp">
+  </label>
+  <div class="hint">QR画像がない場合は空欄のままでも保存できます。</div>
+</fieldset>
+
+            <label class="toggle-row">
+              <input id="fHidden" type="checkbox">
+              <span>非表示にする（選択画面から一時的に隠す）</span>
+            </label>
+
+            <div class="form-actions">
+              <button type="button" id="revertBtn" class="danger-outline">この運動の変更を元に戻す</button>
+              <button type="submit">管理データ保存</button>
+              <button type="button" id="editPublishBtn" class="primary">公開する</button>
+            </div>
+            <div class="hint" id="editPublishHint">公開状態に応じて、保存と公開の動作を案内します。</div>
+          </section>
+
+          <section class="preview-side">
+            <h3>プレビュー</h3>
+            <div class="preview-card">
+              <div id="previewImage" class="preview-image"></div>
+              <div class="preview-body">
+                <div id="previewTags" class="tags"></div>
+                <h3 id="previewName"></h3>
+                <div id="previewPurpose" class="preview-purpose"></div>
+                <div id="previewDescription" class="preview-description"></div>
+              </div>
+            </div>
+          </section>
+        </div>
+      </form>
+    </article>
+  </div>
+
+  <div id="newModal" class="modal" hidden>
+    <div class="modal-backdrop" data-close-new="1"></div>
+    <article class="modal-panel edit-panel">
+      <button class="modal-close" data-close-new="1">×</button>
+      <h2>新規運動追加</h2>
+      <form id="newForm">
+        <div class="edit-grid">
+          <section class="form-side">
+            <label>ID（自動提案）
+              <input id="nId" readonly>
+            </label>
+            <label>運動名
+              <input id="nName" required>
+            </label>
+            <label>目的
+              <textarea id="nPurpose" rows="3"></textarea>
+            </label>
+            <label>説明文
+              <textarea id="nDescription" rows="7"></textarea>
+            </label>
+            <fieldset>
+              <legend>カテゴリー</legend>
+              <div id="newCategoryChecks" class="category-checks"></div>
+            </fieldset>
+            <fieldset class="visual-source-box">
+  <legend>運動画像</legend>
+  <button type="button" id="newVisualEditorBtn" class="primary visual-editor-open">画像レイアウト編集</button>
+  <div class="hint">こちらを基本操作とします。写真は複数追加できます。</div>
+  <details class="direct-image-details">
+    <summary>完成画像1枚をそのまま使う場合</summary>
+    <label class="file-label">完成画像を選択
+      <input id="nImage" type="file" accept="image/png,image/jpeg,image/webp">
+    </label>
+  </details>
+</fieldset>
+<fieldset class="qr-source-box">
+  <legend>QR画像</legend>
+  <label class="file-label">QR画像を選択
+    <input id="nQrImage" type="file" accept="image/png,image/jpeg,image/webp">
+  </label>
+  <div class="hint">QR画像は後から追加・差し替えもできます。</div>
+</fieldset>
+            <div class="form-actions">
+              <button type="button" data-close-new="1">キャンセル</button>
+              <button type="button" id="newPrintPreviewBtn">印刷イメージ確認</button>
+              <button id="newSubmitBtn" type="submit" class="primary">新規登録（未公開）</button>
+            </div>
+          </section>
+          <section class="preview-side">
+            <h3>新規運動プレビュー</h3>
+            <div class="preview-card">
+              <div id="newPreviewImage" class="preview-image"></div>
+              <div class="preview-body">
+                <div id="newPreviewTags" class="tags"></div>
+                <h3 id="newPreviewName">新規運動</h3>
+                <div id="newPreviewPurpose" class="preview-purpose"></div>
+                <div id="newPreviewDescription" class="preview-description"></div>
+              </div>
+            </div>
+          </section>
+        </div>
+      </form>
+    </article>
+  </div>
+
+  <div id="exportModal" class="modal" hidden>
+    <div class="modal-backdrop" data-close-export="1"></div>
+    <article class="modal-panel export-panel">
+      <button class="modal-close" data-close-export="1">×</button>
+      <h2>公開用ZIP作成</h2>
+      <div id="exportStatus" class="export-status"></div>
+      <div class="export-note">
+        このZIPはローカルで生成されます。本番GitHubへ自動反映しません。
+      </div>
+      <div class="form-actions">
+        <button type="button" data-close-export="1">閉じる</button>
+        <button type="button" id="downloadExportBtn" class="primary" disabled>ZIPをダウンロード</button>
+      </div>
+    </article>
+  </div>
+
+  <script src="data/exercise-data.js"></script>
+  <script src="data/app-config.js"></script>
+  <script src="vendor/jszip.min.js"></script>
+
+<div id="visualEditorModal" class="modal" hidden>
+  <div class="modal-panel visual-editor-panel">
+    <div class="modal-head">
+      <div>
+        <strong>画像レイアウト編集</strong>
+        <div class="sub">広い作業パレットの中央に、実際に印刷される範囲を青枠で常時表示します。画像や図形は青枠の外にも配置できます。</div>
+      </div>
+      <button type="button" id="visualEditorCloseBtn">×</button>
+    </div>
+    <div class="visual-editor-toolbar">
+      <label class="file-tool">＋ 写真追加<input id="veAddImage" type="file" accept="image/*" multiple hidden></label>
+      <button type="button" data-ve-add="line">＋ 罫線</button>
+      <button type="button" data-ve-add="arrow">＋ 矢印</button>
+      <button type="button" data-ve-add="thickArrow">＋ 太矢印</button>
+      <button type="button" data-ve-add="curvedArrow">＋ 曲線矢印</button>
+      <button type="button" data-ve-add="uTurnArrow">＋ U字矢印</button>
+      <button type="button" data-ve-add="doubleArrow">＋ 両矢印</button>
+      <button type="button" data-ve-add="rect">＋ 四角枠</button>
+      <button type="button" data-ve-add="ellipse">＋ 丸・楕円</button>
+      <button type="button" data-ve-add="text">＋ 文字</button>
+      <span class="toolbar-sep"></span>
+      <button type="button" id="veFront">前面へ</button>
+      <button type="button" id="veBack">背面へ</button>
+      <button type="button" id="veRotate90">90°回転</button>
+      <button type="button" id="veFlipH">左右反転</button>
+      <button type="button" id="veRecover">選択要素を青枠内へ戻す</button>
+      <button type="button" id="veDelete" class="danger-outline">削除</button>
+    </div>
+    <div class="visual-editor-main">
+      <div class="visual-editor-stage-wrap">
+        <div class="print-area-label">作業パレット内の青枠：実際の印刷画像領域 約110.9mm × 52.5mm</div>
+        <div id="vePalette" class="visual-editor-palette">
+          <div id="veStage" class="visual-editor-stage"></div>
+        </div>
+        <div class="visual-editor-help">作業パレットは上下左右に余白があります ／ 青枠内だけが印刷されます ／ 選択：クリック ／ 移動：ドラッグ ／ サイズ変更：右下の□ ／ 回転：上の○</div>
+      </div>
+      <aside class="visual-editor-props">
+        <strong>選択中の要素</strong>
+        <div id="veNoSelection" class="hint">要素を選択してください。</div>
+        <div id="veProps" hidden>
+          <label>X <input id="veX" type="number" min="-35" max="135"></label>
+          <label>Y <input id="veY" type="number" min="-35" max="135"></label>
+          <label>幅 <input id="veW" type="number" min="5"></label>
+          <label>高さ <input id="veH" type="number" min="5"></label>
+          <label>回転 <input id="veR" type="number" step="1"></label>
+          <label id="veStrokeRow">線・矢印の太さ <input id="veStroke" type="number" min="1" max="20"></label>
+          <label id="veTextRow">文字 <textarea id="veText" rows="3"></textarea></label>
+        </div>
+      </aside>
+    </div>
+    <div class="visual-editor-actions">
+      <button type="button" id="veCancel">キャンセル</button>
+      <button type="button" id="veApply" class="primary">このレイアウトを使用</button>
+    </div>
+  </div>
+</div>
+
+
+<div id="adminSettingsModal" class="modal" hidden>
+  <div class="modal-backdrop" data-close-settings="1"></div>
+  <article class="modal-panel settings-panel">
+    <button class="modal-close" data-close-settings="1">×</button>
+    <h2>管理者設定</h2>
+
+    <section class="settings-section">
+      <h3>カテゴリー管理</h3>
+      <div class="settings-inline">
+        <input id="newCategoryName" placeholder="新しいカテゴリー名">
+        <button type="button" id="addCategoryBtn" class="primary">追加</button>
+      </div>
+      <div id="customCategoryList" class="settings-list"></div>
+      <div class="hint">追加したカテゴリーは、新規登録・運動編集のカテゴリー選択に表示されます。</div>
+      <h4 class="settings-subtitle">カテゴリーの表示順</h4>
+      <div id="categoryOrderList" class="order-list compact"></div>
+      <div class="hint">▲▼で並び替えます。「修正」でカテゴリー名を変更できます。変更は自動保存されます。選択画面では「すべて」は常に先頭固定です。 <span id="categoryOrderSavedNote"></span></div>
+    </section>
+
+    <section class="settings-section">
+      <h3>回・秒・セットのプリセット</h3>
+      <label>回
+        <input id="repPresetInput" placeholder="例：1,2,3,5,10,15,20">
+      </label>
+      <label>秒
+        <input id="secondPresetInput" placeholder="例：5,10,15,20,30,45,60">
+      </label>
+      <label>セット
+        <input id="setPresetInput" placeholder="例：1,2,3,4,5">
+      </label>
+      <button type="button" id="savePresetBtn" class="primary">プリセットを保存</button>
+      <div class="hint">カンマ区切りで入力します。保存後、選択画面を開き直すと反映されます。</div>
+    </section>
+
+    <section class="settings-section">
+      <h3>管理者パスワード変更</h3>
+      <label>現在のパスワード
+        <input id="currentAdminPassword" type="password" autocomplete="current-password">
+      </label>
+      <label>新しいパスワード
+        <input id="newAdminPassword" type="password" autocomplete="new-password">
+      </label>
+      <label>新しいパスワード（確認）
+        <input id="confirmAdminPassword" type="password" autocomplete="new-password">
+      </label>
+      <button type="button" id="changeAdminPasswordBtn" class="primary">パスワードを変更</button>
+      <div id="passwordChangeMessage" class="hint"></div>
+    </section>
+    <div class="settings-footer">
+      <button type="button" id="closeAdminSettingsBtn" class="primary">設定を閉じる</button>
+    </div>
+  </article>
+</div>
+
+
+<div id="displayOrderModal" class="modal" hidden>
+  <div class="modal-backdrop" data-close-order="1"></div>
+  <article class="modal-panel order-panel">
+    <button class="modal-close" data-close-order="1">×</button>
+    <h2>運動の表示順</h2>
+    <div class="order-toolbar">
+      <input id="exerciseOrderSearch" type="search" placeholder="EX番号・運動名から検索">
+      <button type="button" id="resetExerciseOrderBtn">初期順に戻す</button>
+    </div>
+    <div class="hint">▲▼で1つずつ移動、上端・下端ボタンで大きく移動できます。保存操作は不要で、変更は自動保存されます。</div>
+    <div id="exerciseOrderList" class="exercise-order-list"></div>
+    <div class="settings-footer order-footer">
+      <button type="button" id="closeDisplayOrderBtn" class="primary">表示順編集を閉じる</button>
+    </div>
+  </article>
+</div>
+
+<script src="admin-auth.js"></script>
+<script>
+  if (TSOC_ADMIN_AUTH.guard()) {
+    const s=document.createElement("script");
+    s.src="admin.js?v=Rebuild11";
+    document.body.appendChild(s);
+  }
+</script>
+</body>
+</html>

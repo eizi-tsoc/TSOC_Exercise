@@ -1,8 +1,20 @@
-# Version
+﻿TSOC Exercise Web v2.0.0
 
-**TSOC Exercise Web v1.2.1**
+Production migration date: 2026-09-03
+Source baseline: GitHub TEST Rebuild22
 
-- Base: TSOC Exercise Web v1.2.0
-- Source of truth: `TSOC_Exercise_2v4.xlsm` / `TSOC_Exercise_2v4_output.xlsm`
-- Status: development / review build
-- Purpose of this patch: patient-name suffix correction and print-image dual-layer foundation.
+Main changes:
+- 218 completed exercise images for selection/print
+- Admin screen
+- Exercise edit/new/hide
+- Draft save / initial publish / published update workflow
+- Category add/rename/order
+- Exercise display order
+- Image layout editor
+- QR replacement
+- Print/PDF
+- Visible production version indicator
+
+Important:
+Admin changes are stored in the current browser's localStorage/IndexedDB.
+They do not automatically update the GitHub repository or another PC/browser.

@@ -2,3 +2,182 @@
 .print-page{width:297mm;height:210mm;padding:3mm 5mm 3mm;page-break-after:always;overflow:hidden;background:#fff}.print-page:last-child{page-break-after:auto}.print-head{height:12mm;display:grid;grid-template-columns:1fr 1.1fr 48mm;align-items:center;border-bottom:1px solid #222;margin-bottom:1.5mm;column-gap:4mm}.print-brand{font-size:14pt;font-weight:700;font-style:italic;letter-spacing:.2px}.print-patient{display:grid;grid-template-columns:auto 1fr auto;align-items:end;gap:3mm;font-size:10.5pt}.print-patient strong{display:block;border-bottom:1px solid #111;padding:0 2mm 1mm;min-height:6mm;font-size:12pt}.print-brand-logo{width:45mm;max-height:10mm;object-fit:contain;justify-self:end}.print-grid{height:183mm;display:grid;grid-template-columns:1fr 1fr;grid-template-rows:1fr 1fr;border-left:1px solid #c8c8c8;border-top:1px solid #c8c8c8}.print-ex,.print-empty{min-width:0;min-height:0;border-right:1px solid #c8c8c8;border-bottom:1px solid #c8c8c8;overflow:hidden}.print-ex{display:grid;grid-template-rows:8mm 8mm 1fr 21mm;padding:0 1.8mm}.print-title{display:flex;align-items:center;border-bottom:1px solid #777;font-size:11.3pt;min-width:0}.print-title strong{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.print-purpose-row{display:flex;align-items:center;justify-content:space-between;gap:3mm;font-size:8.8pt}.print-purpose{font-weight:600;font-style:italic;white-space:pre-line;overflow:hidden}.print-dose{font-size:9.5pt;white-space:nowrap}.print-media{min-height:0;display:grid;grid-template-columns:minmax(0,1fr) 27mm;gap:2mm;align-items:center;overflow:hidden;padding:1mm 0}.print-pictures{height:100%;min-width:0}.print-photo-layout{height:100%;display:flex;align-items:center;justify-content:center;gap:2mm;overflow:hidden}.print-photo-item{flex:1;min-width:0;height:100%;display:flex;align-items:center;justify-content:center;overflow:hidden}.print-photo-item img{max-width:100%;max-height:100%;object-fit:contain;transform-origin:center}.print-no-photo{height:100%;display:grid;place-items:center;color:#999}.print-qr{width:26mm;height:26mm;align-self:center;justify-self:center;display:flex;align-items:center;justify-content:center}.print-qr img{max-width:100%;max-height:100%;object-fit:contain}.print-description{font-size:8.2pt;line-height:1.24;white-space:pre-line;overflow:hidden;padding-top:1mm}.print-page footer{height:4mm;font-size:6.3pt;display:flex;align-items:end;justify-content:center;color:#555}.print-empty{padding:4mm;background:#fff}.empty-grid{height:100%;position:relative;display:flex;align-items:center;justify-content:center;background-image:linear-gradient(#e5e5e5 1px,transparent 1px),linear-gradient(90deg,#e5e5e5 1px,transparent 1px);background-size:8mm 8mm}.empty-logo{background:var(--navy);color:white;min-width:42mm;text-align:center;padding:1.2mm 5mm;font-family:Georgia,serif;font-size:12pt}.empty-logo span{margin-left:1mm}.empty-mark{position:absolute;right:8mm;top:50%;transform:translateY(-50%);background:var(--navy);color:white;font-size:5pt;padding:1.2mm 2mm}
 @media(max-width:1000px){body{overflow:auto}.app-shell{height:auto;overflow:visible;grid-template-columns:170px 1fr}.sidebar{height:auto;overflow:visible}.exercise-main{height:auto;overflow:visible}.selection-panel{grid-column:1/-1;border-left:0;border-top:1px solid var(--line);height:auto;overflow:visible}.selection-panel #selectionList{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:8px}.actions{position:static}.selection-panel h2{position:static;padding-top:0}}@media(max-width:700px){.app-shell{display:block}.sidebar{border-right:0;border-bottom:1px solid var(--line)}.exercise-grid{grid-template-columns:1fr}.topbar{padding:0 14px}.exercise-main{padding:0 14px 14px}.selection-panel{border-left:0}}
 @page{size:A4 landscape;margin:0}@media print{body{overflow:visible}body>*:not(#printView){display:none!important}.print-view{display:block!important}.print-page{margin:0!important;box-shadow:none!important}}
+
+
+/* Local completed-image integration test (v1.2.1 base)
+   Print/preview only. Normal exercise selection images are unchanged. */
+.print-completed-stack{
+  width:100%;
+  height:100%;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  overflow:hidden;
+}
+.print-completed-image{
+  display:block;
+  max-width:100%;
+  max-height:100%;
+  width:auto;
+  height:auto;
+  object-fit:contain;
+}
+.print-completed-fallback{
+  display:none;
+  width:100%;
+  height:100%;
+  align-items:center;
+  justify-content:center;
+}
+.print-completed-fallback>.print-photo-layout,
+.print-completed-fallback>.print-no-photo{
+  width:100%;
+  height:100%;
+}
+
+/* =========================================================
+   Completed 218 - Excel-reference fixed print template
+   Design policy:
+   - A4 landscape / 2 x 2 / 4 exercises per page
+   - Every exercise slot uses identical geometry
+   - Title / purpose / media+QR / description areas are fixed
+   - Completed image keeps aspect ratio, is never cropped,
+     and is maximized inside the common fixed media area
+   - QR position and size are fixed for all exercises
+   ========================================================= */
+@media print {
+  .print-ex {
+    grid-template-rows: 8mm 8mm minmax(0, 1fr) 21mm !important;
+  }
+
+  .print-media {
+    grid-template-columns: minmax(0, 1fr) 27mm !important;
+    gap: 2mm !important;
+    align-items: stretch !important;
+    padding: 1mm 0 !important;
+    min-height: 0 !important;
+    overflow: hidden !important;
+  }
+
+  .print-pictures,
+  .print-completed-stack {
+    width: 100% !important;
+    height: 100% !important;
+    min-width: 0 !important;
+    min-height: 0 !important;
+    overflow: hidden !important;
+  }
+
+  .print-completed-stack {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+  }
+
+  .print-completed-image {
+    display: block !important;
+    width: 100% !important;
+    height: 100% !important;
+    max-width: 100% !important;
+    max-height: 100% !important;
+    object-fit: contain !important;
+    object-position: center center !important;
+  }
+
+  .print-qr {
+    width: 26mm !important;
+    height: 26mm !important;
+    align-self: center !important;
+    justify-self: center !important;
+  }
+
+  .print-description {
+    height: 21mm !important;
+    min-height: 21mm !important;
+    max-height: 21mm !important;
+    overflow: hidden !important;
+  }
+}
+
+
+/* =========================================================
+   Screen layout stability candidate
+   Keeps the v1.2.1 three-pane geometry stable when scrollbars
+   appear/disappear. Print layout is unaffected.
+   ========================================================= */
+@media screen and (min-width:1001px){
+  .sidebar,
+  .exercise-main,
+  .selection-panel{
+    scrollbar-gutter:stable;
+  }
+
+  .app-shell{
+    grid-template-columns:210px minmax(480px,1fr) 350px;
+  }
+
+  .exercise-main{
+    min-width:0;
+  }
+
+  .selection-panel{
+    min-width:0;
+  }
+}
+
+/* v1.2.1 local test: all 218 normal-screen previews use completed compositions */
+.completed-preview-wrap{
+  width:100%;
+  height:190px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  overflow:hidden;
+  background:#fff;
+}
+.completed-preview-image{
+  width:100%;
+  height:100%;
+  object-fit:contain;
+  display:block;
+}
+.completed-preview-fallback{
+  width:100%;
+  height:100%;
+  display:none;
+  align-items:center;
+  justify-content:center;
+}
+.sel-thumb .completed-thumb,
+.sel-thumb .legacy-thumb{
+  width:100%;
+  height:100%;
+  object-fit:contain;
+}
+.sel-thumb .legacy-thumb{display:none;}
+
+.topbar-actions{display:flex;align-items:center;gap:10px}
+.admin-page-btn{display:inline-flex;align-items:center;padding:8px 12px;border:1px solid #c7d4de;border-radius:7px;background:#fff;color:#1d506e;text-decoration:none;font-size:13px;font-weight:700}
+.admin-page-btn:hover{background:#f5f9fb}
+
+.github-test-banner{background:#fff3cd;border-bottom:1px solid #e2c56e;color:#6b5400;padding:7px 12px;text-align:center;font-size:12px;font-weight:700;position:relative;z-index:10000}
+
+/* Rebuild21: deployment version badge */
+.tsoc-version-badge{
+  position:fixed;right:10px;bottom:10px;z-index:99999;
+  padding:5px 9px;border:1px solid #c8d2dc;border-radius:6px;
+  background:rgba(255,255,255,.94);font-size:11px;line-height:1.2;
+  color:#536476;box-shadow:0 1px 5px rgba(0,0,0,.08);pointer-events:none;
+}
+
+
+/* Rebuild22: 選択画面の最下段カードが画面下端に隠れないようにする */
+.exercise-grid{
+  padding-bottom:72px !important;
+  scroll-padding-bottom:72px;
+}
+.main-content,
+.exercise-list,
+.center-pane{
+  min-height:0;
+}
