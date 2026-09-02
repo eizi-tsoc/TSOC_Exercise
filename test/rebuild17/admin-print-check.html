@@ -1,0 +1,34 @@
+<!doctype html>
+<html lang="ja"><head><meta name="robots" content="noindex,nofollow">
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>印刷イメージ確認</title>
+<link rel="stylesheet" href="style.css">
+<style>
+body{margin:0;background:#eceff2;font-family:Arial,"Yu Gothic",sans-serif}
+.top{position:sticky;top:0;background:#fff;border-bottom:1px solid #ccc;padding:10px 16px;z-index:9;display:flex;justify-content:space-between}
+.stage{padding:16px}
+.print-page{margin:0 auto!important}
+</style></head>
+<body>
+<div class="top"><strong>印刷イメージ確認</strong><button onclick="window.close()">閉じる</button></div>
+<div class="stage" id="stage"></div>
+<script>
+const raw=sessionStorage.getItem("tsoc_fix6_rebuild_print_v1");
+if(!raw){document.getElementById("stage").textContent="プレビューデータがありません。";throw new Error("no data");}
+const e=JSON.parse(raw);
+const esc=s=>String(s??"").replace(/[&<>"']/g,m=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[m]));
+const img=e.imageDataUrl||e.imagePath||"";
+const qr=e.qr?`<div class="print-qr"><img src="${esc(e.qr)}"></div>`:"";
+const ex=`<article class="print-ex">
+<div class="print-title"><span>種目：</span><strong>${esc(e.name)}</strong></div>
+<div class="print-purpose-row"><div class="print-purpose">${esc(e.purpose)}</div><div class="print-dose"></div></div>
+<div class="print-media"><div class="print-pictures"><div class="print-completed-stack"><img class="print-completed-image" src="${img}"></div></div>${qr}</div>
+<div class="print-description">${esc(e.description)}</div>
+</article>`;
+const empty=()=>`<article class="print-empty"><div class="empty-grid"><div class="empty-logo">TSOC<span>◆</span></div><div class="empty-mark">TSOC</div></div></article>`;
+document.getElementById("stage").innerHTML=`<section class="print-page">
+<header class="print-head"><div class="print-brand">TSOC_エクササイズパンフレット</div><div class="print-patient"><span>氏名</span><strong></strong><span>様</span></div><img class="print-brand-logo" src="assets/branding/tsoc-logo.png"></header>
+<div class="print-grid">${ex}${empty()}${empty()}${empty()}</div>
+<footer>Copyright © 2023 TSOC. All Rights Reserved.</footer></section>`;
+</script>
+</body></html>

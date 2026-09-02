@@ -1,0 +1,14 @@
+﻿TSOC Exercise GitHub TEST Rebuild17
+Build: 2026-09-02 15:52:48
+Target path: test/rebuild17/
+Print images: 218
+Preview images: 218
+Initial admin password: admin
+
+TEST URL after upload:
+https://eizi-tsoc.github.io/TSOC_Exercise/test/rebuild17/
+
+IMPORTANT:
+This is a TEST deployment.
+Do not replace the repository root yet.
+Admin changes are browser-local in this phase.
