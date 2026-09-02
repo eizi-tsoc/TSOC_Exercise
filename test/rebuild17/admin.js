@@ -1,3 +1,4 @@
+// TSOC Exercise Rebuild20 - New Publish Refresh Fix
 // TSOC Exercise Rebuild19 - Published Save Fix
 // 公開済み運動は「管理データ保存」で公開内容を更新。
 // 「公開する」は初回公開前の新規運動だけに表示。
@@ -841,6 +842,10 @@ $("#editPublishBtn")?.addEventListener("click",async()=>{
     if(publishBtn)publishBtn.hidden=true;
     const hint=$("#editPublishHint");
     if(hint)hint.textContent="この運動は公開中です。今後の変更は「管理データ保存」で選択画面へ反映されます。";
+    /* 初回公開が完了したことを明確にし、古い編集状態を残さない */
+    $("#editModal").hidden=true;
+    setupCategoryFilters();
+    render();
   }
 });
 

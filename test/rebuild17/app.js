@@ -1,3 +1,4 @@
+// TSOC Exercise Rebuild20 - selection refresh after publish
 (async()=>{
 if(window.TSOC_APPLY_LOCAL_PUBLISHED) await window.TSOC_APPLY_LOCAL_PUBLISHED();
 const DATA=window.TSOC_EXERCISE_DATA;
@@ -92,12 +93,23 @@ function ensureSelection(){if(!state.selected.length){notice('運動を選択し
 function showPreview(){if(!ensureSelection())return;$('#previewView').innerHTML=buildPrintHTML();$('#previewBackdrop').classList.remove('hidden')}
 function printMenu(){if(!ensureSelection())return;$('#printView').innerHTML=buildPrintHTML();window.print()}
 window.addEventListener("storage",e=>{
-  if(e.key==="tsoc_admin_category_order_v1" || e.key==="tsoc_admin_exercise_order_v1"){
+  if([
+    "tsoc_admin_category_order_v1",
+    "tsoc_admin_exercise_order_v1",
+    "tsoc_admin_phase4_published_v1",
+    "tsoc_admin_custom_categories_v1",
+    "tsoc_admin_category_aliases_v1"
+  ].includes(e.key)){
     location.reload();
   }
 });
 window.addEventListener("pageshow",e=>{
-  if(e.persisted) location.reload();
+  /* Rebuild20:
+     管理画面で公開・保存した後に「戻る」で選択画面へ戻った場合、
+     bfcache の有無にかかわらず最新の localStorage 公開状態を読み直す。
+     初回表示では再読み込みしない。 */
+  const nav=performance.getEntriesByType?.("navigation")?.[0];
+  if(e.persisted || nav?.type==="back_forward") location.reload();
 });
 
 init();
