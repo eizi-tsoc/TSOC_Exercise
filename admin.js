@@ -371,9 +371,11 @@ $("#editForm").addEventListener("submit",async ev=>{
     if(updated && !needsInitialPublish(updated)){
       let imageKey=pubState?.[updated.id]?.imageKey||null;
       try{ if(await idbGet(key)) imageKey=key; }catch(_){}
+      const qrKey=(await publishedQrKeyForExercise(key)) || pubState?.[updated.id]?.qrKey || null;
       pubState[updated.id]={
         data:cleanForPublish(updated),
         imageKey,
+        qrKey,
         publishedAt:new Date().toISOString()
       };
       persistPub();
@@ -769,9 +771,11 @@ async function setExerciseVisibilityByKey(key,hidden){
   let imageKey=pubState?.[updated.id]?.imageKey||null;
   try{if(await idbGet(key))imageKey=key}catch(_){}
 
+  const qrKey=(await publishedQrKeyForExercise(key)) || pubState?.[updated.id]?.qrKey || null;
   pubState[updated.id]={
     data:cleanForPublish(updated),
     imageKey,
+    qrKey,
     publishedAt:new Date().toISOString()
   };
   persistPub();
@@ -795,9 +799,11 @@ async function publishExerciseByKey(key){
   let imageKey=null;
   try{ if(await idbGet(key)) imageKey=key; }catch(_){}
 
+  const qrKey=(await publishedQrKeyForExercise(key)) || pubState?.[e.id]?.qrKey || null;
   pubState[e.id]={
     data:cleanForPublish(e),
     imageKey,
+    qrKey,
     publishedAt:new Date().toISOString()
   };
   persistPub();
@@ -878,21 +884,30 @@ async function _tsocQrPreviewPayload(prefix,key){
   return {qr_mode:"image",qr_url:"",qr:data||null};
 }
 async function _tsocOpenPrintPreview(payload){
-  const w=window.open("admin-print-check.html?v=2.0.4-b004","_blank");
+  const w=window.open("","_blank");
   if(!w){alert("印刷プレビューを開けませんでした。ポップアップを許可してください。");return;}
-  let tries=0;
-  const deliver=()=>{
-    tries++;
-    try{
-      if(typeof w.renderTsocAdminPreview==="function"){
-        w.renderTsocAdminPreview(payload);
-        return;
-      }
-    }catch(_){}
-    if(tries<80)setTimeout(deliver,50);
-    else alert("印刷プレビューへのデータ受け渡しに失敗しました。");
-  };
-  setTimeout(deliver,20);
+  const safe=s=>String(s??"").replace(/[&<>"']/g,m=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[m]));
+  const img=payload.imageDataUrl||payload.imagePath||"";
+  const qr=payload.qr?`<div class="print-qr"><img src="${payload.qr}" alt="QRコード"></div>`:"";
+  const ex=`<article class="print-ex">
+    <div class="print-title"><span>種目：</span><strong>${safe(payload.name)}</strong></div>
+    <div class="print-purpose-row"><div class="print-purpose">${safe(payload.purpose)}</div><div class="print-dose"></div></div>
+    <div class="print-media"><div class="print-pictures"><div class="print-completed-stack"><img class="print-completed-image" src="${img}"></div></div>${qr}</div>
+    <div class="print-description">${safe(payload.description)}</div>
+  </article>`;
+  const empty=`<article class="print-empty"><div class="empty-grid"><div class="empty-logo">TSOC<span>◆</span></div><div class="empty-mark">TSOC</div></div></article>`;
+  w.document.open();
+  w.document.write(`<!doctype html><html lang="ja"><head><meta charset="utf-8"><title>TSOC 印刷イメージ確認</title>
+    <link rel="stylesheet" href="styles.css?v=2.0.4-b005">
+    <style>
+      body{margin:0;background:#fff}.preview-build-badge{position:fixed;right:10px;top:8px;z-index:9999;font:12px sans-serif;background:#fff;border:1px solid #bbb;border-radius:5px;padding:4px 7px}
+      .print-page{margin:0 auto!important}.print-qr{width:26mm;height:26mm;display:flex;align-items:center;justify-content:center;overflow:hidden}
+      .print-qr img{display:block!important;width:26mm!important;height:26mm!important;max-width:26mm!important;max-height:26mm!important;object-fit:contain;background:#fff}
+      @media print{.preview-build-badge{display:none!important}}
+    </style></head><body><div class="preview-build-badge">v2.0.4 / Build005</div>
+    <section class="print-page"><header class="print-head"><div class="print-brand">TSOC_エクササイズパンフレット</div><div class="print-patient"><span>氏名</span><strong></strong><span>様</span></div><img class="print-brand-logo" src="assets/branding/tsoc-logo.png"></header>
+    <div class="print-grid">${ex}${empty}${empty}${empty}</div><footer>Copyright © 2023 TSOC. All Rights Reserved.</footer></section></body></html>`);
+  w.document.close();
 }
 async function _tsocPreviewEdit(){
   if(!currentEditId)return;
@@ -962,6 +977,15 @@ async function qrDataURLForKey(key){
     const r=new FileReader();r.onload=()=>resolve(r.result);r.onerror=reject;r.readAsDataURL(blob);
   });
 }
+async function publishedQrKeyForExercise(key){
+  try{
+    const blob=await getQrForKey(key);
+    return blob?qrBlobKey(key):null;
+  }catch(_){
+    return null;
+  }
+}
+
 function qrMode(prefix){return document.querySelector(`input[name="${prefix}QrMode"]:checked`)?.value||"image";}
 function qrUrlKey(key){return `tsoc_qr_url_v1:${key}`;}
 function saveQrUrl(key,url){const v=String(url||"").trim();if(v)localStorage.setItem(qrUrlKey(key),v);else localStorage.removeItem(qrUrlKey(key));}

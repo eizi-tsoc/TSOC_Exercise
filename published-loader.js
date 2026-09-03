@@ -32,6 +32,7 @@ window.TSOC_APPLY_LOCAL_PUBLISHED = async function(){
   DATA.categories=allCats.sort((a,b)=>(orderPos.get(a)??999999)-(orderPos.get(b)??999999));
 
   window.TSOC_PUBLISHED_IMAGE_URLS={};
+  window.TSOC_PUBLISHED_QR_URLS={};
 
   function openDB(){
     return new Promise((resolve,reject)=>{
@@ -54,8 +55,19 @@ window.TSOC_APPLY_LOCAL_PUBLISHED = async function(){
   }
 
   for(const [id,entry] of Object.entries(state)){
-    if(!entry?.data || entry.data.hidden || !entry.imageKey)continue;
-    const blob=await getBlob(entry.imageKey);
-    if(blob)window.TSOC_PUBLISHED_IMAGE_URLS[id]=URL.createObjectURL(blob);
+    if(!entry?.data || entry.data.hidden)continue;
+    if(entry.imageKey){
+      const blob=await getBlob(entry.imageKey);
+      if(blob)window.TSOC_PUBLISHED_IMAGE_URLS[id]=URL.createObjectURL(blob);
+    }
+    if(entry.qrKey){
+      const qrBlob=await getBlob(entry.qrKey);
+      if(qrBlob){
+        const qrURL=URL.createObjectURL(qrBlob);
+        window.TSOC_PUBLISHED_QR_URLS[id]=qrURL;
+        const ex=DATA.exercises.find(e=>e.id===id);
+        if(ex)ex.qr=qrURL;
+      }
+    }
   }
 };
