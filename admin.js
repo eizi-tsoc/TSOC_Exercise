@@ -867,7 +867,22 @@ async function _tsocQrPreviewData(prefix,key){
   const f=$(`#${prefix}QrImage`)?.files?.[0];if(f)return await _tsocFileToDataURL(f);return key?await qrDataURLForKey(key):null;
 }
 async function _tsocOpenPrintPreview(payload){
-  sessionStorage.setItem("tsoc_fix6_rebuild_print_v1",JSON.stringify(payload));
+  /*
+    v2.0.2:
+    admin-print-check 側の旧QRフィールド名との互換性を確保する。
+    QRの実体は data URL で渡し、旧/新どちらの参照名でも取得できるようにする。
+  */
+  const q=payload?.qr||payload?.qr_image||payload?.qrImage||payload?.qrDataUrl||null;
+  const normalized={
+    ...payload,
+    qr:q,
+    qr_image:q||"",
+    qrImage:q||null,
+    qrDataUrl:q||null,
+    qr_image_data_url:q||null,
+    qr_images:q?[q]:[]
+  };
+  sessionStorage.setItem("tsoc_fix6_rebuild_print_v1",JSON.stringify(normalized));
   window.open("admin-print-check.html","_blank");
 }
 async function _tsocPreviewEdit(){
