@@ -866,17 +866,33 @@ async function _tsocQrPreviewPayload(prefix,key){
   const mode=qrMode(prefix);
   if(mode==="url"){
     const url=$(`#${prefix}QrUrl`)?.value.trim()||(key?getQrUrl(key):"");
-    return {qr_mode:"url",qr_url:url||"",qr:null,qr_image_data_url:null};
+    if(!url)return {qr_mode:"url",qr_url:"",qr:null};
+    const qrBlob=await generatedQrBlob(url);
+    const qrData=await _tsocFileToDataURL(qrBlob);
+    return {qr_mode:"url",qr_url:url,qr:qrData};
   }
   const f=$(`#${prefix}QrImage`)?.files?.[0];
   let data=null;
   if(f)data=await _tsocFileToDataURL(f);
   else if(key)data=await qrDataURLForKey(key);
-  return {qr_mode:"image",qr_url:"",qr:data||null,qr_image_data_url:data||null};
+  return {qr_mode:"image",qr_url:"",qr:data||null};
 }
 async function _tsocOpenPrintPreview(payload){
-  sessionStorage.setItem("tsoc_fix6_rebuild_print_v1",JSON.stringify(payload));
-  window.open("admin-print-check.html?v=2.0.3","_blank");
+  const w=window.open("admin-print-check.html?v=2.0.4-b004","_blank");
+  if(!w){alert("印刷プレビューを開けませんでした。ポップアップを許可してください。");return;}
+  let tries=0;
+  const deliver=()=>{
+    tries++;
+    try{
+      if(typeof w.renderTsocAdminPreview==="function"){
+        w.renderTsocAdminPreview(payload);
+        return;
+      }
+    }catch(_){}
+    if(tries<80)setTimeout(deliver,50);
+    else alert("印刷プレビューへのデータ受け渡しに失敗しました。");
+  };
+  setTimeout(deliver,20);
 }
 async function _tsocPreviewEdit(){
   if(!currentEditId)return;

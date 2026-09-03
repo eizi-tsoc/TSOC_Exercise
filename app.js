@@ -63,14 +63,18 @@ function imageMarkup(e,cls=''){const fallback=e.images.length?`<div class="photo
 function thumbMarkup(e){const fallback=e.images?.[0];return `<div class="sel-thumb"><img class="completed-thumb" src="${completedPreviewPath(e)}" alt="" onerror="this.style.display='none';this.nextElementSibling.style.display='block'"><img class="legacy-thumb" src="${fallback||''}" alt="" style="${fallback?transformStyle(e.image_transforms?.[0]):'display:none'}"></div>`}
 function categoryTag(e){return e.categories.map(c=>`<span class="tag">${esc(c)}</span>`).join('')}
 function renderGrid(){const g=$('#exerciseGrid');g.innerHTML='';filtered().forEach(e=>{const card=document.createElement('article');card.className='exercise-card'+(selectedId(e.id)?' selected':'');card.innerHTML=`${imageMarkup(e)}<div class="card-body"><div class="tags">${categoryTag(e)}</div><h3 class="card-title">${esc(e.name)}</h3><p class="purpose">${esc(e.purpose)}</p><div class="description">${esc(e.description)}</div></div>`;card.onclick=()=>toggle(e.id);g.appendChild(card)})}
-function selectOptions(values,current,blank='－'){return `<option value="">${blank}</option>${values.map(v=>`<option value="${v}" ${String(current)===String(v)?'selected':''}>${v}</option>`).join('')}`}
+function selectOptions(values,current,blank='－'){
+  const vals=[...values];
+  if(current!==''&&current!=null&&!vals.some(v=>String(v)===String(current)))vals.push(current);
+  return `<option value="">${blank}</option>${vals.map(v=>`<option value="${v}" ${String(current)===String(v)?'selected':''}>${v}</option>`).join('')}`;
+}
 function renderSelection(){
   const box=$('#selectionList');box.innerHTML='';
   state.selected.forEach((s,idx)=>{const e=byId(s.id),d=document.createElement('div');d.className='selection-item';
     d.innerHTML=`<div class="sel-main">${thumbMarkup(e)}<div class="sel-info"><div class="sel-row"><span class="sel-no">${idx+1}</span><strong>${esc(e.name)}</strong><button class="remove" aria-label="削除">×</button></div><div class="reorder"><button class="move up" title="上へ" ${idx===0?'disabled':''}>▲</button><button class="move down" title="下へ" ${idx===state.selected.length-1?'disabled':''}>▼</button><span>印刷順</span></div></div></div><div class="dose"><label><span>回数/時間</span><select class="reps">${selectOptions(valuesForUnit(s.unit),s.reps)}</select></label><label><span>単位</span><select class="unit">${units.map(u=>`<option ${s.unit===u?'selected':''}>${u}</option>`).join('')}</select></label><label><span>セット</span><select class="sets">${selectOptions(setValues,s.sets)}</select></label></div>`;
     d.querySelector('.remove').onclick=()=>{state.selected.splice(idx,1);renderAll()};
     d.querySelector('.up').onclick=()=>moveSelection(idx,-1); d.querySelector('.down').onclick=()=>moveSelection(idx,1);
-    d.querySelector('.reps').onchange=x=>s.reps=x.target.value;d.querySelector('.unit').onchange=x=>{s.unit=x.target.value;s.reps='';renderSelection()};d.querySelector('.sets').onchange=x=>s.sets=x.target.value;box.appendChild(d)});
+    d.querySelector('.reps').onchange=x=>s.reps=x.target.value;d.querySelector('.unit').onchange=x=>{s.unit=x.target.value;};d.querySelector('.sets').onchange=x=>s.sets=x.target.value;box.appendChild(d)});
   $('#count').textContent=state.selected.length;
 }
 function renderAll(){renderGrid();renderSelection()}
