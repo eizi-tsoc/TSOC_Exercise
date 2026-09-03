@@ -5,7 +5,7 @@
   <title>TSOC Exercise 管理画面 Phase 2</title>
   <link rel="stylesheet" href="admin.css">
 </head>
-<body><div class="tsoc-version-badge" title="現在表示中のWeb版">TSOC Exercise Web v2.0.4 / Build005</div><header class="admin-header">
+<body><div class="tsoc-version-badge" title="現在表示中のWeb版">TSOC Exercise Web v2.0.4 / Build006</div><header class="admin-header">
     <div>
       <h1>TSOC Exercise 管理画面</h1>
       <div class="sub">GitHub TEST Rebuild17：管理・公開ワークフロー</div>
@@ -97,8 +97,8 @@
 <fieldset class="qr-source-box">
   <legend>QRコード</legend>
   <div class="qr-mode-row"><label><input type="radio" name="fQrMode" value="url"> URLから生成</label><label><input type="radio" name="fQrMode" value="image"> QR画像を使用</label></div>
-  <div class="qr-url-panel"><label>リンク先URL<input id="fQrUrl" type="url" inputmode="url" placeholder="https://..."></label><div class="hint">今後はこちらを推奨します。URLから同じ規格のQRコードを自動生成します。</div></div>
-  <div class="qr-image-panel"><label class="file-label">QR画像を選択<input id="fQrImage" type="file" accept="image/png,image/jpeg,image/webp"></label><div class="hint">既存QR画像も使用できます。300×300px以上推奨。200×200px未満は警告します。</div></div>
+  <div class="qr-url-panel"><label>リンク先URL<input id="fQrUrl" type="url" inputmode="url" placeholder="https://..."></label><div class="hint">今後はこちらを推奨します。URLから動画再生マーク入りのQRコードを同じ規格で自動生成します。</div></div>
+  <div class="qr-image-panel"><label class="file-label">QR画像を選択<input id="fQrImage" type="file" accept="image/png,image/jpeg,image/webp"></label><div class="hint">既存QR画像も使用できます。外周余白を自動調整し、表示サイズを統一します。300×300px以上推奨。</div></div>
   <div id="fQrPreview" class="qr-generated-preview"></div>
 </fieldset>
 
@@ -170,8 +170,8 @@
 <fieldset class="qr-source-box">
   <legend>QRコード</legend>
   <div class="qr-mode-row"><label><input type="radio" name="nQrMode" value="url" checked> URLから生成</label><label><input type="radio" name="nQrMode" value="image"> QR画像を使用</label></div>
-  <div class="qr-url-panel"><label>リンク先URL<input id="nQrUrl" type="url" inputmode="url" placeholder="https://..."></label><div class="hint">新規運動はこちらを推奨します。URLから同じ規格のQRコードを自動生成します。</div></div>
-  <div class="qr-image-panel"><label class="file-label">QR画像を選択<input id="nQrImage" type="file" accept="image/png,image/jpeg,image/webp"></label><div class="hint">作成済みQR画像も使用できます。300×300px以上推奨。200×200px未満は警告します。</div></div>
+  <div class="qr-url-panel"><label>リンク先URL<input id="nQrUrl" type="url" inputmode="url" placeholder="https://..."></label><div class="hint">新規運動はこちらを推奨します。URLから動画再生マーク入りのQRコードを同じ規格で自動生成します。</div></div>
+  <div class="qr-image-panel"><label class="file-label">QR画像を選択<input id="nQrImage" type="file" accept="image/png,image/jpeg,image/webp"></label><div class="hint">作成済みQR画像も使用できます。外周余白を自動調整し、表示サイズを統一します。300×300px以上推奨。</div></div>
   <div id="nQrPreview" class="qr-generated-preview"></div>
 </fieldset>
             <div class="form-actions">
@@ -352,7 +352,7 @@
 <script>
   if (TSOC_ADMIN_AUTH.guard()) {
     const s=document.createElement("script");
-    s.src="admin.js?v=2.0.4-b005";
+    s.src="admin.js?v=2.0.4-b006";
     document.body.appendChild(s);
   }
 </script>

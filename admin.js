@@ -879,8 +879,10 @@ async function _tsocQrPreviewPayload(prefix,key){
   }
   const f=$(`#${prefix}QrImage`)?.files?.[0];
   let data=null;
-  if(f)data=await _tsocFileToDataURL(f);
-  else if(key)data=await qrDataURLForKey(key);
+  if(f){
+    const normalized=await normalizeUploadedQr(f);
+    data=await _tsocFileToDataURL(normalized);
+  }else if(key)data=await qrDataURLForKey(key);
   return {qr_mode:"image",qr_url:"",qr:data||null};
 }
 async function _tsocOpenPrintPreview(payload){
@@ -991,12 +993,42 @@ function qrUrlKey(key){return `tsoc_qr_url_v1:${key}`;}
 function saveQrUrl(key,url){const v=String(url||"").trim();if(v)localStorage.setItem(qrUrlKey(key),v);else localStorage.removeItem(qrUrlKey(key));}
 function getQrUrl(key){return localStorage.getItem(qrUrlKey(key))||"";}
 function validHttpUrl(v){try{const u=new URL(v);return u.protocol==="http:"||u.protocol==="https:"}catch{return false}}
+function drawVideoPlayMark(canvas){
+  if(!canvas)return;
+  const ctx=canvas.getContext("2d");
+  const w=canvas.width,h=canvas.height;
+  const bw=Math.round(Math.min(w,h)*0.18);
+  const bh=Math.round(bw*0.68);
+  const x=Math.round((w-bw)/2),y=Math.round((h-bh)/2);
+  const r=Math.round(bh*0.22);
+  ctx.save();
+  ctx.fillStyle="#e60000";
+  ctx.beginPath();
+  ctx.moveTo(x+r,y);ctx.lineTo(x+bw-r,y);
+  ctx.quadraticCurveTo(x+bw,y,x+bw,y+r);
+  ctx.lineTo(x+bw,y+bh-r);
+  ctx.quadraticCurveTo(x+bw,y+bh,x+bw-r,y+bh);
+  ctx.lineTo(x+r,y+bh);
+  ctx.quadraticCurveTo(x,y+bh,x,y+bh-r);
+  ctx.lineTo(x,y+r);
+  ctx.quadraticCurveTo(x,y,x+r,y);
+  ctx.closePath();ctx.fill();
+  ctx.fillStyle="#fff";
+  ctx.beginPath();
+  ctx.moveTo(x+bw*0.43,y+bh*0.28);
+  ctx.lineTo(x+bw*0.43,y+bh*0.72);
+  ctx.lineTo(x+bw*0.70,y+bh*0.50);
+  ctx.closePath();ctx.fill();
+  ctx.restore();
+}
 function renderGeneratedQr(hostId,url){
   const host=$(hostId);if(!host)return;host.innerHTML="";if(!url)return;
   if(!validHttpUrl(url)){host.textContent="URLを確認してください。";return}
   if(typeof QRCode==="undefined"){host.textContent="QR生成ライブラリを読み込めません。";return}
-  try{new QRCode(host,{text:url,width:256,height:256,colorDark:"#000000",colorLight:"#ffffff",correctLevel:QRCode.CorrectLevel.M})}
-  catch(err){console.error(err);host.textContent="QRコードを生成できませんでした。"}
+  try{
+    new QRCode(host,{text:url,width:256,height:256,colorDark:"#000000",colorLight:"#ffffff",correctLevel:QRCode.CorrectLevel.H});
+    setTimeout(()=>{const c=host.querySelector("canvas");if(c)drawVideoPlayMark(c)},0);
+  }catch(err){console.error(err);host.textContent="QRコードを生成できませんでした。"}
 }
 function setupQrMode(prefix){
   const form=prefix==="f"?"editForm":"newForm",box=$(`#${form} .qr-source-box`);
@@ -1012,13 +1044,42 @@ async function warnSmallQrImage(file){
   }catch(_){}
   return true;
 }
+async function normalizeUploadedQr(file){
+  const data=await _tsocFileToDataURL(file);
+  const img=await new Promise((res,rej)=>{const im=new Image();im.onload=()=>res(im);im.onerror=rej;im.src=data});
+  const src=document.createElement("canvas");
+  src.width=img.naturalWidth;src.height=img.naturalHeight;
+  const sctx=src.getContext("2d",{willReadFrequently:true});
+  sctx.drawImage(img,0,0);
+  const px=sctx.getImageData(0,0,src.width,src.height).data;
+  let minX=src.width,minY=src.height,maxX=-1,maxY=-1;
+  for(let y=0;y<src.height;y++)for(let x=0;x<src.width;x++){
+    const i=(y*src.width+x)*4,r=px[i],g=px[i+1],b=px[i+2],a=px[i+3];
+    if(a>=24 && !(r>244&&g>244&&b>244)){
+      if(x<minX)minX=x;if(x>maxX)maxX=x;if(y<minY)minY=y;if(y>maxY)maxY=y;
+    }
+  }
+  if(maxX<minX||maxY<minY){minX=0;minY=0;maxX=src.width-1;maxY=src.height-1}
+  const cropW=maxX-minX+1,cropH=maxY-minY+1;
+  const out=document.createElement("canvas");out.width=512;out.height=512;
+  const ctx=out.getContext("2d");ctx.fillStyle="#fff";ctx.fillRect(0,0,512,512);
+  const margin=Math.round(512*0.075),fit=512-margin*2;
+  const scale=Math.min(fit/cropW,fit/cropH);
+  const dw=Math.round(cropW*scale),dh=Math.round(cropH*scale);
+  const dx=Math.round((512-dw)/2),dy=Math.round((512-dh)/2);
+  ctx.imageSmoothingEnabled=false;
+  ctx.drawImage(src,minX,minY,cropW,cropH,dx,dy,dw,dh);
+  return await new Promise((res,rej)=>out.toBlob(b=>b?res(b):rej(new Error("QR画像の調整に失敗しました。")),"image/png"));
+}
 async function generatedQrBlob(url){
   if(!validHttpUrl(url))throw new Error("QRコードのURLを確認してください。");
   if(typeof QRCode==="undefined")throw new Error("QR生成ライブラリを読み込めません。");
   const host=document.createElement("div");host.style.position="fixed";host.style.left="-9999px";document.body.appendChild(host);
   try{
-    new QRCode(host,{text:url,width:512,height:512,colorDark:"#000000",colorLight:"#ffffff",correctLevel:QRCode.CorrectLevel.M});
-    await new Promise(r=>setTimeout(r,40));const canvas=host.querySelector("canvas");if(!canvas)throw new Error("QR画像を生成できませんでした。");
+    new QRCode(host,{text:url,width:512,height:512,colorDark:"#000000",colorLight:"#ffffff",correctLevel:QRCode.CorrectLevel.H});
+    await new Promise(r=>setTimeout(r,40));
+    const canvas=host.querySelector("canvas");if(!canvas)throw new Error("QR画像を生成できませんでした。");
+    drawVideoPlayMark(canvas);
     return await new Promise((res,rej)=>canvas.toBlob(b=>b?res(b):rej(new Error("QR画像の保存に失敗しました。")),"image/png"));
   }finally{host.remove()}
 }
@@ -1029,7 +1090,8 @@ async function saveQrChoice(prefix,key){
     await saveQrForKey(key,await generatedQrBlob(url));saveQrUrl(key,url);
   }else if(file){
     if(!(await warnSmallQrImage(file)))throw new Error("QR画像の保存をキャンセルしました。");
-    await saveQrForKey(key,file);saveQrUrl(key,"");
+    const normalized=await normalizeUploadedQr(file);
+    await saveQrForKey(key,normalized);saveQrUrl(key,"");
   }
 }
 
