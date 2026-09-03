@@ -244,7 +244,7 @@ function render(){
     newItems=newItems.filter(x=>x._key!==key);
     localStorage.setItem(NEW_KEY,JSON.stringify(newItems));
     await idbDelete(key).catch(()=>{});
-    await idbDelete(qrBlobKey(key)).catch(()=>{});
+    await idbDelete(qrBlobKey(key)).catch(()=>{});localStorage.removeItem(qrUrlKey(key));
     try{
       const db=await veOpenDB();
       await new Promise((res,rej)=>{const r=db.transaction(VE_DB_STORE,"readwrite").objectStore(VE_DB_STORE).delete(key);r.onsuccess=()=>res();r.onerror=()=>rej(r.error)});
@@ -268,7 +268,10 @@ async function openEdit(key){
   $("#fId").value=e.id;$("#fName").value=e.name||"";$("#fPurpose").value=e.purpose||"";$("#fDescription").value=desc(e);$("#fHidden").checked=!!e.hidden;
   categoryChecks($("#categoryChecks"),e.categories||[]);
   $("#editTitle").textContent=`運動編集：${e.id} ${e.name}`;
-  $("#fImage").value="";
+  $("#fImage").value="";$("#fQrImage").value="";
+  const savedQrUrl=getQrUrl(key);$("#fQrUrl").value=savedQrUrl;
+  const fMode=savedQrUrl?"url":"image",fRadio=document.querySelector(`input[name="fQrMode"][value="${fMode}"]`);
+  if(fRadio)fRadio.checked=true;const fQrBox=$("#editForm .qr-source-box");if(fQrBox)fQrBox.dataset.mode=fMode;renderGeneratedQr("#fQrPreview",savedQrUrl);
 
   const initialPublish=needsInitialPublish(e);
   const publishBtn=$("#editPublishBtn");
@@ -356,8 +359,7 @@ $("#editForm").addEventListener("submit",async ev=>{
     const file=$("#fImage").files[0];
     if(file) await idbPut(key,file);
 
-    const qrFile=$("#fQrImage")?.files?.[0];
-    if(qrFile) await saveQrForKey(key,qrFile);
+    await saveQrChoice("f",key);
 
     /*
       Rebuild19 公開モデル:
@@ -403,7 +405,7 @@ $("#revertBtn").addEventListener("click",async()=>{
     delete drafts[key];
     localStorage.setItem(DRAFT_KEY,JSON.stringify(drafts));
     await idbDelete(key);
-    await idbDelete(qrBlobKey(key)).catch(()=>{});
+    await idbDelete(qrBlobKey(key)).catch(()=>{});localStorage.removeItem(qrUrlKey(key));
     if(pubState[key]){
       delete pubState[key];
       persistPub();
@@ -430,7 +432,7 @@ function nextId(){
   const nums=allExercises().map(e=>parseInt(String(e.id).replace(/\D/g,""),10)).filter(Number.isFinite);
   return `EX${String(Math.max(...nums,0)+1).padStart(3,"0")}`;
 }
-$("#newBtn").onclick=()=>{const id=nextId();$("#nId").value=id;$("#nName").value="";$("#nPurpose").value="";$("#nDescription").value="";$("#nImage").value="";categoryChecks($("#newCategoryChecks"),[]);updateNewPreview();$("#newModal").hidden=false};
+$("#newBtn").onclick=()=>{const id=nextId();$("#nId").value=id;$("#nName").value="";$("#nPurpose").value="";$("#nDescription").value="";$("#nQrUrl").value="";$("#nQrImage").value="";const qru=document.querySelector('input[name="nQrMode"][value="url"]');if(qru)qru.checked=true;const qrb=$("#newForm .qr-source-box");if(qrb)qrb.dataset.mode="url";renderGeneratedQr("#nQrPreview","");$("#nImage").value="";categoryChecks($("#newCategoryChecks"),[]);updateNewPreview();$("#newModal").hidden=false};
 function updateNewPreview(){const f=$("#nImage").files[0];if(tempNewImageURL){URL.revokeObjectURL(tempNewImageURL);tempNewImageURL=null}if(f)tempNewImageURL=URL.createObjectURL(f);$("#newPreviewImage").innerHTML=tempNewImageURL?`<img src="${tempNewImageURL}">`:"";$("#newPreviewName").textContent=$("#nName").value||"新規運動";$("#newPreviewPurpose").textContent=$("#nPurpose").value;$("#newPreviewDescription").textContent=$("#nDescription").value;$("#newPreviewTags").innerHTML=selectedCats($("#newCategoryChecks")).map(c=>`<span class="tag">${esc(c)}</span>`).join("")}
 ["nName","nPurpose","nDescription"].forEach(id=>$("#"+id).addEventListener("input",updateNewPreview));$("#newCategoryChecks").addEventListener("change",updateNewPreview);$("#nImage").addEventListener("change",updateNewPreview);
 $("#newForm").addEventListener("submit",async ev=>{
@@ -496,8 +498,7 @@ $("#newForm").addEventListener("submit",async ev=>{
       if(editorLayout)await vePut(key,editorLayout);
       window._tsocNewEditorImageKey=null;
     }
-    const qrFile=$("#nQrImage")?.files?.[0];
-    if(qrFile)await saveQrForKey(key,qrFile);
+    await saveQrChoice("n",key);
 
     $("#newModal").hidden=true;
     setupCategoryFilters();
@@ -861,6 +862,10 @@ async function _tsocFileToDataURL(file){
     const r=new FileReader();r.onload=()=>resolve(r.result);r.onerror=reject;r.readAsDataURL(file);
   });
 }
+async function _tsocQrPreviewData(prefix,key){
+  if(qrMode(prefix)==="url"){const url=$(`#${prefix}QrUrl`)?.value.trim()||(key?getQrUrl(key):"");if(url)return await _tsocFileToDataURL(await generatedQrBlob(url));}
+  const f=$(`#${prefix}QrImage`)?.files?.[0];if(f)return await _tsocFileToDataURL(f);return key?await qrDataURLForKey(key):null;
+}
 async function _tsocOpenPrintPreview(payload){
   sessionStorage.setItem("tsoc_fix6_rebuild_print_v1",JSON.stringify(payload));
   window.open("admin-print-check.html","_blank");
@@ -880,7 +885,7 @@ async function _tsocPreviewEdit(){
     name:$("#fName").value.trim(),
     purpose:$("#fPurpose").value,
     description:$("#fDescription").value,
-    qr:(await qrDataURLForKey(currentEditId)) || e.qr || null,
+    qr:(await _tsocQrPreviewData("f",currentEditId)) || e.qr || null,
     imageDataUrl:dataUrl,
     imagePath:dataUrl?null:`assets/print-completed/${String(e.id).toLowerCase()}_completed.png`
   });
@@ -893,7 +898,7 @@ async function _tsocPreviewNew(){
     name:$("#nName").value.trim()||"新規運動",
     purpose:$("#nPurpose").value,
     description:$("#nDescription").value,
-    qr:($("#nQrImage")?.files?.[0] ? await _tsocFileToDataURL($("#nQrImage").files[0]) : null),
+    qr:(await _tsocQrPreviewData("n",null)),
     imageDataUrl:await _tsocFileToDataURL(file),
     imagePath:null
   });
@@ -933,6 +938,53 @@ async function qrDataURLForKey(key){
     const r=new FileReader();r.onload=()=>resolve(r.result);r.onerror=reject;r.readAsDataURL(blob);
   });
 }
+function qrMode(prefix){return document.querySelector(`input[name="${prefix}QrMode"]:checked`)?.value||"image";}
+function qrUrlKey(key){return `tsoc_qr_url_v1:${key}`;}
+function saveQrUrl(key,url){const v=String(url||"").trim();if(v)localStorage.setItem(qrUrlKey(key),v);else localStorage.removeItem(qrUrlKey(key));}
+function getQrUrl(key){return localStorage.getItem(qrUrlKey(key))||"";}
+function validHttpUrl(v){try{const u=new URL(v);return u.protocol==="http:"||u.protocol==="https:"}catch{return false}}
+function renderGeneratedQr(hostId,url){
+  const host=$(hostId);if(!host)return;host.innerHTML="";if(!url)return;
+  if(!validHttpUrl(url)){host.textContent="URLを確認してください。";return}
+  if(typeof QRCode==="undefined"){host.textContent="QR生成ライブラリを読み込めません。";return}
+  try{new QRCode(host,{text:url,width:256,height:256,colorDark:"#000000",colorLight:"#ffffff",correctLevel:QRCode.CorrectLevel.M})}
+  catch(err){console.error(err);host.textContent="QRコードを生成できませんでした。"}
+}
+function setupQrMode(prefix){
+  const form=prefix==="f"?"editForm":"newForm",box=$(`#${form} .qr-source-box`);
+  const update=()=>{const mode=qrMode(prefix);if(box)box.dataset.mode=mode;renderGeneratedQr(`#${prefix}QrPreview`,mode==="url"?$(`#${prefix}QrUrl`)?.value.trim():"")};
+  document.querySelectorAll(`input[name="${prefix}QrMode"]`).forEach(r=>r.addEventListener("change",update));
+  $(`#${prefix}QrUrl`)?.addEventListener("input",update);update();
+}
+async function warnSmallQrImage(file){
+  if(!file)return true;
+  try{
+    const u=URL.createObjectURL(file),dim=await new Promise((res,rej)=>{const im=new Image();im.onload=()=>res([im.naturalWidth,im.naturalHeight]);im.onerror=rej;im.src=u});URL.revokeObjectURL(u);
+    if(dim[0]<200||dim[1]<200)return confirm(`QR画像が小さい可能性があります（${dim[0]}×${dim[1]}px）。\n300×300px以上を推奨しています。\n\nこの画像を使用しますか？`);
+  }catch(_){}
+  return true;
+}
+async function generatedQrBlob(url){
+  if(!validHttpUrl(url))throw new Error("QRコードのURLを確認してください。");
+  if(typeof QRCode==="undefined")throw new Error("QR生成ライブラリを読み込めません。");
+  const host=document.createElement("div");host.style.position="fixed";host.style.left="-9999px";document.body.appendChild(host);
+  try{
+    new QRCode(host,{text:url,width:512,height:512,colorDark:"#000000",colorLight:"#ffffff",correctLevel:QRCode.CorrectLevel.M});
+    await new Promise(r=>setTimeout(r,40));const canvas=host.querySelector("canvas");if(!canvas)throw new Error("QR画像を生成できませんでした。");
+    return await new Promise((res,rej)=>canvas.toBlob(b=>b?res(b):rej(new Error("QR画像の保存に失敗しました。")),"image/png"));
+  }finally{host.remove()}
+}
+async function saveQrChoice(prefix,key){
+  const mode=qrMode(prefix),url=$(`#${prefix}QrUrl`)?.value.trim()||"",file=$(`#${prefix}QrImage`)?.files?.[0]||null;
+  if(mode==="url"){
+    if(!url){saveQrUrl(key,"");return}
+    await saveQrForKey(key,await generatedQrBlob(url));saveQrUrl(key,url);
+  }else if(file){
+    if(!(await warnSmallQrImage(file)))throw new Error("QR画像の保存をキャンセルしました。");
+    await saveQrForKey(key,file);saveQrUrl(key,"");
+  }
+}
+
 
 /* ===== Rebuild2: non-destructive image layout editor ===== */
 const VE_DB_NAME="tsoc_visual_editor_v1";
@@ -1484,3 +1536,5 @@ $("#resetExerciseOrderBtn")?.addEventListener("click",()=>{
 document.addEventListener("keydown",e=>{
   if(e.key==="Escape" && !$("#displayOrderModal")?.hidden)closeDisplayOrder();
 });
+
+setupQrMode("f");setupQrMode("n");

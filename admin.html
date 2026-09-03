@@ -2,13 +2,13 @@
 <html lang="ja">
 <head><meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>TSOC Exercise 管理画面</title>
+  <title>TSOC Exercise 管理画面 Phase 2</title>
   <link rel="stylesheet" href="admin.css">
 </head>
-<body><div class="tsoc-version-badge" title="現在表示中のWeb版">TSOC Exercise Web v2.0.0</div><header class="admin-header">
+<body><div class="tsoc-version-badge" title="現在表示中のWeb版">TSOC Exercise Web v2.0.1</div><header class="admin-header">
     <div>
       <h1>TSOC Exercise 管理画面</h1>
-      <div class="sub">Web v2.0.0：管理・公開ワークフロー</div>
+      <div class="sub">GitHub TEST Rebuild17：管理・公開ワークフロー</div>
     </div>
     <div class="header-actions">
       <button id="newBtn" class="primary">＋ 新規追加</button>
@@ -44,7 +44,7 @@
 
   <section class="result-bar">
     <div><strong id="resultCount">218</strong> 件表示</div>
-    <div class="draft-badge">管理データはこのPC・ブラウザ内に保存されます（GitHub上のファイルは自動変更されません）</div>
+    <div class="draft-badge">ローカル確認版：公開操作はこのPC内の利用画面にだけ反映します（GitHubは変更しません）</div>
   </section>
 
   <main>
@@ -95,11 +95,11 @@
   </details>
 </fieldset>
 <fieldset class="qr-source-box">
-  <legend>QR画像</legend>
-  <label class="file-label">QR画像を選択
-    <input id="fQrImage" type="file" accept="image/png,image/jpeg,image/webp">
-  </label>
-  <div class="hint">QR画像がない場合は空欄のままでも保存できます。</div>
+  <legend>QRコード</legend>
+  <div class="qr-mode-row"><label><input type="radio" name="fQrMode" value="url"> URLから生成</label><label><input type="radio" name="fQrMode" value="image"> QR画像を使用</label></div>
+  <div class="qr-url-panel"><label>リンク先URL<input id="fQrUrl" type="url" inputmode="url" placeholder="https://..."></label><div class="hint">今後はこちらを推奨します。URLから同じ規格のQRコードを自動生成します。</div></div>
+  <div class="qr-image-panel"><label class="file-label">QR画像を選択<input id="fQrImage" type="file" accept="image/png,image/jpeg,image/webp"></label><div class="hint">既存QR画像も使用できます。300×300px以上推奨。200×200px未満は警告します。</div></div>
+  <div id="fQrPreview" class="qr-generated-preview"></div>
 </fieldset>
 
             <label class="toggle-row">
@@ -168,11 +168,11 @@
   </details>
 </fieldset>
 <fieldset class="qr-source-box">
-  <legend>QR画像</legend>
-  <label class="file-label">QR画像を選択
-    <input id="nQrImage" type="file" accept="image/png,image/jpeg,image/webp">
-  </label>
-  <div class="hint">QR画像は後から追加・差し替えもできます。</div>
+  <legend>QRコード</legend>
+  <div class="qr-mode-row"><label><input type="radio" name="nQrMode" value="url" checked> URLから生成</label><label><input type="radio" name="nQrMode" value="image"> QR画像を使用</label></div>
+  <div class="qr-url-panel"><label>リンク先URL<input id="nQrUrl" type="url" inputmode="url" placeholder="https://..."></label><div class="hint">新規運動はこちらを推奨します。URLから同じ規格のQRコードを自動生成します。</div></div>
+  <div class="qr-image-panel"><label class="file-label">QR画像を選択<input id="nQrImage" type="file" accept="image/png,image/jpeg,image/webp"></label><div class="hint">作成済みQR画像も使用できます。300×300px以上推奨。200×200px未満は警告します。</div></div>
+  <div id="nQrPreview" class="qr-generated-preview"></div>
 </fieldset>
             <div class="form-actions">
               <button type="button" data-close-new="1">キャンセル</button>
@@ -348,6 +348,7 @@
 </div>
 
 <script src="admin-auth.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/qrcodejs@1.0.0/qrcode.min.js"></script>
 <script>
   if (TSOC_ADMIN_AUTH.guard()) {
     const s=document.createElement("script");

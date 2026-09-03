@@ -427,3 +427,12 @@ fieldset{border:1px solid #d7e0e9;border-radius:8px;margin:0 0 12px;padding:10px
   background:rgba(255,255,255,.94);font-size:11px;line-height:1.2;
   color:#536476;box-shadow:0 1px 5px rgba(0,0,0,.08);pointer-events:none;
 }
+
+/* v2.0.1 QR dual input */
+.qr-mode-row{display:flex;gap:18px;align-items:center;margin:4px 0 10px}
+.qr-mode-row label{display:flex!important;align-items:center;gap:6px;font-weight:600}
+.qr-url-panel,.qr-image-panel{margin:8px 0}
+.qr-generated-preview{min-height:0;margin-top:8px}
+.qr-generated-preview canvas,.qr-generated-preview img{width:128px!important;height:128px!important;border:1px solid #d7e0e9;background:#fff;padding:8px;box-sizing:content-box}
+.qr-source-box[data-mode="url"] .qr-image-panel{display:none}
+.qr-source-box[data-mode="image"] .qr-url-panel{display:none}
