@@ -113,6 +113,41 @@ function pdfFileName(){
   const d=new Date(),pad=n=>String(n).padStart(2,"0");
   return `TSOC_Exercise_${d.getFullYear()}${pad(d.getMonth()+1)}${pad(d.getDate())}_${pad(d.getHours())}${pad(d.getMinutes())}.pdf`;
 }
+function preparePdfPageGeometry(page){
+  // html2canvas can render object-fit differently from the browser print engine.
+  // Resolve each completed image into explicit pixel dimensions before capture.
+  page.querySelectorAll(".print-completed-stack").forEach(stack=>{
+    const img=stack.querySelector(".print-completed-image");
+    if(!img || !img.naturalWidth || !img.naturalHeight)return;
+
+    const cw=stack.clientWidth;
+    const ch=stack.clientHeight;
+    if(!cw || !ch)return;
+
+    const ratio=img.naturalWidth/img.naturalHeight;
+    let w=cw,h=w/ratio;
+    if(h>ch){h=ch;w=h*ratio;}
+
+    img.style.setProperty("width",`${Math.round(w)}px`,"important");
+    img.style.setProperty("height",`${Math.round(h)}px`,"important");
+    img.style.setProperty("max-width","none","important");
+    img.style.setProperty("max-height","none","important");
+    img.style.setProperty("object-fit","fill","important");
+    img.style.setProperty("flex","0 0 auto","important");
+  });
+
+  page.querySelectorAll(".print-qr img").forEach(img=>{
+    const box=img.closest(".print-qr");
+    if(!box)return;
+    const side=Math.min(box.clientWidth,box.clientHeight);
+    if(!side)return;
+    img.style.setProperty("width",`${Math.round(side)}px`,"important");
+    img.style.setProperty("height",`${Math.round(side)}px`,"important");
+    img.style.setProperty("max-width","none","important");
+    img.style.setProperty("max-height","none","important");
+    img.style.setProperty("object-fit","contain","important");
+  });
+}
 async function createPdfDirect(){
   if(!ensureSelection())return;
   const btns=[$('#printBtn'),$('#previewPrint')].filter(Boolean);
@@ -141,17 +176,45 @@ async function createPdfDirect(){
 
       for(let i=0;i<pages.length;i++){
         btns.forEach(b=>b.textContent=`PDF作成中 ${i+1}/${pages.length}`);
+        preparePdfPageGeometry(pages[i]);
+        await new Promise(r=>requestAnimationFrame(()=>requestAnimationFrame(r)));
+
+        const pageW=pages[i].offsetWidth;
+        const pageH=pages[i].offsetHeight;
         const canvas=await html2canvas(pages[i],{
           scale:2,
+          width:pageW,
+          height:pageH,
+          windowWidth:pageW,
+          windowHeight:pageH,
           backgroundColor:"#ffffff",
           useCORS:true,
           logging:false,
           imageTimeout:10000,
           removeContainer:true
         });
-        const data=canvas.toDataURL("image/jpeg",0.94);
+
+        const data=canvas.toDataURL("image/jpeg",0.96);
         if(i>0)pdf.addPage("a4","landscape");
-        pdf.addImage(data,"JPEG",0,0,297,210,undefined,"FAST");
+
+        // Never stretch the rasterized page. Fit by its actual aspect ratio.
+        const pdfW=297,pdfH=210;
+        const canvasRatio=canvas.width/canvas.height;
+        const pdfRatio=pdfW/pdfH;
+        let drawW,drawH,drawX,drawY;
+        if(canvasRatio>pdfRatio){
+          drawW=pdfW;
+          drawH=pdfW/canvasRatio;
+          drawX=0;
+          drawY=(pdfH-drawH)/2;
+        }else{
+          drawH=pdfH;
+          drawW=pdfH*canvasRatio;
+          drawY=0;
+          drawX=(pdfW-drawW)/2;
+        }
+        pdf.addImage(data,"JPEG",drawX,drawY,drawW,drawH,undefined,"FAST");
+
         canvas.width=1;canvas.height=1;
         await new Promise(r=>setTimeout(r,0));
       }

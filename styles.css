@@ -249,3 +249,22 @@
   max-height:21mm!important;
   overflow:hidden!important;
 }
+
+/* Build008: exact A4 geometry for direct PDF rasterization */
+.pdf-capture-host .print-page{
+  width:297mm!important;
+  height:210mm!important;
+  min-width:297mm!important;
+  max-width:297mm!important;
+  min-height:210mm!important;
+  max-height:210mm!important;
+  box-sizing:border-box!important;
+}
+.pdf-capture-host .print-pictures{
+  display:flex!important;
+  align-items:center!important;
+  justify-content:center!important;
+}
+.pdf-capture-host .print-completed-stack{
+  flex:1 1 auto!important;
+}
