@@ -1,14 +1,16 @@
 <!doctype html>
-<html lang="ja"><head><meta name="robots" content="noindex,nofollow">
+<html lang="ja"><head>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <title>印刷イメージ確認</title>
-<link rel="stylesheet" href="style.css">
+<link rel="stylesheet" href="styles.css">
 <style>
 body{margin:0;background:#eceff2;font-family:Arial,"Yu Gothic",sans-serif}
 .top{position:sticky;top:0;background:#fff;border-bottom:1px solid #ccc;padding:10px 16px;z-index:9;display:flex;justify-content:space-between}
 .stage{padding:16px}
 .print-page{margin:0 auto!important}
-</style></head>
+.print-qr{width:26mm;height:26mm;display:flex;align-items:center;justify-content:center;overflow:hidden}
+.print-qr img,.print-qr canvas{display:block!important;width:26mm!important;height:26mm!important;max-width:26mm!important;max-height:26mm!important;object-fit:contain;background:#fff}
+</style><script src="https://cdn.jsdelivr.net/npm/qrcodejs@1.0.0/qrcode.min.js"></script>\n</head>
 <body>
 <div class="top"><strong>印刷イメージ確認</strong><button onclick="window.close()">閉じる</button></div>
 <div class="stage" id="stage"></div>
@@ -18,7 +20,12 @@ if(!raw){document.getElementById("stage").textContent="プレビューデータ�
 const e=JSON.parse(raw);
 const esc=s=>String(s??"").replace(/[&<>"']/g,m=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[m]));
 const img=e.imageDataUrl||e.imagePath||"";
-const qr=e.qr?`<div class="print-qr"><img src="${esc(e.qr)}"></div>`:"";
+const qrMode=e.qr_mode||((e.qr_image_data_url||e.qr)?"image":"");
+const qrImage=e.qr_image_data_url||e.qr||"";
+const qrUrl=e.qr_url||"";
+const qr=qrMode==="url"&&qrUrl
+  ? `<div class="print-qr" id="previewGeneratedQr"></div>`
+  : (qrImage?`<div class="print-qr"><img src="${esc(qrImage)}" alt="QRコード"></div>`:"");
 const ex=`<article class="print-ex">
 <div class="print-title"><span>種目：</span><strong>${esc(e.name)}</strong></div>
 <div class="print-purpose-row"><div class="print-purpose">${esc(e.purpose)}</div><div class="print-dose"></div></div>
@@ -30,5 +37,13 @@ document.getElementById("stage").innerHTML=`<section class="print-page">
 <header class="print-head"><div class="print-brand">TSOC_エクササイズパンフレット</div><div class="print-patient"><span>氏名</span><strong></strong><span>様</span></div><img class="print-brand-logo" src="assets/branding/tsoc-logo.png"></header>
 <div class="print-grid">${ex}${empty()}${empty()}${empty()}</div>
 <footer>Copyright © 2023 TSOC. All Rights Reserved.</footer></section>`;
+if(qrMode==="url"&&qrUrl){
+  const host=document.getElementById("previewGeneratedQr");
+  if(host&&typeof QRCode!=="undefined"){
+    new QRCode(host,{text:qrUrl,width:512,height:512,colorDark:"#000000",colorLight:"#ffffff",correctLevel:QRCode.CorrectLevel.M});
+  }else if(host){
+    host.textContent="QRコードを生成できませんでした。";
+  }
+}
 </script>
 </body></html>

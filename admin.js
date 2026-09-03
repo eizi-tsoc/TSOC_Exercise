@@ -862,28 +862,21 @@ async function _tsocFileToDataURL(file){
     const r=new FileReader();r.onload=()=>resolve(r.result);r.onerror=reject;r.readAsDataURL(file);
   });
 }
-async function _tsocQrPreviewData(prefix,key){
-  if(qrMode(prefix)==="url"){const url=$(`#${prefix}QrUrl`)?.value.trim()||(key?getQrUrl(key):"");if(url)return await _tsocFileToDataURL(await generatedQrBlob(url));}
-  const f=$(`#${prefix}QrImage`)?.files?.[0];if(f)return await _tsocFileToDataURL(f);return key?await qrDataURLForKey(key):null;
+async function _tsocQrPreviewPayload(prefix,key){
+  const mode=qrMode(prefix);
+  if(mode==="url"){
+    const url=$(`#${prefix}QrUrl`)?.value.trim()||(key?getQrUrl(key):"");
+    return {qr_mode:"url",qr_url:url||"",qr:null,qr_image_data_url:null};
+  }
+  const f=$(`#${prefix}QrImage`)?.files?.[0];
+  let data=null;
+  if(f)data=await _tsocFileToDataURL(f);
+  else if(key)data=await qrDataURLForKey(key);
+  return {qr_mode:"image",qr_url:"",qr:data||null,qr_image_data_url:data||null};
 }
 async function _tsocOpenPrintPreview(payload){
-  /*
-    v2.0.2:
-    admin-print-check 側の旧QRフィールド名との互換性を確保する。
-    QRの実体は data URL で渡し、旧/新どちらの参照名でも取得できるようにする。
-  */
-  const q=payload?.qr||payload?.qr_image||payload?.qrImage||payload?.qrDataUrl||null;
-  const normalized={
-    ...payload,
-    qr:q,
-    qr_image:q||"",
-    qrImage:q||null,
-    qrDataUrl:q||null,
-    qr_image_data_url:q||null,
-    qr_images:q?[q]:[]
-  };
-  sessionStorage.setItem("tsoc_fix6_rebuild_print_v1",JSON.stringify(normalized));
-  window.open("admin-print-check.html","_blank");
+  sessionStorage.setItem("tsoc_fix6_rebuild_print_v1",JSON.stringify(payload));
+  window.open("admin-print-check.html?v=2.0.3","_blank");
 }
 async function _tsocPreviewEdit(){
   if(!currentEditId)return;
@@ -900,7 +893,7 @@ async function _tsocPreviewEdit(){
     name:$("#fName").value.trim(),
     purpose:$("#fPurpose").value,
     description:$("#fDescription").value,
-    qr:(await _tsocQrPreviewData("f",currentEditId)) || e.qr || null,
+    ...(await _tsocQrPreviewPayload("f",currentEditId)),
     imageDataUrl:dataUrl,
     imagePath:dataUrl?null:`assets/print-completed/${String(e.id).toLowerCase()}_completed.png`
   });
@@ -913,7 +906,7 @@ async function _tsocPreviewNew(){
     name:$("#nName").value.trim()||"新規運動",
     purpose:$("#nPurpose").value,
     description:$("#nDescription").value,
-    qr:(await _tsocQrPreviewData("n",null)),
+    ...(await _tsocQrPreviewPayload("n",null)),
     imageDataUrl:await _tsocFileToDataURL(file),
     imagePath:null
   });
