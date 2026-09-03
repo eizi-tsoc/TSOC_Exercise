@@ -39,8 +39,10 @@ function init(){
   const allBtn=document.querySelector('.nav[data-cat="ALL"]');
   if(allBtn) allBtn.onclick=()=>setCategory('ALL');
   $('#search').oninput=e=>{state.search=e.target.value.trim().toLowerCase();renderGrid()};
-  $('#clearBtn').onclick=()=>{state.selected=[];state.manualOrder=false;renderAll()}; $('#previewBtn').onclick=showPreview; $('#printBtn').onclick=printMenu;
-  $('#closePreview').onclick=()=>$('#previewBackdrop').classList.add('hidden'); $('#previewPrint').onclick=printMenu; renderAll();
+  $('#clearBtn').onclick=()=>{state.selected=[];state.manualOrder=false;renderAll()}; $('#previewBtn').onclick=showPreview; $('#printBtn').onclick=createPdfDirect;
+  $('#closePreview').onclick=()=>$('#previewBackdrop').classList.add('hidden'); $('#previewPrint').onclick=createPdfDirect;
+  $('#browserPrintBtn')?.addEventListener('click',printMenu); $('#previewBrowserPrint')?.addEventListener('click',printMenu);
+  renderAll();
 }
 function setCategory(c){state.category=c;document.querySelectorAll('.nav').forEach(b=>b.classList.toggle('active',(c==='ALL'&&b.dataset.cat==='ALL')||b.textContent===c));renderGrid()}
 function selectedId(id){return state.selected.find(x=>x.id===id)}
@@ -95,6 +97,76 @@ function buildPrintHTML(){
 }
 function ensureSelection(){if(!state.selected.length){notice('運動を選択してください。');return false}return true}
 function showPreview(){if(!ensureSelection())return;$('#previewView').innerHTML=buildPrintHTML();$('#previewBackdrop').classList.remove('hidden')}
+async function waitForPdfImages(root){
+  const imgs=[...root.querySelectorAll("img")];
+  await Promise.all(imgs.map(img=>{
+    if(img.complete)return Promise.resolve();
+    return new Promise(resolve=>{
+      const done=()=>resolve();
+      img.addEventListener("load",done,{once:true});
+      img.addEventListener("error",done,{once:true});
+      setTimeout(done,8000);
+    });
+  }));
+}
+function pdfFileName(){
+  const d=new Date(),pad=n=>String(n).padStart(2,"0");
+  return `TSOC_Exercise_${d.getFullYear()}${pad(d.getMonth()+1)}${pad(d.getDate())}_${pad(d.getHours())}${pad(d.getMinutes())}.pdf`;
+}
+async function createPdfDirect(){
+  if(!ensureSelection())return;
+  const btns=[$('#printBtn'),$('#previewPrint')].filter(Boolean);
+  const originals=btns.map(b=>b.textContent);
+  try{
+    if(typeof html2canvas!=="function" || !window.jspdf?.jsPDF){
+      throw new Error("PDF作成ライブラリを読み込めませんでした。ページを再読み込みしてもう一度お試しください。");
+    }
+    btns.forEach(b=>{b.disabled=true;b.textContent="PDF作成中…"});
+    notice("PDFを作成しています…");
+
+    const host=document.createElement("div");
+    host.className="pdf-capture-host";
+    host.innerHTML=buildPrintHTML();
+    document.body.appendChild(host);
+
+    try{
+      await waitForPdfImages(host);
+      if(document.fonts?.ready)await document.fonts.ready;
+
+      const pages=[...host.querySelectorAll(".print-page")];
+      if(!pages.length)throw new Error("PDFに出力するページを作成できませんでした。");
+
+      const {jsPDF}=window.jspdf;
+      const pdf=new jsPDF({orientation:"landscape",unit:"mm",format:"a4",compress:true});
+
+      for(let i=0;i<pages.length;i++){
+        btns.forEach(b=>b.textContent=`PDF作成中 ${i+1}/${pages.length}`);
+        const canvas=await html2canvas(pages[i],{
+          scale:2,
+          backgroundColor:"#ffffff",
+          useCORS:true,
+          logging:false,
+          imageTimeout:10000,
+          removeContainer:true
+        });
+        const data=canvas.toDataURL("image/jpeg",0.94);
+        if(i>0)pdf.addPage("a4","landscape");
+        pdf.addImage(data,"JPEG",0,0,297,210,undefined,"FAST");
+        canvas.width=1;canvas.height=1;
+        await new Promise(r=>setTimeout(r,0));
+      }
+      pdf.save(pdfFileName());
+      notice("PDFを作成しました。ダウンロードしたPDFをAcrobat Reader等で開いて印刷できます。");
+    }finally{
+      host.remove();
+    }
+  }catch(err){
+    console.error(err);
+    alert("PDF作成に失敗しました。\n\n"+(err?.message||String(err)));
+  }finally{
+    btns.forEach((b,i)=>{b.disabled=false;b.textContent=originals[i]||"PDF作成・保存"});
+  }
+}
 function printMenu(){if(!ensureSelection())return;$('#printView').innerHTML=buildPrintHTML();window.print()}
 window.addEventListener("storage",e=>{
   if([

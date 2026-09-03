@@ -181,3 +181,71 @@
 .center-pane{
   min-height:0;
 }
+
+/* v2.0.4 Build007: direct PDF capture */
+.browser-print-link{
+  grid-column:1/-1;
+  border:0;
+  background:transparent;
+  color:#526171;
+  font-size:12px;
+  text-decoration:underline;
+  padding:4px 8px!important;
+}
+.pdf-capture-host{
+  position:fixed;
+  left:-12000px;
+  top:0;
+  width:297mm;
+  z-index:-1;
+  background:#fff;
+}
+.pdf-capture-host .print-page{
+  margin:0!important;
+  box-shadow:none!important;
+}
+.pdf-capture-host .print-ex{
+  grid-template-rows:8mm 8mm minmax(0,1fr) 21mm!important;
+}
+.pdf-capture-host .print-media{
+  grid-template-columns:minmax(0,1fr) 27mm!important;
+  gap:2mm!important;
+  align-items:stretch!important;
+  padding:1mm 0!important;
+  min-height:0!important;
+  overflow:hidden!important;
+}
+.pdf-capture-host .print-pictures,
+.pdf-capture-host .print-completed-stack{
+  width:100%!important;
+  height:100%!important;
+  min-width:0!important;
+  min-height:0!important;
+  overflow:hidden!important;
+}
+.pdf-capture-host .print-completed-stack{
+  display:flex!important;
+  align-items:center!important;
+  justify-content:center!important;
+}
+.pdf-capture-host .print-completed-image{
+  display:block!important;
+  width:100%!important;
+  height:100%!important;
+  max-width:100%!important;
+  max-height:100%!important;
+  object-fit:contain!important;
+  object-position:center center!important;
+}
+.pdf-capture-host .print-qr{
+  width:26mm!important;
+  height:26mm!important;
+  align-self:center!important;
+  justify-self:center!important;
+}
+.pdf-capture-host .print-description{
+  height:21mm!important;
+  min-height:21mm!important;
+  max-height:21mm!important;
+  overflow:hidden!important;
+}
