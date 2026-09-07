@@ -3,6 +3,7 @@
 <head><meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>TSOC Exercise 管理画面 Phase 2</title>
+  <script src="test-storage-scope.js?v=2.1.0-b009-isolation1"></script>
   <link rel="stylesheet" href="admin.css?v=2.1.0-b009">
 </head>
 <body><div class="tsoc-version-badge" title="現在表示中のWeb版">TSOC Exercise Web v2.1.0 / Build009</div><header class="admin-header">
@@ -368,7 +369,7 @@
 <script>
   if (TSOC_ADMIN_AUTH.guard()) {
     const s=document.createElement("script");
-    s.src="admin.js?v=2.1.0-b009";
+    s.src="admin.js?v=2.1.0-b009-isolation1";
     document.body.appendChild(s);
   }
 </script>

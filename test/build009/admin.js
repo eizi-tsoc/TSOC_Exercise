@@ -1671,6 +1671,9 @@ function tsocDownloadBlob(blob,name){
   setTimeout(()=>URL.revokeObjectURL(a.href),2000);
 }
 function tsocLocalStorageSnapshot(){
+  if(window.TSOC_STORAGE_SCOPE?.mode==="test"){
+    return window.TSOC_STORAGE_SCOPE.snapshotScopedLocalStorage();
+  }
   const out={};
   for(let i=0;i<localStorage.length;i++){
     const k=localStorage.key(i);
@@ -1847,11 +1850,22 @@ async function tsocRestoreFullBackup(candidate){
       }
     }
 
-    // Replace only TSOC-owned localStorage keys. Session login state is not touched.
-    const remove=[];
-    for(let i=0;i<localStorage.length;i++){const k=localStorage.key(i);if(k&&k.startsWith("tsoc_"))remove.push(k)}
-    remove.forEach(k=>localStorage.removeItem(k));
-    Object.entries(ls).forEach(([k,v])=>{if(k.startsWith("tsoc_"))localStorage.setItem(k,String(v))});
+    // Replace only this environment's TSOC-owned localStorage keys.
+    // In /test/build009/ the storage-scope layer maps logical tsoc_* keys
+    // into a test-only physical namespace, so production data is untouched.
+    if(window.TSOC_STORAGE_SCOPE?.mode==="test"){
+      window.TSOC_STORAGE_SCOPE.clearScopedLocalStorage();
+    }else{
+      const remove=[];
+      for(let i=0;i<localStorage.length;i++){
+        const k=localStorage.key(i);
+        if(k&&k.startsWith("tsoc_"))remove.push(k);
+      }
+      remove.forEach(k=>localStorage.removeItem(k));
+    }
+    Object.entries(ls).forEach(([k,v])=>{
+      if(k.startsWith("tsoc_"))localStorage.setItem(k,String(v));
+    });
 
     await tsocReplaceStore(DB_NAME,DB_STORE,imageRows);
     await tsocReplaceStore(VE_DB_NAME,VE_DB_STORE,layouts);
