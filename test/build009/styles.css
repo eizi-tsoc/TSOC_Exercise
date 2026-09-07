@@ -268,3 +268,10 @@
 .pdf-capture-host .print-completed-stack{
   flex:1 1 auto!important;
 }
+
+/* ===== v2.1.0 / Build014: Japanese / English switch ===== */
+.language-switch{display:inline-flex;gap:0;border:1px solid #bfcbd7;border-radius:7px;overflow:hidden;background:#fff;flex:0 0 auto}
+.language-btn{height:38px;padding:0 14px;border:0;border-right:1px solid #d5dde5;background:#fff;color:#34495e;font-weight:700;cursor:pointer}
+.language-btn:last-child{border-right:0}.language-btn.active{background:#17689f;color:#fff}
+.exercise-display-id{font-size:11px;font-weight:700;color:#607487;margin-bottom:3px}
+@media(max-width:900px){.toolbar{flex-wrap:wrap}.language-switch{order:-1}}
