@@ -1,14 +1,3 @@
-TSOC Exercise Web v2.1.0 / Build014
-日本語 / English 切替 第1段階
-
-上書き先: test/build009/ のみ
-上書き: index.html, app.js, styles.css, admin.html, admin.js, build-info.js
-新規: data/english-data.js
-
-正式マスター: 修正版(3)
-English: 215件（214対応 + EN106英語のみ）
-日本語のみ: EX065 / EX122 / EX149 / EX150
-
-Build014ではEN106はまず英語テキスト登録までです。
-EN106専用画像・QRの取込みは次段階で行います。
-本番環境への変更なし。
+TSOC Exercise Web v2.1.0 / Build015
+上書き先：test/build009/ のみ
+1運動=1 EX管理番号。EN106は新規EX219。J/E/J・E表示。出力時に日本語/Englishを選択。非対応時は警告し選択解除しない。数値は共通、単位表記のみ言語切替。

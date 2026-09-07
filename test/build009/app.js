@@ -1,4 +1,4 @@
-// TSOC Exercise v2.1.0 / Build014 - Japanese / English language switch
+// TSOC Exercise v2.1.0 / Build015 - unified exercise / output language model
 (async()=>{
 if(window.TSOC_APPLY_LOCAL_PUBLISHED) await window.TSOC_APPLY_LOCAL_PUBLISHED();
 const BASE_DATA=window.TSOC_EXERCISE_DATA;
@@ -24,7 +24,7 @@ if(catOrder.length){
   DATA.categories=[...DATA.categories].sort((a,b)=>(pos.get(a)??999999)-(pos.get(b)??999999));
 }
 
-const state={category:'ALL',search:'',selected:[],manualOrder:false,language:'ja'};
+const state={category:'ALL',search:'',selected:[],manualOrder:false,outputLanguage:'ja'};
 const ORDER=new Map(DATA.exercises.map((e,i)=>[e.id,i]));
 ORDER.set("EN106",105.5);
 const $=s=>document.querySelector(s); const byId=id=>DATA.exercises.find(x=>x.id===id);
@@ -35,41 +35,22 @@ const setValues=CONFIG.set_values||[1,2,3,4,5,6,7,8,9,10];
 const units=CONFIG.dose_units||['回','秒'];
 const valuesForUnit=u=>u==='秒'?secondValues:repValues;
 
-function buildEnglishExercises(){
-  const list=[];
-  JP_EXERCISES.forEach(jp=>{
-    const enId=EN.mapping?.[jp.id];
-    if(!enId)return;
-    const t=EN.english?.[enId];
-    if(!t)return;
-    list.push({...jp,name:t.name,purpose:t.purpose,description:t.description,display_id:enId,source_id:jp.id,language:"en"});
-  });
-  const only=EN.english?.EN106;
-  if(only){
-    list.push({id:"EN106",display_id:"EN106",source_id:null,language:"en",
-      name:only.name,purpose:only.purpose,description:only.description,
-      categories:["Training(Upper limb)"],images:[],image_transforms:[],print_images:[],print_image_transforms:[],qr:""});
-  }
-  return list.sort((a,b)=>(parseInt((a.display_id||a.id).replace(/\D/g,""),10)||9999)-(parseInt((b.display_id||b.id).replace(/\D/g,""),10)||9999));
-}
-function applyLanguage(lang){
-  state.language=lang==="en"?"en":"ja";
-  DATA.exercises=state.language==="en"?buildEnglishExercises():[...JP_EXERCISES];
-  state.category="ALL"; state.search="";
-  const search=$("#search"); if(search)search.value="";
-  state.selected=state.selected.filter(s=>DATA.exercises.some(e=>e.id===s.id));
-  document.querySelectorAll("[data-language]").forEach(b=>b.classList.toggle("active",b.dataset.language===state.language));
-  if(search)search.placeholder=state.language==="en"?"Search by exercise name, target, or description":"運動名・目的・説明から検索";
-  renderAll();
-}
+function englishFor(exId){const enId=EN.mapping?.[exId];return enId?EN.english?.[enId]||null:null;}
+function languageStatus(e){if(e.id==="EX219")return "E";return englishFor(e.id)?"JE":"J";}
+function languageBadge(status){const label=status==="JE"?"J・E":status==="J"?"J":"E";const cls=status==="JE"?"both":status==="J"?"jp":"en";const title=status==="JE"?"日本語・English対応":status==="J"?"日本語のみ":"Englishのみ";return `<span class="language-badge ${cls}" title="${title}">${label}</span>`;}
+function buildUnifiedExercises(){const list=JP_EXERCISES.map(jp=>({...jp,language_status:languageStatus(jp)}));const only=EN.english?.EN106;if(only)list.push({id:"EX219",display_id:"EX219",source_id:null,language_status:"E",name:only.name,purpose:only.purpose,description:only.description,english_id:"EN106",english:only,categories:["Training(Upper limb)"],images:[],image_transforms:[],print_images:[],print_image_transforms:[],qr:""});return list;}
+DATA.exercises=buildUnifiedExercises();
+function getOutputExercise(e,lang){if(lang==="ja")return e.language_status==="E"?null:e;if(e.id==="EX219"){const t=EN.english?.EN106;return t?{...e,name:t.name,purpose:t.purpose,description:t.description}:null;}const t=englishFor(e.id);return t?{...e,name:t.name,purpose:t.purpose,description:t.description}:null;}
+function unsupportedSelected(lang){return state.selected.filter(s=>{const e=DATA.exercises.find(x=>x.id===s.id)||s;return !getOutputExercise(e,lang);});}
+function chooseOutputLanguage(lang){const unsupported=unsupportedSelected(lang);if(unsupported.length){const ids=unsupported.map(s=>s.id).join("、");alert(lang==="en"?`選択した運動の中にEnglish版がない運動があります。\n${ids}\n\nEnglishでは出力できません。選択内容を確認してください。`:`選択した運動の中に日本語版がない運動があります。\n${ids}\n\n日本語では出力できません。選択内容を確認してください。`);return false;}state.outputLanguage=lang;document.querySelectorAll("[data-output-language]").forEach(b=>b.classList.toggle("active",b.dataset.outputLanguage===lang));return true;}
 
 function renderCategoryNav(){
   const box=$('#categoryNav');box.innerHTML='';
   DATA.categories.forEach(c=>{const b=document.createElement('button');b.className='nav';b.textContent=c;b.onclick=()=>setCategory(c);box.appendChild(b)});
 }
 function init(){
+  document.querySelectorAll("[data-output-language]").forEach(b=>b.onclick=()=>chooseOutputLanguage(b.dataset.outputLanguage));
   renderCategoryNav();
-  document.querySelectorAll("[data-language]").forEach(b=>b.onclick=()=>applyLanguage(b.dataset.language));
   const allBtn=document.querySelector('.nav[data-cat="ALL"]');
   if(allBtn) allBtn.onclick=()=>setCategory('ALL');
   $('#search').oninput=e=>{state.search=e.target.value.trim().toLowerCase();renderGrid()};
@@ -98,7 +79,7 @@ function completedPreviewPath(e){return window.TSOC_PUBLISHED_IMAGE_URLS?.[e.id]
 function imageMarkup(e,cls=''){const fallback=e.images.length?`<div class="photo-layout ${cls}">${e.images.map((src,i)=>`<div class="photo-item"><img loading="lazy" src="${src}" alt="" style="${transformStyle(e.image_transforms?.[i])}"></div>`).join('')}</div>`:`<div class="no-photo">画像なし</div>`;return `<div class="completed-preview-wrap ${cls}"><img loading="lazy" class="completed-preview-image" src="${completedPreviewPath(e)}" alt="" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="completed-preview-fallback">${fallback}</div></div>`}
 function thumbMarkup(e){const fallback=e.images?.[0];return `<div class="sel-thumb"><img class="completed-thumb" src="${completedPreviewPath(e)}" alt="" onerror="this.style.display='none';this.nextElementSibling.style.display='block'"><img class="legacy-thumb" src="${fallback||''}" alt="" style="${fallback?transformStyle(e.image_transforms?.[0]):'display:none'}"></div>`}
 function categoryTag(e){return e.categories.map(c=>`<span class="tag">${esc(c)}</span>`).join('')}
-function renderGrid(){const g=$('#exerciseGrid');g.innerHTML='';filtered().forEach(e=>{const card=document.createElement('article');card.className='exercise-card'+(selectedId(e.id)?' selected':'');card.innerHTML=`${imageMarkup(e)}<div class="card-body"><div class="tags">${categoryTag(e)}</div><div class="exercise-display-id">${esc(e.display_id||e.id)}</div><h3 class="card-title">${esc(e.name)}</h3><p class="purpose">${esc(e.purpose)}</p><div class="description">${esc(e.description)}</div></div>`;card.onclick=()=>toggle(e.id);g.appendChild(card)})}
+function renderGrid(){const g=$('#exerciseGrid');g.innerHTML='';filtered().forEach(e=>{const card=document.createElement('article');card.className='exercise-card'+(selectedId(e.id)?' selected':'');card.innerHTML=`${imageMarkup(e)}<div class="card-body"><div class="tags">${categoryTag(e)}</div><div class="exercise-id-row"><span class="exercise-display-id">${esc(e.id)}</span>${languageBadge(e.language_status||languageStatus(e))}</div><h3 class="card-title">${esc(e.name)}</h3><p class="purpose">${esc(e.purpose)}</p><div class="description">${esc(e.description)}</div></div>`;card.onclick=()=>toggle(e.id);g.appendChild(card)})}
 function selectOptions(values,current,blank='－'){
   const vals=[...values];
   if(current!==''&&current!=null&&!vals.some(v=>String(v)===String(current)))vals.push(current);
@@ -107,14 +88,14 @@ function selectOptions(values,current,blank='－'){
 function renderSelection(){
   const box=$('#selectionList');box.innerHTML='';
   state.selected.forEach((s,idx)=>{const e=byId(s.id),d=document.createElement('div');d.className='selection-item';
-    d.innerHTML=`<div class="sel-main">${thumbMarkup(e)}<div class="sel-info"><div class="sel-row"><span class="sel-no">${idx+1}</span><strong>${esc(e.display_id||e.id)} ${esc(e.name)}</strong><button class="remove" aria-label="削除">×</button></div><div class="reorder"><button class="move up" title="上へ" ${idx===0?'disabled':''}>▲</button><button class="move down" title="下へ" ${idx===state.selected.length-1?'disabled':''}>▼</button><span>印刷順</span></div></div></div><div class="dose"><label><span>回数/時間</span><select class="reps">${selectOptions(valuesForUnit(s.unit),s.reps)}</select></label><label><span>単位</span><select class="unit">${units.map(u=>`<option ${s.unit===u?'selected':''}>${u}</option>`).join('')}</select></label><label><span>セット</span><select class="sets">${selectOptions(setValues,s.sets)}</select></label></div>`;
+    d.innerHTML=`<div class="sel-main">${thumbMarkup(e)}<div class="sel-info"><div class="sel-row"><span class="sel-no">${idx+1}</span><strong>${esc(e.id)} ${esc(e.name)} ${languageBadge(e.language_status||languageStatus(e))}</strong><button class="remove" aria-label="削除">×</button></div><div class="reorder"><button class="move up" title="上へ" ${idx===0?'disabled':''}>▲</button><button class="move down" title="下へ" ${idx===state.selected.length-1?'disabled':''}>▼</button><span>印刷順</span></div></div></div><div class="dose"><label><span>回数/時間</span><select class="reps">${selectOptions(valuesForUnit(s.unit),s.reps)}</select></label><label><span>単位</span><select class="unit">${units.map(u=>`<option ${s.unit===u?'selected':''}>${u}</option>`).join('')}</select></label><label><span>セット</span><select class="sets">${selectOptions(setValues,s.sets)}</select></label></div>`;
     d.querySelector('.remove').onclick=()=>{state.selected.splice(idx,1);renderAll()};
     d.querySelector('.up').onclick=()=>moveSelection(idx,-1); d.querySelector('.down').onclick=()=>moveSelection(idx,1);
     d.querySelector('.reps').onchange=x=>s.reps=x.target.value;d.querySelector('.unit').onchange=x=>{s.unit=x.target.value;};d.querySelector('.sets').onchange=x=>s.sets=x.target.value;box.appendChild(d)});
   $('#count').textContent=state.selected.length;
 }
 function renderAll(){renderGrid();renderSelection()}
-function doseText(s){let t='';if(s.reps)t+=`${s.reps}${state.language==="en"?(s.unit==="秒"?" sec":" reps"):s.unit}`;if(s.sets)t+=(t?' × ':'')+`${s.sets}${state.language==="en"?" sets":"セット"}`;return t}
+function doseText(s){let t='';if(s.reps)t+=`${s.reps}${state.outputLanguage==="en"?(s.unit==="秒"?" sec":" reps"):s.unit}`;if(s.sets)t+=(t?' × ':'')+`${s.sets}${state.outputLanguage==="en"?" sets":"セット"}`;return t}
 function getPrintImageSet(e){const high=Array.isArray(e.print_images)&&e.print_images.length?e.print_images:null;return {images:high||e.images||[],transforms:high?(e.print_image_transforms||[]):(e.image_transforms||[]),highRes:!!high}}
 function legacyPrintImages(e){const set=getPrintImageSet(e);return set.images.length?`<div class="print-photo-layout${set.highRes?' high-res':''}">${set.images.map((src,i)=>`<div class="print-photo-item"><img src="${src}" alt="" style="${transformStyle(set.transforms?.[i])}"></div>`).join('')}</div>`:`<div class="print-no-photo">画像なし</div>`}
 function completedPrintPath(e){return window.TSOC_PUBLISHED_IMAGE_URLS?.[e.id]||`assets/print-completed/${String(e.id).toLowerCase()}_completed.png`}
@@ -122,12 +103,12 @@ function printImages(e){
   const fallback=legacyPrintImages(e);
   return `<div class="print-completed-stack"><img class="print-completed-image" src="${completedPrintPath(e)}" alt="" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="print-completed-fallback">${fallback}</div></div>`;
 }
-function exercisePrintCard(s){const e=byId(s.id);const qr=e.qr?`<div class="print-qr"><img src="${e.qr}" alt="QR"></div>`:'';return `<article class="print-ex"><div class="print-title"><span>${state.language==="en"?"Exercise:":"種目："}</span><strong>${esc(e.name)}</strong></div><div class="print-purpose-row"><div class="print-purpose">${esc(e.purpose)}</div><div class="print-dose">${esc(doseText(s))}</div></div><div class="print-media"><div class="print-pictures">${printImages(e)}</div>${qr}</div><div class="print-description">${esc(e.description)}</div></article>`}
+function exercisePrintCard(s){const e=byId(s.id);const qr=e.qr?`<div class="print-qr"><img src="${e.qr}" alt="QR"></div>`:'';return `<article class="print-ex"><div class="print-title"><span>${state.outputLanguage==="en"?"Exercise:":"種目："}</span><strong>${esc(e.name)}</strong></div><div class="print-purpose-row"><div class="print-purpose">${esc(e.purpose)}</div><div class="print-dose">${esc(doseText(s))}</div></div><div class="print-media"><div class="print-pictures">${printImages(e)}</div>${qr}</div><div class="print-description">${esc(e.description)}</div></article>`}
 function emptyPrintSlot(){return `<article class="print-empty"><div class="empty-grid"><div class="empty-logo">TSOC<span>◆</span></div><div class="empty-mark">TSOC</div></div></article>`}
 function buildPrintHTML(){
   const patient=$('#patientName').value.trim(),per=CONFIG.print?.exercises_per_page||4,pages=[];
   for(let i=0;i<state.selected.length;i+=per)pages.push(state.selected.slice(i,i+per));
-  return pages.map((page,pi)=>{const slots=[...page];while(slots.length<per)slots.push(null);return `<section class="print-page"><header class="print-head"><div class="print-brand">${state.language==="en"?"TSOC Exercise Handout":"TSOC_エクササイズパンフレット"}</div><div class="print-patient"><span>${state.language==="en"?"Name":"氏名"}</span><strong>${esc(patient)}</strong><span>${state.language==="en"?"":"様"}</span></div><img class="print-brand-logo" src="assets/branding/tsoc-logo.png" alt="Tokyo Sports & Orthopaedic Clinic"></header><div class="print-grid">${slots.map(s=>s?exercisePrintCard(s):emptyPrintSlot()).join('')}</div><footer>Copyright © 2023 TSOC. All Rights Reserved.</footer></section>`}).join('')
+  return pages.map((page,pi)=>{const slots=[...page];while(slots.length<per)slots.push(null);return `<section class="print-page"><header class="print-head"><div class="print-brand">${state.outputLanguage==="en"?"TSOC Exercise Handout":"TSOC_エクササイズパンフレット"}</div><div class="print-patient"><span>${state.outputLanguage==="en"?"Name":"氏名"}</span><strong>${esc(patient)}</strong><span>${state.outputLanguage==="en"?"":"様"}</span></div><img class="print-brand-logo" src="assets/branding/tsoc-logo.png" alt="Tokyo Sports & Orthopaedic Clinic"></header><div class="print-grid">${slots.map(s=>s?exercisePrintCard(s):emptyPrintSlot()).join('')}</div><footer>Copyright © 2023 TSOC. All Rights Reserved.</footer></section>`}).join('')
 }
 function ensureSelection(){if(!state.selected.length){notice('運動を選択してください。');return false}return true}
 function showPreview(){if(!ensureSelection())return;$('#previewView').innerHTML=buildPrintHTML();$('#previewBackdrop').classList.remove('hidden')}
