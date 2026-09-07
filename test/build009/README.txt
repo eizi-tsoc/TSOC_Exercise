@@ -1,5 +1,5 @@
-TSOC Exercise Web v2.1.0 / Build011
-バックアップ復元ZIP読込修正 + 見えるバージョン更新
+TSOC Exercise Web v2.1.0 / Build012
+管理画面スクリプト読込修正
 
 対象:
   test/build009/ のみ
@@ -10,11 +10,18 @@ TSOC Exercise Web v2.1.0 / Build011
   index.html
   build-info.js
 
+原因:
+  Build011では画面表示だけBuild011に更新されていた一方、
+  admin.html の動的読込URLが admin.js?v=2.1.0-b009-isolation1 のままでした。
+  そのためブラウザが古いadmin.jsを読み込み、
+  JSZip.loadAsync is not a function が残っていました。
+
 修正:
-  - JSZip.loadAsync is not a function を修正
-  - 管理画面・選択画面の表示を v2.1.0 / Build011 に更新
-  - スクリプトURLのキャッシュバスターも Build011 に更新
+  - admin.js の読込URLを Build012 に更新
+  - test-storage-scope.js のキャッシュバスターも Build012 に更新
+  - ZIP復元処理は new JSZip() → zip.loadAsync(file) を使用
+  - 管理画面・選択画面・build-infoを Build012 表示へ統一
   - 本番環境は変更しない
 
 反映確認:
-  GitHub Pages更新後、画面に「v2.1.0 / Build011」と表示されれば反映済みです。
+  管理画面に「TSOC Exercise Web v2.1.0 / Build012」と表示されれば反映済みです。

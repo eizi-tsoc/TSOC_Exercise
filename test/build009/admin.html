@@ -3,13 +3,13 @@
 <head><meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>TSOC Exercise 管理画面 Phase 2</title>
-  <script src="test-storage-scope.js?v=2.1.0-b009-isolation1"></script>
+  <script src="test-storage-scope.js?v=2.1.0-b012"></script>
   <link rel="stylesheet" href="admin.css?v=2.1.0-b009">
 </head>
-<body><div class="tsoc-version-badge" title="現在表示中のWeb版">TSOC Exercise Web v2.1.0 / Build011</div><header class="admin-header">
+<body><div class="tsoc-version-badge" title="現在表示中のWeb版">TSOC Exercise Web v2.1.0 / Build012</div><header class="admin-header">
     <div>
       <h1>TSOC Exercise 管理画面</h1>
-      <div class="sub">GitHub TEST Build009：管理・公開ワークフロー</div>
+      <div class="sub">GitHub TEST：v2.1.0 / Build012：管理・公開ワークフロー</div>
     </div>
     <div class="header-actions">
       <button id="newBtn" class="primary">＋ 新規追加</button>
@@ -369,7 +369,7 @@
 <script>
   if (TSOC_ADMIN_AUTH.guard()) {
     const s=document.createElement("script");
-    s.src="admin.js?v=2.1.0-b009-isolation1";
+    s.src="admin.js?v=2.1.0-b012";
     document.body.appendChild(s);
   }
 </script>

@@ -1,4 +1,4 @@
-// TSOC Exercise v2.1.0 / Build011 RestoreFix1
+// TSOC Exercise v2.1.0 / Build012 RestoreFix1
 // TSOC Exercise v2.1.0 Build009 - Full Backup/Restore + Rebuild20 base
 // TSOC Exercise Rebuild19 - Published Save Fix
 // 公開済み運動は「管理データ保存」で公開内容を更新。
