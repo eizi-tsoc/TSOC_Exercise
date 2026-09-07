@@ -1678,6 +1678,38 @@ function tsocLocalStorageSnapshot(){
   }
   return out;
 }
+function tsocBackupDiagnostics(images,layouts){
+  const baseIds=new Set(baseExercises.map(e=>String(e.id||"")));
+  const imageBase=[],imageQr=[],imageOther=[];
+  for(const row of images){
+    const k=String(row.key??"");
+    if(baseIds.has(k))imageBase.push(k);
+    else if(k.startsWith("QR:"))imageQr.push(k.slice(3));
+    else imageOther.push(k);
+  }
+  const layoutBase=[],layoutNew=[],layoutOther=[];
+  for(const row of layouts){
+    const k=String(row.key??"");
+    if(baseIds.has(k))layoutBase.push(k);
+    else if(k.startsWith("NEW:")||k.startsWith("NEW_FORM:"))layoutNew.push(k);
+    else layoutOther.push(k);
+  }
+  const missingBaseLayouts=[...baseIds].filter(id=>!layoutBase.includes(id));
+  const fmt=(a,max=12)=>a.length?(a.slice(0,max).join(", ")+(a.length>max?` …ほか${a.length-max}件`:"")):"なし";
+  return {imageBase,imageQr,imageOther,layoutBase,layoutNew,layoutOther,missingBaseLayouts,fmt};
+}
+function tsocBackupDiagnosticText(d){
+  return [
+    `【内訳】`,
+    `完成画像（既存EX001～EX218）: ${d.imageBase.length}件`,
+    `QR画像: ${d.imageQr.length}件${d.imageQr.length?`（${d.fmt(d.imageQr)}）`:""}`,
+    `その他の画像データ: ${d.imageOther.length}件${d.imageOther.length?`（${d.fmt(d.imageOther)}）`:""}`,
+    `画像レイアウト（既存EX001～EX218）: ${d.layoutBase.length}件`,
+    `新規/一時レイアウト: ${d.layoutNew.length}件${d.layoutNew.length?`（${d.fmt(d.layoutNew)}）`:""}`,
+    `その他のレイアウト: ${d.layoutOther.length}件${d.layoutOther.length?`（${d.fmt(d.layoutOther)}）`:""}`,
+    `既存218件でレイアウト未保存: ${d.missingBaseLayouts.length}件${d.missingBaseLayouts.length?`（${d.fmt(d.missingBaseLayouts)}）`:""}`
+  ].join("\n");
+}
 function tsocOpenNamedDB(name,store,version=1){
   return new Promise((resolve,reject)=>{
     const r=indexedDB.open(name,version);
@@ -1712,6 +1744,7 @@ async function tsocCreateFullBackup(){
     const ls=tsocLocalStorageSnapshot();
     const images=await tsocReadStore(DB_NAME,DB_STORE);
     const layouts=await tsocReadStore(VE_DB_NAME,VE_DB_STORE);
+    const diag=tsocBackupDiagnostics(images,layouts);
 
     const zip=new JSZip();
     const imageManifest=[];
@@ -1742,6 +1775,15 @@ async function tsocCreateFullBackup(){
       localStorage_keys:Object.keys(ls).length,
       image_store_records:images.length,
       visual_layout_records:layouts.length,
+      diagnostics:{
+        base_completed_images:diag.imageBase.length,
+        qr_images:diag.imageQr.length,
+        other_image_records:diag.imageOther,
+        base_visual_layouts:diag.layoutBase.length,
+        new_or_temp_layouts:diag.layoutNew,
+        other_layouts:diag.layoutOther,
+        missing_base_layouts:diag.missingBaseLayouts
+      },
       note:"TSOC Exercise browser-local management backup. No patient name/data is included by this backup function."
     };
     zip.file("backup-info.json",JSON.stringify(meta,null,2));
@@ -1753,8 +1795,8 @@ async function tsocCreateFullBackup(){
     });
     const name=`TSOC_Exercise_FULL_BACKUP_${tsocBackupStamp()}.zip`;
     tsocDownloadBlob(blob,name);
-    const layoutNote=layouts.length>=218?"218件以上の画像レイアウトを確認しました。":`画像レイアウトは ${layouts.length}件です。`;
-    tsocSetBackupStatus(`バックアップ完了\n${name}\n完成画像・QR: ${images.length}件\n画像レイアウト: ${layouts.length}件\n${layoutNote}\nZIPサイズ: ${(blob.size/1024/1024).toFixed(1)} MB`,"ok");
+    const diagText=tsocBackupDiagnosticText(diag);
+    tsocSetBackupStatus(`バックアップ完了\n${name}\n完成画像・QR: ${images.length}件\n画像レイアウト: ${layouts.length}件\n\n${diagText}\n\nZIPサイズ: ${(blob.size/1024/1024).toFixed(1)} MB`,"ok");
   }catch(err){
     console.error(err);tsocSetBackupStatus("バックアップに失敗しました。\n"+(err?.message||String(err)),"error");alert("バックアップに失敗しました。");
   }finally{if(btn)btn.disabled=false;}
