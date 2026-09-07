@@ -277,3 +277,8 @@
 @media(max-width:900px){.toolbar{flex-wrap:wrap}.language-switch{order:-1}}
 
 .language-switch{display:none!important}.exercise-id-row{display:flex;align-items:center;gap:7px}.language-badge{display:inline-flex;min-width:30px;justify-content:center;padding:3px 6px;border-radius:999px;font-size:10px;font-weight:800;border:1px solid #cbd5df}.language-badge.both{background:#edf7f1}.language-badge.jp{background:#eef4fb}.language-badge.en{background:#fff4df}.output-language-box{display:inline-flex;align-items:center;border:1px solid #bfcbd7;border-radius:7px;overflow:hidden;margin-right:8px}.output-language-box>span,.output-language-btn{height:36px;padding:0 10px;display:flex;align-items:center;border:0}.output-language-btn{border-left:1px solid #d5dde5;background:#fff;font-weight:700}.output-language-btn.active{background:#17689f;color:#fff}
+
+/* ===== v2.1.0 / Build016 output language UI ===== */
+.output-language-section{width:100%;margin-top:6px}.output-language-title{text-align:center;font-size:12px;font-weight:800;color:#526577;margin-bottom:5px}
+.output-language-section .output-language-box{display:grid;grid-template-columns:1fr 1fr;width:100%;margin:0;border-radius:9px}
+.output-language-section .output-language-btn{height:42px;font-size:14px}.output-language-section .output-language-btn:first-child{border-left:0}

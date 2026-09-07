@@ -3,13 +3,13 @@
 <head><meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>TSOC Exercise 管理画面 Phase 2</title>
-  <script src="test-storage-scope.js?v=2.1.0-b015"></script>
-  <link rel="stylesheet" href="admin.css?v=2.1.0-b009">
+  <script src="test-storage-scope.js?v=2.1.0-b016"></script>
+  <link rel="stylesheet" href="admin.css?v=2.1.0-b016">
 </head>
-<body><div class="tsoc-version-badge" title="現在表示中のWeb版">TSOC Exercise Web v2.1.0 / Build015</div><header class="admin-header">
+<body><div class="tsoc-version-badge" title="現在表示中のWeb版">TSOC Exercise Web v2.1.0 / Build016</div><header class="admin-header">
     <div>
       <h1>TSOC Exercise 管理画面</h1>
-      <div class="sub">GitHub TEST：v2.1.0 / Build015：管理・公開ワークフロー</div>
+      <div class="sub">GitHub TEST：v2.1.0 / Build016：管理・公開ワークフロー</div>
     </div>
     <div class="header-actions">
       <button id="newBtn" class="primary">＋ 新規追加</button>
@@ -69,15 +69,32 @@
             <label>ID
               <input id="fId" readonly>
             </label>
-            <label>運動名
-              <input id="fName" required>
-            </label>
-            <label>目的
-              <textarea id="fPurpose" rows="3"></textarea>
-            </label>
-            <label>説明文
-              <textarea id="fDescription" rows="7"></textarea>
-            </label>
+            <fieldset class="language-admin-box language-jp-box">
+              <legend><span class="admin-lang-badge jp">J</span> 日本語</legend>
+              <label class="language-enabled-row"><input id="fJaEnabled" type="checkbox"> 日本語版あり</label>
+              <div id="fJaFields">
+                <label>運動名<input id="fName"></label>
+                <label>目的<textarea id="fPurpose" rows="3"></textarea></label>
+                <label>説明文<textarea id="fDescription" rows="7"></textarea></label>
+              </div>
+            </fieldset>
+
+            <fieldset class="language-admin-box language-en-box">
+              <legend><span class="admin-lang-badge en">E</span> English</legend>
+              <label class="language-enabled-row"><input id="fEnEnabled" type="checkbox"> English版あり</label>
+              <div id="fEnFields">
+                <label>Exercise name<input id="feName"></label>
+                <label>Target<textarea id="fePurpose" rows="3"></textarea></label>
+                <label>Description<textarea id="feDescription" rows="7"></textarea></label>
+                <fieldset class="qr-source-box" id="fEnglishQrBox">
+                  <legend>English QRコード</legend>
+                  <div class="qr-mode-row"><label><input type="radio" name="feQrMode" value="url"> URLから生成</label><label><input type="radio" name="feQrMode" value="image"> QR画像を使用</label></div>
+                  <div class="qr-url-panel"><label>リンク先URL<input id="feQrUrl" type="url" inputmode="url" placeholder="https://..."></label></div>
+                  <div class="qr-image-panel"><label class="file-label">QR画像を選択<input id="feQrImage" type="file" accept="image/png,image/jpeg,image/webp"></label></div>
+                  <div id="feQrPreview" class="qr-generated-preview"></div>
+                </fieldset>
+              </div>
+            </fieldset>
 
             <fieldset>
               <legend>カテゴリー（複数選択可）</legend>
@@ -96,7 +113,7 @@
   </details>
 </fieldset>
 <fieldset class="qr-source-box">
-  <legend>QRコード</legend>
+  <legend>日本語 QRコード</legend>
   <div class="qr-mode-row"><label><input type="radio" name="fQrMode" value="url"> URLから生成</label><label><input type="radio" name="fQrMode" value="image"> QR画像を使用</label></div>
   <div class="qr-url-panel"><label>リンク先URL<input id="fQrUrl" type="url" inputmode="url" placeholder="https://..."></label><div class="hint">今後はこちらを推奨します。URLから動画再生マーク入りのQRコードを同じ規格で自動生成します。</div></div>
   <div class="qr-image-panel"><label class="file-label">QR画像を選択<input id="fQrImage" type="file" accept="image/png,image/jpeg,image/webp"></label><div class="hint">既存QR画像も使用できます。外周余白を自動調整し、表示サイズを統一します。300×300px以上推奨。</div></div>
@@ -216,7 +233,7 @@
 
   <script src="data/exercise-data.js"></script>
   <script src="data/app-config.js"></script>
-  <script src="vendor/jszip-3.10.1.min.js?v=2.1.0-b015"></script>
+  <script src="vendor/jszip-3.10.1.min.js?v=2.1.0-b016"></script>
 
 <div id="visualEditorModal" class="modal" hidden>
   <div class="modal-panel visual-editor-panel">
@@ -364,12 +381,13 @@
   </article>
 </div>
 
+<script src="data/english-data.js?v=2.1.0-b016"></script>
 <script src="admin-auth.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/qrcodejs@1.0.0/qrcode.min.js"></script>
 <script>
   if (TSOC_ADMIN_AUTH.guard()) {
     const s=document.createElement("script");
-    s.src="admin.js?v=2.1.0-b015";
+    s.src="admin.js?v=2.1.0-b016";
     document.body.appendChild(s);
   }
 </script>

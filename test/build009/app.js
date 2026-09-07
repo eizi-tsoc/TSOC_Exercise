@@ -1,10 +1,13 @@
-// TSOC Exercise v2.1.0 / Build015 - unified exercise / output language model
+// TSOC Exercise v2.1.0 / Build016 - unified exercise / output language model
 (async()=>{
 if(window.TSOC_APPLY_LOCAL_PUBLISHED) await window.TSOC_APPLY_LOCAL_PUBLISHED();
 const BASE_DATA=window.TSOC_EXERCISE_DATA;
 const CONFIG=window.TSOC_EXERCISE_CONFIG||{};
 const EN=window.TSOC_ENGLISH_DATA||{mapping:{},english:{}};
-const JP_EXERCISES=[...BASE_DATA.exercises];
+let LANG={};try{LANG=JSON.parse(localStorage.getItem("tsoc_admin_language_data_v1")||"{}")}catch{LANG={}}
+function langOverride(id){return LANG?.[id]||null;}
+const EX219_LOCAL=BASE_DATA.exercises.find(e=>e.id==="EX219")||null;
+const JP_EXERCISES=[...BASE_DATA.exercises].filter(e=>e.id!=="EX219");
 const DATA={...BASE_DATA,exercises:[...JP_EXERCISES],categories:[...BASE_DATA.categories]};
 
 function readLocalOrder(key){
@@ -24,7 +27,7 @@ if(catOrder.length){
   DATA.categories=[...DATA.categories].sort((a,b)=>(pos.get(a)??999999)-(pos.get(b)??999999));
 }
 
-const state={category:'ALL',search:'',selected:[],manualOrder:false,outputLanguage:'ja'};
+const state={category:'ALL',search:'',selected:[],manualOrder:false,outputLanguage:null};
 const ORDER=new Map(DATA.exercises.map((e,i)=>[e.id,i]));
 ORDER.set("EN106",105.5);
 const $=s=>document.querySelector(s); const byId=id=>DATA.exercises.find(x=>x.id===id);
@@ -35,15 +38,19 @@ const setValues=CONFIG.set_values||[1,2,3,4,5,6,7,8,9,10];
 const units=CONFIG.dose_units||['回','秒'];
 const valuesForUnit=u=>u==='秒'?secondValues:repValues;
 
-function englishFor(exId){const enId=EN.mapping?.[exId];return enId?EN.english?.[enId]||null:null;}
-function languageStatus(e){if(e.id==="EX219")return "E";return englishFor(e.id)?"JE":"J";}
+function englishFor(exId){const ov=langOverride(exId);if(ov?.enEnabled===false)return null;if(ov?.en?.name)return ov.en;const enId=EN.mapping?.[exId];return enId?EN.english?.[enId]||null:null;}
+function languageStatus(e){const ov=langOverride(e.id);if(ov){const j=ov.jaEnabled!==false,en=ov.enEnabled===true||(ov.enEnabled!==false&&!!englishFor(e.id));return j&&en?"JE":j?"J":"E";}if(e.id==="EX219")return "E";return englishFor(e.id)?"JE":"J";}
 function languageBadge(status){const label=status==="JE"?"J・E":status==="J"?"J":"E";const cls=status==="JE"?"both":status==="J"?"jp":"en";const title=status==="JE"?"日本語・English対応":status==="J"?"日本語のみ":"Englishのみ";return `<span class="language-badge ${cls}" title="${title}">${label}</span>`;}
-function buildUnifiedExercises(){const list=JP_EXERCISES.map(jp=>({...jp,language_status:languageStatus(jp)}));const only=EN.english?.EN106;if(only)list.push({id:"EX219",display_id:"EX219",source_id:null,language_status:"E",name:only.name,purpose:only.purpose,description:only.description,english_id:"EN106",english:only,categories:["Training(Upper limb)"],images:[],image_transforms:[],print_images:[],print_image_transforms:[],qr:""});return list;}
+function buildUnifiedExercises(){const list=JP_EXERCISES.map(jp=>{const st=languageStatus(jp),en=englishFor(jp.id);return st==="E"&&en?{...jp,name:en.name,purpose:en.purpose,description:en.description,language_status:st}:{...jp,language_status:st};});const only=langOverride("EX219")?.en?.name?langOverride("EX219").en:EN.english?.EN106;if(only)list.push({...((EX219_LOCAL)||{}),id:"EX219",display_id:"EX219",source_id:null,language_status:"E",name:only.name,purpose:only.purpose,description:only.description,english_id:"EN106",english:only,categories:EX219_LOCAL?.categories||["Training(Upper limb)"],images:EX219_LOCAL?.images||[],image_transforms:EX219_LOCAL?.image_transforms||[],print_images:EX219_LOCAL?.print_images||[],print_image_transforms:EX219_LOCAL?.print_image_transforms||[],qr:""});return list;}
 DATA.exercises=buildUnifiedExercises();
-function getOutputExercise(e,lang){if(lang==="ja")return e.language_status==="E"?null:e;if(e.id==="EX219"){const t=EN.english?.EN106;return t?{...e,name:t.name,purpose:t.purpose,description:t.description}:null;}const t=englishFor(e.id);return t?{...e,name:t.name,purpose:t.purpose,description:t.description}:null;}
+function getOutputExercise(e,lang){const status=languageStatus(e);if(lang==="ja")return status==="E"?null:e;const t=e.id==="EX219"?(langOverride("EX219")?.en?.name?langOverride("EX219").en:EN.english?.EN106):englishFor(e.id);return (status==="J"||!t)?null:{...e,name:t.name,purpose:t.purpose,description:t.description,qr:window.TSOC_ENGLISH_QR_URLS?.[e.id]||""};}
 function unsupportedSelected(lang){return state.selected.filter(s=>{const e=DATA.exercises.find(x=>x.id===s.id)||s;return !getOutputExercise(e,lang);});}
 function chooseOutputLanguage(lang){const unsupported=unsupportedSelected(lang);if(unsupported.length){const ids=unsupported.map(s=>s.id).join("、");alert(lang==="en"?`選択した運動の中にEnglish版がない運動があります。\n${ids}\n\nEnglishでは出力できません。選択内容を確認してください。`:`選択した運動の中に日本語版がない運動があります。\n${ids}\n\n日本語では出力できません。選択内容を確認してください。`);return false;}state.outputLanguage=lang;document.querySelectorAll("[data-output-language]").forEach(b=>b.classList.toggle("active",b.dataset.outputLanguage===lang));return true;}
 
+function validateOutputLanguage(){
+  if(!state.outputLanguage){alert("出力言語を選択してください。\n\n「日本語」または「English」を選んでからPDFを作成してください。");return false;}
+  const bad=unsupportedSelected(state.outputLanguage);if(bad.length){const ids=bad.map(s=>s.id).join("、");alert(state.outputLanguage==="en"?`選択した運動の中にEnglish版がない運動があります。\n${ids}\n\nEnglishでは出力できません。`:`選択した運動の中に日本語版がない運動があります。\n${ids}\n\n日本語では出力できません。`);return false;}return true;
+}
 function renderCategoryNav(){
   const box=$('#categoryNav');box.innerHTML='';
   DATA.categories.forEach(c=>{const b=document.createElement('button');b.className='nav';b.textContent=c;b.onclick=()=>setCategory(c);box.appendChild(b)});
@@ -103,7 +110,7 @@ function printImages(e){
   const fallback=legacyPrintImages(e);
   return `<div class="print-completed-stack"><img class="print-completed-image" src="${completedPrintPath(e)}" alt="" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="print-completed-fallback">${fallback}</div></div>`;
 }
-function exercisePrintCard(s){const e=byId(s.id);const qr=e.qr?`<div class="print-qr"><img src="${e.qr}" alt="QR"></div>`:'';return `<article class="print-ex"><div class="print-title"><span>${state.outputLanguage==="en"?"Exercise:":"種目："}</span><strong>${esc(e.name)}</strong></div><div class="print-purpose-row"><div class="print-purpose">${esc(e.purpose)}</div><div class="print-dose">${esc(doseText(s))}</div></div><div class="print-media"><div class="print-pictures">${printImages(e)}</div>${qr}</div><div class="print-description">${esc(e.description)}</div></article>`}
+function exercisePrintCard(s){const base=byId(s.id);const e=getOutputExercise(base,state.outputLanguage);if(!e)return "";const qr=e.qr?`<div class="print-qr"><img src="${e.qr}" alt="QR"></div>`:'';return `<article class="print-ex"><div class="print-title"><span>${state.outputLanguage==="en"?"Exercise:":"種目："}</span><strong>${esc(e.name)}</strong></div><div class="print-purpose-row"><div class="print-purpose">${esc(e.purpose)}</div><div class="print-dose">${esc(doseText(s))}</div></div><div class="print-media"><div class="print-pictures">${printImages(e)}</div>${qr}</div><div class="print-description">${esc(e.description)}</div></article>`}
 function emptyPrintSlot(){return `<article class="print-empty"><div class="empty-grid"><div class="empty-logo">TSOC<span>◆</span></div><div class="empty-mark">TSOC</div></div></article>`}
 function buildPrintHTML(){
   const patient=$('#patientName').value.trim(),per=CONFIG.print?.exercises_per_page||4,pages=[];
@@ -111,7 +118,7 @@ function buildPrintHTML(){
   return pages.map((page,pi)=>{const slots=[...page];while(slots.length<per)slots.push(null);return `<section class="print-page"><header class="print-head"><div class="print-brand">${state.outputLanguage==="en"?"TSOC Exercise Handout":"TSOC_エクササイズパンフレット"}</div><div class="print-patient"><span>${state.outputLanguage==="en"?"Name":"氏名"}</span><strong>${esc(patient)}</strong><span>${state.outputLanguage==="en"?"":"様"}</span></div><img class="print-brand-logo" src="assets/branding/tsoc-logo.png" alt="Tokyo Sports & Orthopaedic Clinic"></header><div class="print-grid">${slots.map(s=>s?exercisePrintCard(s):emptyPrintSlot()).join('')}</div><footer>Copyright © 2023 TSOC. All Rights Reserved.</footer></section>`}).join('')
 }
 function ensureSelection(){if(!state.selected.length){notice('運動を選択してください。');return false}return true}
-function showPreview(){if(!ensureSelection())return;$('#previewView').innerHTML=buildPrintHTML();$('#previewBackdrop').classList.remove('hidden')}
+function showPreview(){if(!ensureSelection()||!validateOutputLanguage())return;$('#previewView').innerHTML=buildPrintHTML();$('#previewBackdrop').classList.remove('hidden')}
 async function waitForPdfImages(root){
   const imgs=[...root.querySelectorAll("img")];
   await Promise.all(imgs.map(img=>{
@@ -164,7 +171,7 @@ function preparePdfPageGeometry(page){
   });
 }
 async function createPdfDirect(){
-  if(!ensureSelection())return;
+  if(!ensureSelection()||!validateOutputLanguage())return;
   const btns=[$('#printBtn'),$('#previewPrint')].filter(Boolean);
   const originals=btns.map(b=>b.textContent);
   try{
@@ -266,6 +273,15 @@ window.addEventListener("pageshow",e=>{
   if(e.persisted || nav?.type==="back_forward") location.reload();
 });
 
+async function loadBuild016Assets(){
+  window.TSOC_ENGLISH_QR_URLS=window.TSOC_ENGLISH_QR_URLS||{};window.TSOC_PUBLISHED_IMAGE_URLS=window.TSOC_PUBLISHED_IMAGE_URLS||{};
+  try{const req=indexedDB.open("tsoc_admin_phase2_images",1);const db=await new Promise((res,rej)=>{req.onupgradeneeded=()=>{if(!req.result.objectStoreNames.contains("images"))req.result.createObjectStore("images")};req.onsuccess=()=>res(req.result);req.onerror=()=>rej(req.error)});
+    const get=k=>new Promise(res=>{const r=db.transaction("images").objectStore("images").get(k);r.onsuccess=()=>res(r.result||null);r.onerror=()=>res(null)});
+    for(const e of DATA.exercises){const q=await get(`QR:EN:${e.id}`);if(q)window.TSOC_ENGLISH_QR_URLS[e.id]=URL.createObjectURL(q);}
+    const im=await get("EX219");if(im)window.TSOC_PUBLISHED_IMAGE_URLS.EX219=URL.createObjectURL(im);
+  }catch(_){}
+}
+await loadBuild016Assets();
 init();
 
 })();

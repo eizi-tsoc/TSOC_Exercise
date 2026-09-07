@@ -437,15 +437,10 @@ fieldset{border:1px solid #d7e0e9;border-radius:8px;margin:0 0 12px;padding:10px
 .qr-source-box[data-mode="url"] .qr-image-panel{display:none}
 .qr-source-box[data-mode="image"] .qr-url-panel{display:none}
 
-/* ===== v2.1.0 Build009: full local backup / restore ===== */
-.backup-section{border-color:#9fc2da!important;background:#f7fbfe!important}
-.backup-intro{margin:0 0 10px!important;line-height:1.6!important}
-.backup-status{margin:10px 0;padding:10px 12px;border:1px solid #d5e0e8;border-radius:7px;background:#fff;white-space:pre-wrap;font-size:12px;line-height:1.55}
-.backup-status.working{background:#fff9e8;border-color:#e5cf8a}
-.backup-status.ok{background:#edf8ef;border-color:#a9d2b2;color:#245f35}
-.backup-status.error{background:#fff1f1;border-color:#dfaaaa;color:#872d2d}
-.backup-actions{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin:10px 0}
-.backup-actions button{min-height:38px}
-.backup-restore-label{display:inline-flex!important;align-items:center!important;gap:8px!important;margin:0!important;padding:8px 10px;border:1px solid #c7d3dd;border-radius:7px;background:#fff;font-weight:600!important;cursor:pointer}
-.backup-restore-label input{width:auto!important;margin:0!important;padding:0!important;border:0!important}
-.backup-preview{margin:8px 0 10px!important;padding:9px 11px;border-left:3px solid #79a9c8;background:#fff;white-space:pre-wrap}
+/* ===== v2.1.0 / Build016 unified language admin ===== */
+.language-admin-box{margin:12px 0;padding:12px;border:1px solid #cbd7e3;border-radius:8px;background:#fbfdff}
+.language-admin-box legend{font-weight:800;padding:0 6px}.language-jp-box{border-left:4px solid #4f86b5}.language-en-box{border-left:4px solid #c69b43}
+.admin-lang-badge{display:inline-flex;align-items:center;justify-content:center;min-width:27px;height:20px;border-radius:999px;font-size:11px;font-weight:900;border:1px solid}
+.admin-lang-badge.jp{background:#eef4fb;border-color:#a9c6df;color:#285d88}.admin-lang-badge.en{background:#fff4df;border-color:#e3c17b;color:#765615}
+.language-enabled-row{display:flex!important;flex-direction:row!important;align-items:center;gap:7px;font-weight:800;margin:3px 0 10px}.language-enabled-row input{width:auto!important}
+.language-fields-disabled{opacity:.42;pointer-events:none}.admin-language-status{display:inline-flex;gap:4px;margin-left:7px;vertical-align:middle}

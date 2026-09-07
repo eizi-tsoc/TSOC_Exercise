@@ -1,11 +1,31 @@
-// TSOC Exercise v2.1.0 / Build015 RestoreFix1
+// TSOC Exercise v2.1.0 / Build016 RestoreFix1
 // TSOC Exercise v2.1.0 Build009 - Full Backup/Restore + Rebuild20 base
 // TSOC Exercise Rebuild19 - Published Save Fix
 // 公開済み運動は「管理データ保存」で公開内容を更新。
 // 「公開する」は初回公開前の新規運動だけに表示。
 
 const BASE = window.TSOC_EXERCISE_DATA || {};
-const baseExercises = Array.isArray(BASE.exercises) ? BASE.exercises : [];
+const EN_MASTER = window.TSOC_ENGLISH_DATA || {mapping:{},english:{}};
+const LANGUAGE_KEY = "tsoc_admin_language_data_v1";
+let languageData={};
+try{languageData=JSON.parse(localStorage.getItem(LANGUAGE_KEY)||"{}")}catch{languageData={}}
+if(!languageData||typeof languageData!=="object"||Array.isArray(languageData))languageData={};
+const baseExercises = Array.isArray(BASE.exercises) ? [...BASE.exercises] : [];
+if(!baseExercises.some(e=>e.id==="EX219")){
+  const t=EN_MASTER.english?.EN106||{};
+  baseExercises.push({id:"EX219",name:t.name||"Wrist curl (dorsiflexion)",purpose:t.purpose||"",description:t.description||"",categories:["Training(Upper limb)"],images:[],image_transforms:[],print_images:[],print_image_transforms:[],qr:"",_englishOnly:true});
+}
+function masterEnglishFor(exId){
+  if(exId==="EX219")return EN_MASTER.english?.EN106||null;
+  const enId=EN_MASTER.mapping?.[exId];return enId?EN_MASTER.english?.[enId]||null:null;
+}
+function defaultLanguageFlags(exId){return exId==="EX219"?{ja:false,en:true}:{ja:true,en:!!masterEnglishFor(exId)}}
+function languageRecord(exId){
+  const flags=defaultLanguageFlags(exId),saved=languageData[exId]||{},m=masterEnglishFor(exId)||{};
+  return {jaEnabled:saved.jaEnabled??flags.ja,enEnabled:saved.enEnabled??flags.en,en:{name:saved.en?.name??m.name??"",purpose:saved.en?.purpose??m.purpose??"",description:saved.en?.description??m.description??""}};
+}
+function saveLanguageRecord(exId,rec){languageData[exId]=rec;localStorage.setItem(LANGUAGE_KEY,JSON.stringify(languageData));}
+function langStatus(exId){const r=languageRecord(exId);return r.jaEnabled&&r.enEnabled?"J・E":r.jaEnabled?"J":"E";}
 const DRAFT_KEY = "tsoc_admin_phase2_drafts_v1";
 const NEW_KEY = "tsoc_admin_phase2_new_v1";
 const PUBLISHED_KEY="tsoc_admin_phase4_published_v1";
@@ -198,7 +218,7 @@ function card(e){
   return `<article class="exercise-admin-card ${e.hidden?'hidden-item ':''}${isChanged(e)?'changed-item ':''}${e._new?'new-item':''}" data-id="${esc(e._new?e._key:e.id)}">
     <div class="admin-thumb"><img data-imgkey="${esc(e._new?e._key:e.id)}" src="${esc(completedPath(e))}" alt="" onerror="this.src='${esc(fallbackImage(e))}'"></div>
     <div class="admin-card-body">
-      <div class="id-line">${esc(e.id)}</div><div class="admin-name">${esc(e.name)}</div>
+      <div class="id-line">${esc(e.id)} <span class="admin-language-status"><span class="status">${esc(langStatus(e.id))}</span></span></div><div class="admin-name">${esc(e.name)}</div>
       <div class="tags">${(e.categories||[]).map(c=>`<span class="tag">${esc(c)}</span>`).join("")}</div>
       <div class="purpose">${esc(e.purpose||"")}</div><div class="desc">${esc(desc(e))}</div>
       ${statusHTML(e)}
@@ -266,9 +286,15 @@ function updateStats(){
 function itemByKey(key){return key.startsWith("NEW:")?newItems.find(x=>x._key===key):mergedExercise(key)}
 async function openEdit(key){
   const e=itemByKey(key); if(!e)return; currentEditId=key;
-  $("#fId").value=e.id;$("#fName").value=e.name||"";$("#fPurpose").value=e.purpose||"";$("#fDescription").value=desc(e);$("#fHidden").checked=!!e.hidden;
+  const lr=languageRecord(e.id);
+  $("#fId").value=e.id;$("#fName").value=e._englishOnly?"":(e.name||"");$("#fPurpose").value=e._englishOnly?"":(e.purpose||"");$("#fDescription").value=e._englishOnly?"":desc(e);$("#fHidden").checked=!!e.hidden;
+  $("#fJaEnabled").checked=!!lr.jaEnabled;$("#fEnEnabled").checked=!!lr.enEnabled;
+  $("#feName").value=lr.en.name||"";$("#fePurpose").value=lr.en.purpose||"";$("#feDescription").value=lr.en.description||"";
+  const enQrKey=`EN:${e.id}`,enQrUrl=getQrUrl(enQrKey);$("#feQrUrl").value=enQrUrl;$("#feQrImage").value="";
+  const enMode=enQrUrl?"url":"image",enRadio=document.querySelector(`input[name="feQrMode"][value="${enMode}"]`);if(enRadio)enRadio.checked=true;const enBox=$("#fEnglishQrBox");if(enBox)enBox.dataset.mode=enMode;renderGeneratedQr("#feQrPreview",enQrUrl);
+  updateLanguageFieldState();
   categoryChecks($("#categoryChecks"),e.categories||[]);
-  $("#editTitle").textContent=`運動編集：${e.id} ${e.name}`;
+  $("#editTitle").textContent=`運動編集：${e.id} ${e._englishOnly?(lr.en.name||e.name):e.name} 【${langStatus(e.id)}】`;
   $("#fImage").value="";$("#fQrImage").value="";
   const savedQrUrl=getQrUrl(key);$("#fQrUrl").value=savedQrUrl;
   const fMode=savedQrUrl?"url":"image",fRadio=document.querySelector(`input[name="fQrMode"][value="${fMode}"]`);
@@ -291,16 +317,23 @@ async function openEdit(key){
   await updateEditPreview();
   $("#editModal").hidden=false;
 }
+function updateLanguageFieldState(){
+  const ja=$("#fJaEnabled")?.checked,en=$("#fEnEnabled")?.checked;
+  $("#fJaFields")?.classList.toggle("language-fields-disabled",!ja);
+  $("#fEnFields")?.classList.toggle("language-fields-disabled",!en);
+}
+$("#fJaEnabled")?.addEventListener("change",updateLanguageFieldState);
+$("#fEnEnabled")?.addEventListener("change",updateLanguageFieldState);
 async function updateEditPreview(){
   const e=itemByKey(currentEditId);if(!e)return;
-  $("#previewName").textContent=$("#fName").value;$("#previewPurpose").textContent=$("#fPurpose").value;$("#previewDescription").textContent=$("#fDescription").value;
+  const useEn=!$("#fJaEnabled")?.checked&&$("#fEnEnabled")?.checked;$("#previewName").textContent=useEn?$("#feName").value:$("#fName").value;$("#previewPurpose").textContent=useEn?$("#fePurpose").value:$("#fPurpose").value;$("#previewDescription").textContent=useEn?$("#feDescription").value:$("#fDescription").value;
   const cats=selectedCats($("#categoryChecks"));$("#previewTags").innerHTML=cats.map(c=>`<span class="tag">${esc(c)}</span>`).join("");
   const box=$("#previewImage");box.innerHTML="";
   const img=document.createElement("img");
   if(tempEditImageURL)img.src=tempEditImageURL;else{const blob=await idbGet(currentEditId).catch(()=>null);img.src=blob?URL.createObjectURL(blob):completedPath(e)}
   img.onerror=()=>{img.src=fallbackImage(e)};box.appendChild(img);
 }
-["fName","fPurpose","fDescription"].forEach(id=>$("#"+id).addEventListener("input",updateEditPreview));
+["fName","fPurpose","fDescription","feName","fePurpose","feDescription"].forEach(id=>$("#"+id).addEventListener("input",updateEditPreview));
 $("#categoryChecks").addEventListener("change",updateEditPreview);
 $("#fImage").addEventListener("change",()=>{const f=$("#fImage").files[0];if(f){if(tempEditImageURL)URL.revokeObjectURL(tempEditImageURL);tempEditImageURL=URL.createObjectURL(f);updateEditPreview()}});
 
@@ -314,10 +347,11 @@ $("#editForm").addEventListener("submit",async ev=>{
   const submitBtn=$("#editForm button[type='submit']");
   if(submitBtn?.disabled)return;
 
+  const existingLang=languageRecord(e.id);
   const patch={
-    name:$("#fName").value.trim(),
-    purpose:$("#fPurpose").value.trim(),
-    description:$("#fDescription").value,
+    name:$("#fJaEnabled").checked?$("#fName").value.trim():(existingLang.en.name||e.name||""),
+    purpose:$("#fJaEnabled").checked?$("#fPurpose").value.trim():(existingLang.en.purpose||e.purpose||""),
+    description:$("#fJaEnabled").checked?$("#fDescription").value:(existingLang.en.description||desc(e)),
     categories:selectedCats($("#categoryChecks")),
     hidden:$("#fHidden").checked
   };
@@ -325,8 +359,12 @@ $("#editForm").addEventListener("submit",async ev=>{
 
   /* FIX4: 編集保存では、既存画像の再取得を要求しない。
      既存データの画像はすでに登録済みなので、編集項目だけを検証する。 */
+  const jaEnabled=$("#fJaEnabled").checked,enEnabled=$("#fEnEnabled").checked;
+  const enPatch={name:$("#feName").value.trim(),purpose:$("#fePurpose").value.trim(),description:$("#feDescription").value};
   const autoErrors=[];
-  if(!candidate.name) autoErrors.push("運動名を入力してください。");
+  if(!jaEnabled&&!enEnabled)autoErrors.push("日本語版またはEnglish版のどちらかを有効にしてください。");
+  if(jaEnabled&&!candidate.name) autoErrors.push("日本語の運動名を入力してください。");
+  if(enEnabled&&!enPatch.name) autoErrors.push("EnglishのExercise nameを入力してください。");
   if(!(candidate.categories||[]).length) autoErrors.push("カテゴリーを1つ以上設定してください。");
   if(autoErrors.length){
     alert("保存できません。\n\n・"+autoErrors.join("\n・"));
@@ -361,6 +399,8 @@ $("#editForm").addEventListener("submit",async ev=>{
     if(file) await idbPut(key,file);
 
     await saveQrChoice("f",key);
+    saveLanguageRecord(e.id,{jaEnabled,enEnabled,en:enPatch});
+    await saveQrChoice("fe",`EN:${e.id}`);
 
     /*
       Rebuild19 公開モデル:
@@ -1898,3 +1938,9 @@ $("#fullRestoreFile")?.addEventListener("change",async ev=>{
   }
 });
 $("#fullRestoreBtn")?.addEventListener("click",()=>{if(tsocRestoreCandidate)tsocRestoreFullBackup(tsocRestoreCandidate)});
+
+/* Build016 English QR mode binding */
+(function(){
+  document.querySelectorAll('input[name="feQrMode"]').forEach(r=>r.addEventListener('change',()=>{const b=document.getElementById('fEnglishQrBox');if(b)b.dataset.mode=r.value;}));
+  document.getElementById('feQrUrl')?.addEventListener('input',e=>renderGeneratedQr('#feQrPreview',e.target.value.trim()));
+})();
