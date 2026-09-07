@@ -1,5 +1,5 @@
-TSOC Exercise v2.1.0 / Build009
-テストサイト保存領域分離 PATCH
+TSOC Exercise Web v2.1.0 / Build011
+バックアップ復元ZIP読込修正 + 見えるバージョン更新
 
 対象:
   test/build009/ のみ
@@ -8,18 +8,13 @@ TSOC Exercise v2.1.0 / Build009
   admin.js
   admin.html
   index.html
+  build-info.js
 
-新規追加:
-  test-storage-scope.js
+修正:
+  - JSZip.loadAsync is not a function を修正
+  - 管理画面・選択画面の表示を v2.1.0 / Build011 に更新
+  - スクリプトURLのキャッシュバスターも Build011 に更新
+  - 本番環境は変更しない
 
-目的:
-  /test/build009/ の localStorage / IndexedDB を本番環境から分離します。
-  本番のブラウザ保存データは削除・変更しません。
-
-重要:
-  反映直後のテスト環境は、分離された保存領域が空のため、
-  管理画面では静的な218運動を基準に表示されます。
-  先ほど保存した最新バックアップZIP
-  TSOC_Exercise_FULL_BACKUP_20260907_103540.zip
-  をテスト管理画面の「バックアップZIPから復元」で復元してください。
-  復元先はテスト専用領域です。本番領域は変更されません。
+反映確認:
+  GitHub Pages更新後、画面に「v2.1.0 / Build011」と表示されれば反映済みです。

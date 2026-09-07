@@ -1,3 +1,4 @@
+// TSOC Exercise v2.1.0 / Build011 RestoreFix1
 // TSOC Exercise v2.1.0 Build009 - Full Backup/Restore + Rebuild20 base
 // TSOC Exercise Rebuild19 - Published Save Fix
 // 公開済み運動は「管理データ保存」で公開内容を更新。
@@ -1807,7 +1808,8 @@ async function tsocCreateFullBackup(){
 
 async function tsocInspectBackupFile(file){
   if(typeof JSZip==="undefined")throw new Error("ZIPライブラリを読み込めません。");
-  const zip=await JSZip.loadAsync(file);
+  const zip=new JSZip();
+  await zip.loadAsync(file);
   for(const req of ["backup-info.json","localStorage.json","indexeddb/images-manifest.json","indexeddb/layouts.json"]){
     if(!zip.file(req))throw new Error(`必要なファイルがありません: ${req}`);
   }
