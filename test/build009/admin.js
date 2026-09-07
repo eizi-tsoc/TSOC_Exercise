@@ -1,4 +1,4 @@
-// TSOC Exercise Rebuild20 - New Publish Refresh Fix
+// TSOC Exercise v2.1.0 Build009 - Full Backup/Restore + Rebuild20 base
 // TSOC Exercise Rebuild19 - Published Save Fix
 // 公開済み運動は「管理データ保存」で公開内容を更新。
 // 「公開する」は初回公開前の新規運動だけに表示。
@@ -1648,3 +1648,195 @@ document.addEventListener("keydown",e=>{
 });
 
 setupQrMode("f");setupQrMode("n");
+
+/* =========================================================
+   v2.1.0 / Build009: full browser-local backup / restore
+   Protects localStorage + image/QR IndexedDB + visual layouts.
+   ========================================================= */
+const TSOC_FULL_BACKUP_FORMAT="TSOC_EXERCISE_FULL_BACKUP_V1";
+const TSOC_FULL_BACKUP_VERSION="v2.1.0 / Build009";
+let tsocRestoreCandidate=null;
+
+function tsocBackupStamp(){
+  const d=new Date(),p=n=>String(n).padStart(2,"0");
+  return `${d.getFullYear()}${p(d.getMonth()+1)}${p(d.getDate())}_${p(d.getHours())}${p(d.getMinutes())}${p(d.getSeconds())}`;
+}
+function tsocSetBackupStatus(text,type=""){
+  const el=$("#backupStatus");if(!el)return;
+  el.textContent=text;el.className="backup-status"+(type?` ${type}`:"");
+}
+function tsocDownloadBlob(blob,name){
+  const a=document.createElement("a");
+  a.href=URL.createObjectURL(blob);a.download=name;a.click();
+  setTimeout(()=>URL.revokeObjectURL(a.href),2000);
+}
+function tsocLocalStorageSnapshot(){
+  const out={};
+  for(let i=0;i<localStorage.length;i++){
+    const k=localStorage.key(i);
+    if(k && k.startsWith("tsoc_")) out[k]=localStorage.getItem(k);
+  }
+  return out;
+}
+function tsocOpenNamedDB(name,store,version=1){
+  return new Promise((resolve,reject)=>{
+    const r=indexedDB.open(name,version);
+    r.onupgradeneeded=()=>{if(!r.result.objectStoreNames.contains(store))r.result.createObjectStore(store)};
+    r.onsuccess=()=>resolve(r.result);r.onerror=()=>reject(r.error);
+  });
+}
+async function tsocReadStore(name,store){
+  const db=await tsocOpenNamedDB(name,store);
+  return await new Promise((resolve,reject)=>{
+    const tx=db.transaction(store,"readonly"),os=tx.objectStore(store),rows=[];
+    const r=os.openCursor();
+    r.onsuccess=()=>{const c=r.result;if(c){rows.push({key:c.key,value:c.value});c.continue()}else resolve(rows)};
+    r.onerror=()=>reject(r.error);
+  });
+}
+async function tsocReplaceStore(name,store,rows){
+  const db=await tsocOpenNamedDB(name,store);
+  return await new Promise((resolve,reject)=>{
+    const tx=db.transaction(store,"readwrite"),os=tx.objectStore(store);
+    os.clear();
+    for(const row of rows)os.put(row.value,row.key);
+    tx.oncomplete=()=>resolve();tx.onerror=()=>reject(tx.error);tx.onabort=()=>reject(tx.error||new Error("IndexedDB restore aborted"));
+  });
+}
+async function tsocCreateFullBackup(){
+  const btn=$("#fullBackupBtn");if(btn?.disabled)return;
+  if(typeof JSZip==="undefined"){alert("バックアップ作成ライブラリを読み込めませんでした。");return;}
+  if(btn)btn.disabled=true;
+  try{
+    tsocSetBackupStatus("バックアップ対象を確認しています…","working");
+    const ls=tsocLocalStorageSnapshot();
+    const images=await tsocReadStore(DB_NAME,DB_STORE);
+    const layouts=await tsocReadStore(VE_DB_NAME,VE_DB_STORE);
+
+    const zip=new JSZip();
+    const imageManifest=[];
+    let imageNo=0;
+    for(const row of images){
+      imageNo++;
+      tsocSetBackupStatus(`バックアップ作成中…\n完成画像・QR ${imageNo} / ${images.length}\n画像レイアウト ${layouts.length}件`,"working");
+      const fileName=`indexeddb/images/${String(imageNo).padStart(4,"0")}.bin`;
+      const value=row.value;
+      if(value instanceof Blob){
+        zip.file(fileName,value,{binary:true});
+        imageManifest.push({key:row.key,file:fileName,type:value.type||"application/octet-stream",size:value.size});
+      }else{
+        const jsonFile=`indexeddb/images/${String(imageNo).padStart(4,"0")}.json`;
+        zip.file(jsonFile,JSON.stringify(value));
+        imageManifest.push({key:row.key,file:jsonFile,type:"application/json",json:true});
+      }
+    }
+
+    zip.file("localStorage.json",JSON.stringify(ls,null,2));
+    zip.file("indexeddb/images-manifest.json",JSON.stringify(imageManifest,null,2));
+    zip.file("indexeddb/layouts.json",JSON.stringify(layouts,null,2));
+    const meta={
+      format:TSOC_FULL_BACKUP_FORMAT,
+      created_at:new Date().toISOString(),
+      app_version:TSOC_FULL_BACKUP_VERSION,
+      base_exercises:baseExercises.length,
+      localStorage_keys:Object.keys(ls).length,
+      image_store_records:images.length,
+      visual_layout_records:layouts.length,
+      note:"TSOC Exercise browser-local management backup. No patient name/data is included by this backup function."
+    };
+    zip.file("backup-info.json",JSON.stringify(meta,null,2));
+    zip.file("README.txt",`TSOC Exercise 管理データ一括バックアップ\n\n作成日時: ${new Date().toLocaleString()}\n版: ${TSOC_FULL_BACKUP_VERSION}\n元データ: ${baseExercises.length}件\nlocalStorage: ${Object.keys(ls).length}キー\n完成画像・QR: ${images.length}件\n画像レイアウト: ${layouts.length}件\n\nこのZIPは管理画面の「バックアップZIPから復元」で使用してください。\nZIP内部のファイルを編集しないでください。\n`);
+
+    tsocSetBackupStatus(`ZIPを作成しています…\n完成画像・QR ${images.length}件\n画像レイアウト ${layouts.length}件`,"working");
+    const blob=await zip.generateAsync({type:"blob",compression:"DEFLATE",compressionOptions:{level:3}},m=>{
+      tsocSetBackupStatus(`ZIP圧縮中… ${Math.round(m.percent)}%\n完成画像・QR ${images.length}件\n画像レイアウト ${layouts.length}件`,"working");
+    });
+    const name=`TSOC_Exercise_FULL_BACKUP_${tsocBackupStamp()}.zip`;
+    tsocDownloadBlob(blob,name);
+    const layoutNote=layouts.length>=218?"218件以上の画像レイアウトを確認しました。":`画像レイアウトは ${layouts.length}件です。`;
+    tsocSetBackupStatus(`バックアップ完了\n${name}\n完成画像・QR: ${images.length}件\n画像レイアウト: ${layouts.length}件\n${layoutNote}\nZIPサイズ: ${(blob.size/1024/1024).toFixed(1)} MB`,"ok");
+  }catch(err){
+    console.error(err);tsocSetBackupStatus("バックアップに失敗しました。\n"+(err?.message||String(err)),"error");alert("バックアップに失敗しました。");
+  }finally{if(btn)btn.disabled=false;}
+}
+
+async function tsocInspectBackupFile(file){
+  if(typeof JSZip==="undefined")throw new Error("ZIPライブラリを読み込めません。");
+  const zip=await JSZip.loadAsync(file);
+  for(const req of ["backup-info.json","localStorage.json","indexeddb/images-manifest.json","indexeddb/layouts.json"]){
+    if(!zip.file(req))throw new Error(`必要なファイルがありません: ${req}`);
+  }
+  const meta=JSON.parse(await zip.file("backup-info.json").async("string"));
+  if(meta.format!==TSOC_FULL_BACKUP_FORMAT)throw new Error("TSOC Exerciseの一括バックアップZIPではありません。");
+  const ls=JSON.parse(await zip.file("localStorage.json").async("string"));
+  const manifest=JSON.parse(await zip.file("indexeddb/images-manifest.json").async("string"));
+  const layouts=JSON.parse(await zip.file("indexeddb/layouts.json").async("string"));
+  if(!ls||typeof ls!=="object"||Array.isArray(ls))throw new Error("localStorageデータが不正です。");
+  if(!Array.isArray(manifest)||!Array.isArray(layouts))throw new Error("IndexedDBデータが不正です。");
+  for(const row of manifest){if(!row?.file||!zip.file(row.file))throw new Error(`画像データが不足しています: ${row?.file||"不明"}`)}
+  return {zip,meta,ls,manifest,layouts,file};
+}
+
+async function tsocRestoreFullBackup(candidate){
+  const btn=$("#fullRestoreBtn");if(btn?.disabled)return;
+  const {zip,meta,ls,manifest,layouts}=candidate;
+  const created=meta.created_at?new Date(meta.created_at).toLocaleString():"不明";
+  const ok=confirm(
+    `バックアップから復元します。\n\n`+
+    `作成日時: ${created}\n`+
+    `完成画像・QR: ${manifest.length}件\n`+
+    `画像レイアウト: ${layouts.length}件\n`+
+    `localStorage: ${Object.keys(ls).length}キー\n\n`+
+    `このブラウザ内の現在のTSOC管理データを置き換えます。\n実行しますか？`
+  );
+  if(!ok)return;
+  btn.disabled=true;
+  try{
+    tsocSetBackupStatus("復元データを展開しています…","working");
+    const imageRows=[];
+    for(let i=0;i<manifest.length;i++){
+      const m=manifest[i];
+      tsocSetBackupStatus(`復元データ展開中…\n完成画像・QR ${i+1} / ${manifest.length}\n画像レイアウト ${layouts.length}件`,"working");
+      if(m.json){
+        imageRows.push({key:m.key,value:JSON.parse(await zip.file(m.file).async("string"))});
+      }else{
+        const bytes=await zip.file(m.file).async("uint8array");
+        imageRows.push({key:m.key,value:new Blob([bytes],{type:m.type||"application/octet-stream"})});
+      }
+    }
+
+    // Replace only TSOC-owned localStorage keys. Session login state is not touched.
+    const remove=[];
+    for(let i=0;i<localStorage.length;i++){const k=localStorage.key(i);if(k&&k.startsWith("tsoc_"))remove.push(k)}
+    remove.forEach(k=>localStorage.removeItem(k));
+    Object.entries(ls).forEach(([k,v])=>{if(k.startsWith("tsoc_"))localStorage.setItem(k,String(v))});
+
+    await tsocReplaceStore(DB_NAME,DB_STORE,imageRows);
+    await tsocReplaceStore(VE_DB_NAME,VE_DB_STORE,layouts);
+    tsocSetBackupStatus(`復元完了\n完成画像・QR: ${imageRows.length}件\n画像レイアウト: ${layouts.length}件\n画面を再読み込みします。`,"ok");
+    alert("復元が完了しました。管理画面を再読み込みします。");
+    location.reload();
+  }catch(err){
+    console.error(err);tsocSetBackupStatus("復元に失敗しました。\n"+(err?.message||String(err)),"error");alert("復元に失敗しました。\n\n"+(err?.message||String(err)));
+  }finally{btn.disabled=false;}
+}
+
+$("#fullBackupBtn")?.addEventListener("click",tsocCreateFullBackup);
+$("#fullRestoreFile")?.addEventListener("change",async ev=>{
+  const file=ev.target.files?.[0]||null;
+  tsocRestoreCandidate=null;
+  const btn=$("#fullRestoreBtn");if(btn)btn.disabled=true;
+  const preview=$("#restorePreview");if(preview)preview.textContent="";
+  if(!file)return;
+  try{
+    tsocSetBackupStatus("バックアップZIPを検証しています…","working");
+    const c=await tsocInspectBackupFile(file);tsocRestoreCandidate=c;
+    const created=c.meta.created_at?new Date(c.meta.created_at).toLocaleString():"不明";
+    if(preview)preview.textContent=`検証OK\nファイル: ${file.name}\n作成日時: ${created}\n完成画像・QR: ${c.manifest.length}件\n画像レイアウト: ${c.layouts.length}件\nlocalStorage: ${Object.keys(c.ls).length}キー`;
+    tsocSetBackupStatus("復元用ZIPの検証に成功しました。内容を確認してから「選択したZIPから復元」を押してください。","ok");
+    if(btn)btn.disabled=false;
+  }catch(err){
+    console.error(err);tsocSetBackupStatus("バックアップZIPを使用できません。\n"+(err?.message||String(err)),"error");if(preview)preview.textContent="検証NG";
+  }
+});
+$("#fullRestoreBtn")?.addEventListener("click",()=>{if(tsocRestoreCandidate)tsocRestoreFullBackup(tsocRestoreCandidate)});

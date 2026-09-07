@@ -3,12 +3,12 @@
 <head><meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>TSOC Exercise 管理画面 Phase 2</title>
-  <link rel="stylesheet" href="admin.css">
+  <link rel="stylesheet" href="admin.css?v=2.1.0-b009">
 </head>
-<body><div class="tsoc-version-badge" title="現在表示中のWeb版">TSOC Exercise Web v2.0.4 / Build008</div><header class="admin-header">
+<body><div class="tsoc-version-badge" title="現在表示中のWeb版">TSOC Exercise Web v2.1.0 / Build009</div><header class="admin-header">
     <div>
       <h1>TSOC Exercise 管理画面</h1>
-      <div class="sub">GitHub TEST Rebuild17：管理・公開ワークフロー</div>
+      <div class="sub">GitHub TEST Build009：管理・公開ワークフロー</div>
     </div>
     <div class="header-actions">
       <button id="newBtn" class="primary">＋ 新規追加</button>
@@ -309,6 +309,22 @@
       <div class="hint">カンマ区切りで入力します。保存後、選択画面を開き直すと反映されます。</div>
     </section>
 
+    <section class="settings-section backup-section">
+      <h3>管理データの一括バックアップ／復元</h3>
+      <div class="hint backup-intro">このPC・このブラウザに保存されているTSOC Exerciseの管理データをZIPで保護します。画像レイアウト、完成画像、QR、公開状態、カテゴリー、表示順、プリセット、新規追加運動などが対象です。</div>
+      <div id="backupStatus" class="backup-status">未実行</div>
+      <div class="backup-actions">
+        <button type="button" id="fullBackupBtn" class="primary">一括バックアップを保存</button>
+        <label class="backup-restore-label">
+          <span>バックアップZIPを選択</span>
+          <input id="fullRestoreFile" type="file" accept=".zip,application/zip">
+        </label>
+        <button type="button" id="fullRestoreBtn" class="danger-outline" disabled>選択したZIPから復元</button>
+      </div>
+      <div id="restorePreview" class="backup-preview hint"></div>
+      <div class="hint">復元前にZIPの内容を検証し、件数を表示します。復元すると、このブラウザ内の現在のTSOC管理データをバックアップ内容で置き換えます。</div>
+    </section>
+
     <section class="settings-section">
       <h3>管理者パスワード変更</h3>
       <label>現在のパスワード
@@ -352,7 +368,7 @@
 <script>
   if (TSOC_ADMIN_AUTH.guard()) {
     const s=document.createElement("script");
-    s.src="admin.js?v=2.0.4-b008";
+    s.src="admin.js?v=2.1.0-b009";
     document.body.appendChild(s);
   }
 </script>
