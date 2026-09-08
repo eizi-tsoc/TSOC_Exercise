@@ -1,0 +1,27 @@
+TSOC Exercise v2.1.0 / Build009
+テスト環境用：管理データ一括バックアップ／復元 PATCH
+
+対象フォルダ:
+C:\Users\eizi\Documents\GitHub\TSOC_Exercise\test\build009
+
+手順:
+1. このPATCH内の5ファイルを test\build009 へ上書きコピー
+   - index.html
+   - admin.html
+   - admin.js
+   - admin.css
+   - build-info.js
+2. GitHub Desktopで Changes が test/build009 内だけであることを確認
+3. Commit → Push origin
+4. テストサイトの管理者ページを開く
+5. 管理者設定 → 「管理データの一括バックアップ／復元」
+6. 「一括バックアップを保存」を実行
+7. 完了表示の「画像レイアウト」件数を確認（現在218件編集済みなら218件以上が目安）
+8. ダウンロードされた TSOC_Exercise_FULL_BACKUP_*.zip を安全な場所へ保管
+
+重要:
+GitHub Pagesの本番と test/build009 は同じドメイン（eizi-tsoc.github.io）です。
+localStorage / IndexedDB はURLのフォルダではなく「オリジン」単位のため、現状では本番とテストでブラウザ保存データを共有します。
+英語版の編集・新規データ投入を始める前に、次段階でテスト環境の保存領域を分離します。
+
+このBuild009では本番ルートのファイルは変更しません。

@@ -1,0 +1,19 @@
+﻿TSOC Exercise Web v2.0.4 / Build008
+
+PDF直接作成の縦横比修正
+
+Build007ではhtml2canvasで作成した画像を297×210mmへそのまま貼り付けていたため、
+ブラウザ印刷と比較して運動画像が横方向へ広く見えるケースがありました。
+
+Build008では:
+- PDF作成用ページを297×210mmのA4横サイズへ明示固定
+- completed画像をnaturalWidth / naturalHeightから計算し、
+  html2canvas実行前に実寸pxへ確定
+- object-fit任せにせず元画像の縦横比を保持
+- QR画像も正方形実寸へ確定
+- PDFへの配置時もcanvasの実際の縦横比を使ってfit
+- 297×210mmへ強制引き伸ばししない
+- 余差がある場合は中央配置し、縦横比を優先
+
+Build007のPDF直接保存、Build006のQR仕上げ、
+Build005のQR公開連携、Build004の回数/時間保持を継続。
