@@ -1,0 +1,17 @@
+<!doctype html>
+<html lang="ja">
+<head><meta name="robots" content="noindex,nofollow"><meta charset="utf-8"><title>TSOC 管理下書き 印刷プレビュー</title>
+<style>
+@page{size:A4 landscape;margin:8mm}*{box-sizing:border-box}body{margin:0;font-family:"Yu Gothic",Meiryo,sans-serif;color:#111}.toolbar{padding:8px;background:#eef3f7;position:sticky;top:0;z-index:5}.toolbar button{height:34px}.page{width:281mm;height:194mm;margin:0 auto 10px;display:grid;grid-template-columns:1fr 1fr;grid-template-rows:1fr 1fr;border-left:1px solid #aaa;border-top:1px solid #aaa;page-break-after:always}.slot{border-right:1px solid #aaa;border-bottom:1px solid #aaa;padding:2mm;display:grid;grid-template-rows:7mm 7mm minmax(0,1fr) 20mm;overflow:hidden}.title{font-weight:700;border-bottom:1px solid #888}.purpose{font-size:11px;padding-top:1mm}.visual{display:flex;align-items:center;justify-content:center;overflow:hidden}.visual img{width:100%;height:100%;object-fit:contain}.desc{font-size:10px;white-space:pre-wrap;line-height:1.35;overflow:hidden}.empty{display:flex;align-items:center;justify-content:center;color:#aaa}@media print{.toolbar{display:none}.page{margin:0}}
+</style></head>
+<body>
+<div class="toolbar"><button onclick="window.print()">印刷/PDF</button>　管理下書きの印刷レイアウト確認（表示中運動の先頭8件）</div><div id="pages"></div>
+<script>
+const p=JSON.parse(sessionStorage.getItem("tsoc_admin_phase3_preview_payload_v1")||'{"items":[]}');
+const items=p.items.filter(x=>!x.hidden).slice(0,8);
+const pages=document.getElementById("pages");
+for(let pg=0;pg<Math.max(1,Math.ceil(items.length/4));pg++){
+ const page=document.createElement("section");page.className="page";
+ for(let i=0;i<4;i++){const e=items[pg*4+i];const s=document.createElement("article");s.className="slot";s.innerHTML=e?`<div class="title">種目：${e.name}</div><div class="purpose">目的:${e.purpose}</div><div class="visual"><img src="${e.preview_image}"></div><div class="desc">${e.description}</div>`:`<div class="empty">未使用枠</div>`;page.appendChild(s)}pages.appendChild(page)
+}
+</script></body></html>

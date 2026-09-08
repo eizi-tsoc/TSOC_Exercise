@@ -1,0 +1,287 @@
+// TSOC Exercise v2.1.0 / Build017 - unified exercise / output language model
+(async()=>{
+if(window.TSOC_APPLY_LOCAL_PUBLISHED) await window.TSOC_APPLY_LOCAL_PUBLISHED();
+const BASE_DATA=window.TSOC_EXERCISE_DATA;
+const CONFIG=window.TSOC_EXERCISE_CONFIG||{};
+const EN=window.TSOC_ENGLISH_DATA||{mapping:{},english:{}};
+let LANG={};try{LANG=JSON.parse(localStorage.getItem("tsoc_admin_language_data_v1")||"{}")}catch{LANG={}}
+function langOverride(id){return LANG?.[id]||null;}
+const EX219_LOCAL=BASE_DATA.exercises.find(e=>e.id==="EX219")||null;
+const JP_EXERCISES=[...BASE_DATA.exercises].filter(e=>e.id!=="EX219");
+const DATA={...BASE_DATA,exercises:[...JP_EXERCISES],categories:[...BASE_DATA.categories]};
+
+function readLocalOrder(key){
+  try{
+    const v=JSON.parse(localStorage.getItem(key)||"[]");
+    return Array.isArray(v)?v:[];
+  }catch{return []}
+}
+const exOrder=readLocalOrder("tsoc_admin_exercise_order_v1");
+if(exOrder.length){
+  const pos=new Map(exOrder.map((id,i)=>[id,i]));
+  DATA.exercises=[...DATA.exercises].sort((a,b)=>(pos.get(a.id)??999999)-(pos.get(b.id)??999999));
+}
+const catOrder=readLocalOrder("tsoc_admin_category_order_v1");
+if(catOrder.length){
+  const pos=new Map(catOrder.map((c,i)=>[c,i]));
+  DATA.categories=[...DATA.categories].sort((a,b)=>(pos.get(a)??999999)-(pos.get(b)??999999));
+}
+
+const state={category:'ALL',search:'',selected:[],manualOrder:false,outputLanguage:null};
+const ORDER=new Map(DATA.exercises.map((e,i)=>[e.id,i]));
+ORDER.set("EN106",105.5);
+const $=s=>document.querySelector(s); const byId=id=>DATA.exercises.find(x=>x.id===id);
+const esc=s=>String(s??'').replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]));
+const repValues=CONFIG.rep_values||CONFIG.dose_values||[1,2,3,4,5,6,7,8,9,10,20,30,40,60];
+const secondValues=CONFIG.second_values||CONFIG.dose_values||[1,2,3,4,5,6,7,8,9,10,20,30,40,60];
+const setValues=CONFIG.set_values||[1,2,3,4,5,6,7,8,9,10];
+const units=CONFIG.dose_units||['回','秒'];
+const valuesForUnit=u=>u==='秒'?secondValues:repValues;
+
+function englishFor(exId){const ov=langOverride(exId);if(ov?.enEnabled===false)return null;if(ov?.en?.name)return ov.en;const enId=EN.mapping?.[exId];return enId?EN.english?.[enId]||null:null;}
+function languageStatus(e){const ov=langOverride(e.id);if(ov){const j=ov.jaEnabled!==false,en=ov.enEnabled===true||(ov.enEnabled!==false&&!!englishFor(e.id));return j&&en?"JE":j?"J":"E";}if(e.id==="EX219")return "E";return englishFor(e.id)?"JE":"J";}
+function languageBadge(status){const label=status==="JE"?"J・E":status==="J"?"J":"E";const cls=status==="JE"?"both":status==="J"?"jp":"en";const title=status==="JE"?"日本語・English対応":status==="J"?"日本語のみ":"Englishのみ";return `<span class="language-badge ${cls}" title="${title}">${label}</span>`;}
+function buildUnifiedExercises(){const list=JP_EXERCISES.map(jp=>{const st=languageStatus(jp),en=englishFor(jp.id);return st==="E"&&en?{...jp,name:en.name,purpose:en.purpose,description:en.description,language_status:st}:{...jp,language_status:st};});const only=langOverride("EX219")?.en?.name?langOverride("EX219").en:EN.english?.EN106;if(only)list.push({...((EX219_LOCAL)||{}),id:"EX219",display_id:"EX219",source_id:null,language_status:"E",name:only.name,purpose:only.purpose,description:only.description,english_id:"EN106",english:only,categories:EX219_LOCAL?.categories||[],images:EX219_LOCAL?.images||[],image_transforms:EX219_LOCAL?.image_transforms||[],print_images:EX219_LOCAL?.print_images||[],print_image_transforms:EX219_LOCAL?.print_image_transforms||[],qr:""});return list;}
+DATA.exercises=buildUnifiedExercises();
+function getOutputExercise(e,lang){const status=languageStatus(e);if(lang==="ja")return status==="E"?null:e;const t=e.id==="EX219"?(langOverride("EX219")?.en?.name?langOverride("EX219").en:EN.english?.EN106):englishFor(e.id);return (status==="J"||!t)?null:{...e,name:t.name,purpose:t.purpose,description:t.description,qr:window.TSOC_ENGLISH_QR_URLS?.[e.id]||""};}
+function unsupportedSelected(lang){return state.selected.filter(s=>{const e=DATA.exercises.find(x=>x.id===s.id)||s;return !getOutputExercise(e,lang);});}
+function chooseOutputLanguage(lang){const unsupported=unsupportedSelected(lang);if(unsupported.length){const ids=unsupported.map(s=>s.id).join("、");alert(lang==="en"?`選択した運動の中にEnglish版がない運動があります。\n${ids}\n\nEnglishでは出力できません。選択内容を確認してください。`:`選択した運動の中に日本語版がない運動があります。\n${ids}\n\n日本語では出力できません。選択内容を確認してください。`);return false;}state.outputLanguage=lang;document.querySelectorAll("[data-output-language]").forEach(b=>b.classList.toggle("active",b.dataset.outputLanguage===lang));return true;}
+
+function validateOutputLanguage(){
+  if(!state.outputLanguage){alert("出力言語を選択してください。\n\n「日本語」または「English」を選んでからPDFを作成してください。");return false;}
+  const bad=unsupportedSelected(state.outputLanguage);if(bad.length){const ids=bad.map(s=>s.id).join("、");alert(state.outputLanguage==="en"?`選択した運動の中にEnglish版がない運動があります。\n${ids}\n\nEnglishでは出力できません。`:`選択した運動の中に日本語版がない運動があります。\n${ids}\n\n日本語では出力できません。`);return false;}return true;
+}
+function renderCategoryNav(){
+  const box=$('#categoryNav');box.innerHTML='';
+  DATA.categories.forEach(c=>{const b=document.createElement('button');b.className='nav';b.textContent=c;b.onclick=()=>setCategory(c);box.appendChild(b)});
+}
+function init(){
+  document.querySelectorAll("[data-output-language]").forEach(b=>b.onclick=()=>chooseOutputLanguage(b.dataset.outputLanguage));
+  renderCategoryNav();
+  const allBtn=document.querySelector('.nav[data-cat="ALL"]');
+  if(allBtn) allBtn.onclick=()=>setCategory('ALL');
+  $('#search').oninput=e=>{state.search=e.target.value.trim().toLowerCase();renderGrid()};
+  $('#clearBtn').onclick=()=>{state.selected=[];state.manualOrder=false;renderAll()}; $('#previewBtn').onclick=showPreview; $('#printBtn').onclick=createPdfDirect;
+  $('#closePreview').onclick=()=>$('#previewBackdrop').classList.add('hidden'); $('#previewPrint').onclick=createPdfDirect;
+  $('#browserPrintBtn')?.addEventListener('click',printMenu); $('#previewBrowserPrint')?.addEventListener('click',printMenu);
+  renderAll();
+}
+function setCategory(c){state.category=c;document.querySelectorAll('.nav').forEach(b=>b.classList.toggle('active',(c==='ALL'&&b.dataset.cat==='ALL')||b.textContent===c));renderGrid()}
+function selectedId(id){return state.selected.find(x=>x.id===id)}
+function toggle(id){
+  const i=state.selected.findIndex(x=>x.id===id);
+  if(i>=0)state.selected.splice(i,1);
+  else{
+    if(state.selected.length>=DATA.max_selection){notice('選択できる運動は最大8種目です。');return}
+    state.selected.push({id,reps:'',unit:'回',sets:''});
+    if(!state.manualOrder)state.selected.sort((a,b)=>ORDER.get(a.id)-ORDER.get(b.id));
+  }
+  renderAll();
+}
+function moveSelection(idx,delta){const next=idx+delta;if(next<0||next>=state.selected.length)return;[state.selected[idx],state.selected[next]]=[state.selected[next],state.selected[idx]];state.manualOrder=true;renderSelection();}
+function notice(t){const n=$('#notice');n.textContent=t;n.classList.remove('hidden');setTimeout(()=>n.classList.add('hidden'),2500)}
+function filtered(){return DATA.exercises.filter(e=>(state.category==='ALL'||e.categories.includes(state.category))&&(!state.search||(`${e.name} ${e.purpose} ${e.description}`).toLowerCase().includes(state.search)))}
+function transformStyle(t){const sx=t?.flipH?-1:1,sy=t?.flipV?-1:1,r=t?.rotate||0;return `transform:rotate(${r}deg) scaleX(${sx}) scaleY(${sy});`}
+function completedPreviewPath(e){return window.TSOC_PUBLISHED_IMAGE_URLS?.[e.id]||`assets/preview-completed/${String(e.id).toLowerCase()}_completed.png`}
+function imageMarkup(e,cls=''){const fallback=e.images.length?`<div class="photo-layout ${cls}">${e.images.map((src,i)=>`<div class="photo-item"><img loading="lazy" src="${src}" alt="" style="${transformStyle(e.image_transforms?.[i])}"></div>`).join('')}</div>`:`<div class="no-photo">画像なし</div>`;return `<div class="completed-preview-wrap ${cls}"><img loading="lazy" class="completed-preview-image" src="${completedPreviewPath(e)}" alt="" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="completed-preview-fallback">${fallback}</div></div>`}
+function thumbMarkup(e){const fallback=e.images?.[0];return `<div class="sel-thumb"><img class="completed-thumb" src="${completedPreviewPath(e)}" alt="" onerror="this.style.display='none';this.nextElementSibling.style.display='block'"><img class="legacy-thumb" src="${fallback||''}" alt="" style="${fallback?transformStyle(e.image_transforms?.[0]):'display:none'}"></div>`}
+function categoryTag(e){return e.categories.map(c=>`<span class="tag">${esc(c)}</span>`).join('')}
+function renderGrid(){const g=$('#exerciseGrid');g.innerHTML='';filtered().forEach(e=>{const card=document.createElement('article');card.className='exercise-card'+(selectedId(e.id)?' selected':'');card.innerHTML=`${imageMarkup(e)}<div class="card-body"><div class="tags">${categoryTag(e)}</div><div class="exercise-id-row"><span class="exercise-display-id">${esc(e.id)}</span>${languageBadge(e.language_status||languageStatus(e))}</div><h3 class="card-title">${esc(e.name)}</h3><p class="purpose">${esc(e.purpose)}</p><div class="description">${esc(e.description)}</div></div>`;card.onclick=()=>toggle(e.id);g.appendChild(card)})}
+function selectOptions(values,current,blank='－'){
+  const vals=[...values];
+  if(current!==''&&current!=null&&!vals.some(v=>String(v)===String(current)))vals.push(current);
+  return `<option value="">${blank}</option>${vals.map(v=>`<option value="${v}" ${String(current)===String(v)?'selected':''}>${v}</option>`).join('')}`;
+}
+function renderSelection(){
+  const box=$('#selectionList');box.innerHTML='';
+  state.selected.forEach((s,idx)=>{const e=byId(s.id),d=document.createElement('div');d.className='selection-item';
+    d.innerHTML=`<div class="sel-main">${thumbMarkup(e)}<div class="sel-info"><div class="sel-row"><span class="sel-no">${idx+1}</span><strong>${esc(e.id)} ${esc(e.name)} ${languageBadge(e.language_status||languageStatus(e))}</strong><button class="remove" aria-label="削除">×</button></div><div class="reorder"><button class="move up" title="上へ" ${idx===0?'disabled':''}>▲</button><button class="move down" title="下へ" ${idx===state.selected.length-1?'disabled':''}>▼</button><span>印刷順</span></div></div></div><div class="dose"><label><span>回数/時間</span><select class="reps">${selectOptions(valuesForUnit(s.unit),s.reps)}</select></label><label><span>単位</span><select class="unit">${units.map(u=>`<option ${s.unit===u?'selected':''}>${u}</option>`).join('')}</select></label><label><span>セット</span><select class="sets">${selectOptions(setValues,s.sets)}</select></label></div>`;
+    d.querySelector('.remove').onclick=()=>{state.selected.splice(idx,1);renderAll()};
+    d.querySelector('.up').onclick=()=>moveSelection(idx,-1); d.querySelector('.down').onclick=()=>moveSelection(idx,1);
+    d.querySelector('.reps').onchange=x=>s.reps=x.target.value;d.querySelector('.unit').onchange=x=>{s.unit=x.target.value;};d.querySelector('.sets').onchange=x=>s.sets=x.target.value;box.appendChild(d)});
+  $('#count').textContent=state.selected.length;
+}
+function renderAll(){renderGrid();renderSelection()}
+function doseText(s){let t='';if(s.reps)t+=`${s.reps}${state.outputLanguage==="en"?(s.unit==="秒"?" seconds":" reps"):s.unit}`;if(s.sets)t+=(t?' × ':'')+`${s.sets}${state.outputLanguage==="en"?" sets":"セット"}`;return t}
+function getPrintImageSet(e){const high=Array.isArray(e.print_images)&&e.print_images.length?e.print_images:null;return {images:high||e.images||[],transforms:high?(e.print_image_transforms||[]):(e.image_transforms||[]),highRes:!!high}}
+function legacyPrintImages(e){const set=getPrintImageSet(e);return set.images.length?`<div class="print-photo-layout${set.highRes?' high-res':''}">${set.images.map((src,i)=>`<div class="print-photo-item"><img src="${src}" alt="" style="${transformStyle(set.transforms?.[i])}"></div>`).join('')}</div>`:`<div class="print-no-photo">画像なし</div>`}
+function completedPrintPath(e){return window.TSOC_PUBLISHED_IMAGE_URLS?.[e.id]||`assets/print-completed/${String(e.id).toLowerCase()}_completed.png`}
+function printImages(e){
+  const fallback=legacyPrintImages(e);
+  return `<div class="print-completed-stack"><img class="print-completed-image" src="${completedPrintPath(e)}" alt="" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="print-completed-fallback">${fallback}</div></div>`;
+}
+function exercisePrintCard(s){const base=byId(s.id);const e=getOutputExercise(base,state.outputLanguage);if(!e)return "";const qr=e.qr?`<div class="print-qr"><img src="${e.qr}" alt="QR"></div>`:'';return `<article class="print-ex"><div class="print-title"><span>${state.outputLanguage==="en"?"Exercise:":"種目："}</span><strong>${esc(e.name)}</strong></div><div class="print-purpose-row"><div class="print-purpose">${esc(e.purpose)}</div><div class="print-dose">${esc(doseText(s))}</div></div><div class="print-media"><div class="print-pictures">${printImages(e)}</div>${qr}</div><div class="print-description">${esc(e.description)}</div></article>`}
+function emptyPrintSlot(){return `<article class="print-empty"><div class="empty-grid"><div class="empty-logo">TSOC<span>◆</span></div><div class="empty-mark">TSOC</div></div></article>`}
+function buildPrintHTML(){
+  const patient=$('#patientName').value.trim(),per=CONFIG.print?.exercises_per_page||4,pages=[];
+  for(let i=0;i<state.selected.length;i+=per)pages.push(state.selected.slice(i,i+per));
+  return pages.map((page,pi)=>{const slots=[...page];while(slots.length<per)slots.push(null);return `<section class="print-page"><header class="print-head"><div class="print-brand">${state.outputLanguage==="en"?"TSOC Exercise Handout":"TSOC_エクササイズパンフレット"}</div><div class="print-patient"><span>${state.outputLanguage==="en"?"Name":"氏名"}</span><strong>${esc(patient)}</strong><span>${state.outputLanguage==="en"?"":"様"}</span></div><img class="print-brand-logo" src="assets/branding/tsoc-logo.png" alt="Tokyo Sports & Orthopaedic Clinic"></header><div class="print-grid">${slots.map(s=>s?exercisePrintCard(s):emptyPrintSlot()).join('')}</div><footer>Copyright © 2023 TSOC. All Rights Reserved.</footer></section>`}).join('')
+}
+function ensureSelection(){if(!state.selected.length){notice('運動を選択してください。');return false}return true}
+function showPreview(){if(!ensureSelection()||!validateOutputLanguage())return;$('#previewView').innerHTML=buildPrintHTML();$('#previewBackdrop').classList.remove('hidden')}
+async function waitForPdfImages(root){
+  const imgs=[...root.querySelectorAll("img")];
+  await Promise.all(imgs.map(img=>{
+    if(img.complete)return Promise.resolve();
+    return new Promise(resolve=>{
+      const done=()=>resolve();
+      img.addEventListener("load",done,{once:true});
+      img.addEventListener("error",done,{once:true});
+      setTimeout(done,8000);
+    });
+  }));
+}
+function pdfFileName(){
+  const d=new Date(),pad=n=>String(n).padStart(2,"0");
+  return `TSOC_Exercise_${d.getFullYear()}${pad(d.getMonth()+1)}${pad(d.getDate())}_${pad(d.getHours())}${pad(d.getMinutes())}.pdf`;
+}
+function preparePdfPageGeometry(page){
+  // html2canvas can render object-fit differently from the browser print engine.
+  // Resolve each completed image into explicit pixel dimensions before capture.
+  page.querySelectorAll(".print-completed-stack").forEach(stack=>{
+    const img=stack.querySelector(".print-completed-image");
+    if(!img || !img.naturalWidth || !img.naturalHeight)return;
+
+    const cw=stack.clientWidth;
+    const ch=stack.clientHeight;
+    if(!cw || !ch)return;
+
+    const ratio=img.naturalWidth/img.naturalHeight;
+    let w=cw,h=w/ratio;
+    if(h>ch){h=ch;w=h*ratio;}
+
+    img.style.setProperty("width",`${Math.round(w)}px`,"important");
+    img.style.setProperty("height",`${Math.round(h)}px`,"important");
+    img.style.setProperty("max-width","none","important");
+    img.style.setProperty("max-height","none","important");
+    img.style.setProperty("object-fit","fill","important");
+    img.style.setProperty("flex","0 0 auto","important");
+  });
+
+  page.querySelectorAll(".print-qr img").forEach(img=>{
+    const box=img.closest(".print-qr");
+    if(!box)return;
+    const side=Math.min(box.clientWidth,box.clientHeight);
+    if(!side)return;
+    img.style.setProperty("width",`${Math.round(side)}px`,"important");
+    img.style.setProperty("height",`${Math.round(side)}px`,"important");
+    img.style.setProperty("max-width","none","important");
+    img.style.setProperty("max-height","none","important");
+    img.style.setProperty("object-fit","contain","important");
+  });
+}
+async function createPdfDirect(){
+  if(!ensureSelection()||!validateOutputLanguage())return;
+  const btns=[$('#printBtn'),$('#previewPrint')].filter(Boolean);
+  const originals=btns.map(b=>b.textContent);
+  try{
+    if(typeof html2canvas!=="function" || !window.jspdf?.jsPDF){
+      throw new Error("PDF作成ライブラリを読み込めませんでした。ページを再読み込みしてもう一度お試しください。");
+    }
+    btns.forEach(b=>{b.disabled=true;b.textContent="PDF作成中…"});
+    notice("PDFを作成しています…");
+
+    const host=document.createElement("div");
+    host.className="pdf-capture-host";
+    host.innerHTML=buildPrintHTML();
+    document.body.appendChild(host);
+
+    try{
+      await waitForPdfImages(host);
+      if(document.fonts?.ready)await document.fonts.ready;
+
+      const pages=[...host.querySelectorAll(".print-page")];
+      if(!pages.length)throw new Error("PDFに出力するページを作成できませんでした。");
+
+      const {jsPDF}=window.jspdf;
+      const pdf=new jsPDF({orientation:"landscape",unit:"mm",format:"a4",compress:true});
+
+      for(let i=0;i<pages.length;i++){
+        btns.forEach(b=>b.textContent=`PDF作成中 ${i+1}/${pages.length}`);
+        preparePdfPageGeometry(pages[i]);
+        await new Promise(r=>requestAnimationFrame(()=>requestAnimationFrame(r)));
+
+        const pageW=pages[i].offsetWidth;
+        const pageH=pages[i].offsetHeight;
+        const canvas=await html2canvas(pages[i],{
+          scale:2,
+          width:pageW,
+          height:pageH,
+          windowWidth:pageW,
+          windowHeight:pageH,
+          backgroundColor:"#ffffff",
+          useCORS:true,
+          logging:false,
+          imageTimeout:10000,
+          removeContainer:true
+        });
+
+        const data=canvas.toDataURL("image/jpeg",0.96);
+        if(i>0)pdf.addPage("a4","landscape");
+
+        // Never stretch the rasterized page. Fit by its actual aspect ratio.
+        const pdfW=297,pdfH=210;
+        const canvasRatio=canvas.width/canvas.height;
+        const pdfRatio=pdfW/pdfH;
+        let drawW,drawH,drawX,drawY;
+        if(canvasRatio>pdfRatio){
+          drawW=pdfW;
+          drawH=pdfW/canvasRatio;
+          drawX=0;
+          drawY=(pdfH-drawH)/2;
+        }else{
+          drawH=pdfH;
+          drawW=pdfH*canvasRatio;
+          drawY=0;
+          drawX=(pdfW-drawW)/2;
+        }
+        pdf.addImage(data,"JPEG",drawX,drawY,drawW,drawH,undefined,"FAST");
+
+        canvas.width=1;canvas.height=1;
+        await new Promise(r=>setTimeout(r,0));
+      }
+      pdf.save(pdfFileName());
+      notice("PDFを作成しました。ダウンロードしたPDFをAcrobat Reader等で開いて印刷できます。");
+    }finally{
+      host.remove();
+    }
+  }catch(err){
+    console.error(err);
+    alert("PDF作成に失敗しました。\n\n"+(err?.message||String(err)));
+  }finally{
+    btns.forEach((b,i)=>{b.disabled=false;b.textContent=originals[i]||"PDF作成・保存"});
+  }
+}
+function printMenu(){if(!ensureSelection())return;$('#printView').innerHTML=buildPrintHTML();window.print()}
+window.addEventListener("storage",e=>{
+  if([
+    "tsoc_admin_category_order_v1",
+    "tsoc_admin_exercise_order_v1",
+    "tsoc_admin_phase4_published_v1",
+    "tsoc_admin_custom_categories_v1",
+    "tsoc_admin_category_aliases_v1"
+  ].includes(e.key)){
+    location.reload();
+  }
+});
+window.addEventListener("pageshow",e=>{
+  /* Rebuild20:
+     管理画面で公開・保存した後に「戻る」で選択画面へ戻った場合、
+     bfcache の有無にかかわらず最新の localStorage 公開状態を読み直す。
+     初回表示では再読み込みしない。 */
+  const nav=performance.getEntriesByType?.("navigation")?.[0];
+  if(e.persisted || nav?.type==="back_forward") location.reload();
+});
+
+async function loadBuild016Assets(){
+  window.TSOC_ENGLISH_QR_URLS=window.TSOC_ENGLISH_QR_URLS||{};window.TSOC_PUBLISHED_IMAGE_URLS=window.TSOC_PUBLISHED_IMAGE_URLS||{};
+  try{const req=indexedDB.open("tsoc_admin_phase2_images",1);const db=await new Promise((res,rej)=>{req.onupgradeneeded=()=>{if(!req.result.objectStoreNames.contains("images"))req.result.createObjectStore("images")};req.onsuccess=()=>res(req.result);req.onerror=()=>rej(req.error)});
+    const get=k=>new Promise(res=>{const r=db.transaction("images").objectStore("images").get(k);r.onsuccess=()=>res(r.result||null);r.onerror=()=>res(null)});
+    for(const e of DATA.exercises){const q=await get(`QR:EN:${e.id}`);if(q)window.TSOC_ENGLISH_QR_URLS[e.id]=URL.createObjectURL(q);}
+    const im=await get("EX219");if(im)window.TSOC_PUBLISHED_IMAGE_URLS.EX219=URL.createObjectURL(im);
+  }catch(_){}
+}
+await loadBuild016Assets();
+init();
+
+})();

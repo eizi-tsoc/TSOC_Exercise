@@ -1,0 +1,21 @@
+<!doctype html>
+<html lang="ja">
+<head><meta name="robots" content="noindex,nofollow"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>TSOC 管理下書き 通常画面プレビュー</title>
+<style>
+*{box-sizing:border-box}body{margin:0;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","Yu Gothic UI",sans-serif;background:#f5f7fa;color:#172231}
+header{height:64px;background:#fff;border-bottom:1px solid #d7e0e9;display:flex;align-items:center;justify-content:space-between;padding:0 18px;position:sticky;top:0;z-index:10}h1{font-size:18px;margin:0}.note{font-size:12px;color:#6a7888}
+.controls{padding:12px 18px;display:flex;gap:8px;position:sticky;top:64px;background:#f5f7fa;z-index:9}.controls input{flex:1;height:38px;border:1px solid #c7d1dc;border-radius:7px;padding:0 10px}.controls select{height:38px;border:1px solid #c7d1dc;border-radius:7px;background:#fff}
+main{padding:0 18px 30px;display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:12px}.card{background:#fff;border:1px solid #d7e0e9;border-radius:9px;overflow:hidden}.img{height:190px;display:flex;align-items:center;justify-content:center;background:#fafbfc}.img img{width:100%;height:100%;object-fit:contain}.body{padding:11px}.name{font-weight:700}.tags{display:flex;gap:4px;flex-wrap:wrap;margin:6px 0}.tag{font-size:10px;background:#eef4f8;border-radius:999px;padding:3px 6px}.purpose{font-size:12px;font-weight:600}.desc{white-space:pre-wrap;font-size:11px;line-height:1.5;margin-top:5px}.hidden{opacity:.45}
+</style></head>
+<body>
+<header><h1>管理下書き：通常利用画面プレビュー</h1><div class="note">本番には反映されていません</div></header>
+<div class="controls"><input id="q" placeholder="EX番号・運動名で検索"><select id="show"><option value="visible">表示中のみ</option><option value="all">非表示も含む</option></select></div>
+<main id="list"></main>
+<script>
+const payload=JSON.parse(sessionStorage.getItem("tsoc_admin_phase3_preview_payload_v1")||'{"items":[]}');
+const list=document.getElementById("list"),q=document.getElementById("q"),show=document.getElementById("show");
+const esc=s=>String(s??'').replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]));
+function render(){let s=q.value.toLowerCase(),mode=show.value;let a=payload.items.filter(e=>(mode==="all"||!e.hidden)&&(!s||(e.id+" "+e.name).toLowerCase().includes(s)));list.innerHTML=a.map(e=>`<article class="card ${e.hidden?'hidden':''}"><div class="img"><img src="${e.preview_image}" alt=""></div><div class="body"><div class="name">${esc(e.id)}　${esc(e.name)}</div><div class="tags">${(e.categories||[]).map(c=>`<span class="tag">${esc(c)}</span>`).join("")}</div><div class="purpose">${esc(e.purpose)}</div><div class="desc">${esc(e.description)}</div></div></article>`).join("")}
+q.oninput=render;show.onchange=render;render();
+</script></body></html>
