@@ -1639,7 +1639,7 @@ function renderExerciseOrderList(){
   visibleIds.forEach(id=>{
     const e=map.get(id),absoluteIndex=exerciseOrder.indexOf(id);
     const item=document.createElement("div");item.className="exercise-order-item";
-    item.innerHTML=`<span class="order-no">${absoluteIndex+1}</span><span class="order-thumb"><img data-imgkey="${esc(e._new?e._key:e.id)}" src="${esc(completedPath(e))}" alt="" onerror="this.style.visibility='hidden'"></span><span class="order-id"></span><span class="order-name"></span>
+    item.innerHTML=`<span class="order-no">${absoluteIndex+1}</span><span class="order-thumb"><img alt=""></span><span class="order-id"></span><span class="order-name"></span>
       <div class="order-actions">
         <button type="button" data-order-action="top" title="上端へ" ${absoluteIndex===0?"disabled":""}>⇈</button>
         <button type="button" data-order-action="up" title="1つ上へ" ${absoluteIndex===0?"disabled":""}>▲</button>
@@ -1648,6 +1648,7 @@ function renderExerciseOrderList(){
       </div>`;
     item.querySelector(".order-id").textContent=e.id;
     item.querySelector(".order-name").textContent=e.name||"";
+    (function(imgEl,ex){imageURL(ex).then(u=>{if(u)imgEl.src=u;}).catch(()=>{});})(item.querySelector(".order-thumb img"),e);
     item.querySelectorAll("[data-order-action]").forEach(b=>b.addEventListener("click",()=>{
       const cur=exerciseOrder.indexOf(id); if(cur<0)return;
       const action=b.dataset.orderAction;
