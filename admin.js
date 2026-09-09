@@ -1,10 +1,31 @@
-// TSOC Exercise Rebuild20 - New Publish Refresh Fix
+// TSOC Exercise v2.1.0 / Build018
+// TSOC Exercise v2.1.0 Build009 - Full Backup/Restore + Rebuild20 base
 // TSOC Exercise Rebuild19 - Published Save Fix
 // 公開済み運動は「管理データ保存」で公開内容を更新。
 // 「公開する」は初回公開前の新規運動だけに表示。
 
 const BASE = window.TSOC_EXERCISE_DATA || {};
-const baseExercises = Array.isArray(BASE.exercises) ? BASE.exercises : [];
+const EN_MASTER = window.TSOC_ENGLISH_DATA || {mapping:{},english:{}};
+const LANGUAGE_KEY = "tsoc_admin_language_data_v1";
+let languageData={};
+try{languageData=JSON.parse(localStorage.getItem(LANGUAGE_KEY)||"{}")}catch{languageData={}}
+if(!languageData||typeof languageData!=="object"||Array.isArray(languageData))languageData={};
+const baseExercises = Array.isArray(BASE.exercises) ? [...BASE.exercises] : [];
+if(!baseExercises.some(e=>e.id==="EX219")){
+  const t=EN_MASTER.english?.EN106||{};
+  baseExercises.push({id:"EX219",name:t.name||"Wrist curl (dorsiflexion)",purpose:t.purpose||"",description:t.description||"",categories:[],images:[],image_transforms:[],print_images:[],print_image_transforms:[],qr:"",_englishOnly:true});
+}
+function masterEnglishFor(exId){
+  if(exId==="EX219")return EN_MASTER.english?.EN106||null;
+  const enId=EN_MASTER.mapping?.[exId];return enId?EN_MASTER.english?.[enId]||null:null;
+}
+function defaultLanguageFlags(exId){return exId==="EX219"?{ja:false,en:true}:{ja:true,en:!!masterEnglishFor(exId)}}
+function languageRecord(exId){
+  const flags=defaultLanguageFlags(exId),saved=languageData[exId]||{},m=masterEnglishFor(exId)||{};
+  return {jaEnabled:saved.jaEnabled??flags.ja,enEnabled:saved.enEnabled??flags.en,en:{name:saved.en?.name??m.name??"",purpose:saved.en?.purpose??m.purpose??"",description:saved.en?.description??m.description??""}};
+}
+function saveLanguageRecord(exId,rec){languageData[exId]=rec;localStorage.setItem(LANGUAGE_KEY,JSON.stringify(languageData));}
+function langStatus(exId){const r=languageRecord(exId);return r.jaEnabled&&r.enEnabled?"J・E":r.jaEnabled?"J":"E";}
 const DRAFT_KEY = "tsoc_admin_phase2_drafts_v1";
 const NEW_KEY = "tsoc_admin_phase2_new_v1";
 const PUBLISHED_KEY="tsoc_admin_phase4_published_v1";
@@ -58,7 +79,11 @@ function categoryDisplayName(c){
   while(categoryAliases[cur] && categoryAliases[cur]!==cur && guard++<10)cur=categoryAliases[cur];
   return cur;
 }
-function mapCategories(list){return [...new Set((list||[]).map(categoryDisplayName).filter(Boolean))]}
+/* Build017 #3: EX219等に混入した不要カテゴリー "Training(Upper limb)" を表示・保存候補から除去する。
+   これは正規カテゴリー一覧（exercise-data.js）に存在しない、English master由来の混入値であり、
+   ユーザーが設定した他の正規カテゴリーには一切影響しない。draft等のstorageは書き換えず、読み出し時に除外する。 */
+const TSOC_REMOVED_CATEGORIES=new Set(["Training(Upper limb)"]);
+function mapCategories(list){return [...new Set((list||[]).map(categoryDisplayName).filter(Boolean).filter(c=>!TSOC_REMOVED_CATEGORIES.has(c)))]}
 
 let exerciseOrder=[];
 let categoryOrder=[];
@@ -197,7 +222,7 @@ function card(e){
   return `<article class="exercise-admin-card ${e.hidden?'hidden-item ':''}${isChanged(e)?'changed-item ':''}${e._new?'new-item':''}" data-id="${esc(e._new?e._key:e.id)}">
     <div class="admin-thumb"><img data-imgkey="${esc(e._new?e._key:e.id)}" src="${esc(completedPath(e))}" alt="" onerror="this.src='${esc(fallbackImage(e))}'"></div>
     <div class="admin-card-body">
-      <div class="id-line">${esc(e.id)}</div><div class="admin-name">${esc(e.name)}</div>
+      <div class="id-line">${esc(e.id)} <span class="admin-language-status"><span class="status">${esc(langStatus(e.id))}</span></span></div><div class="admin-name">${esc(e.name)}</div>
       <div class="tags">${(e.categories||[]).map(c=>`<span class="tag">${esc(c)}</span>`).join("")}</div>
       <div class="purpose">${esc(e.purpose||"")}</div><div class="desc">${esc(desc(e))}</div>
       ${statusHTML(e)}
@@ -265,13 +290,19 @@ function updateStats(){
 function itemByKey(key){return key.startsWith("NEW:")?newItems.find(x=>x._key===key):mergedExercise(key)}
 async function openEdit(key){
   const e=itemByKey(key); if(!e)return; currentEditId=key;
-  $("#fId").value=e.id;$("#fName").value=e.name||"";$("#fPurpose").value=e.purpose||"";$("#fDescription").value=desc(e);$("#fHidden").checked=!!e.hidden;
+  const lr=languageRecord(e.id);
+  $("#fId").value=e.id;$("#fName").value=e._englishOnly?"":(e.name||"");$("#fPurpose").value=e._englishOnly?"":(e.purpose||"");$("#fDescription").value=e._englishOnly?"":desc(e);$("#fHidden").checked=!!e.hidden;
+  $("#fJaEnabled").checked=!!lr.jaEnabled;$("#fEnEnabled").checked=!!lr.enEnabled;
+  $("#feName").value=lr.en.name||"";$("#fePurpose").value=lr.en.purpose||"";$("#feDescription").value=lr.en.description||"";
+  const enQrKey=`EN:${e.id}`,enQrUrl=getQrUrl(enQrKey);$("#feQrUrl").value=enQrUrl;$("#feQrImage").value="";
+  const enMode=enQrUrl?"url":"image",enRadio=document.querySelector(`input[name="feQrMode"][value="${enMode}"]`);if(enRadio)enRadio.checked=true;const enBox=$("#fEnglishQrBox");if(enBox)enBox.dataset.mode=enMode;renderGeneratedQr("#feQrPreview",enQrUrl);
+  updateLanguageFieldState();
   categoryChecks($("#categoryChecks"),e.categories||[]);
-  $("#editTitle").textContent=`運動編集：${e.id} ${e.name}`;
+  $("#editTitle").textContent=`運動編集：${e.id} ${e._englishOnly?(lr.en.name||e.name):e.name} 【${langStatus(e.id)}】`;
   $("#fImage").value="";$("#fQrImage").value="";
   const savedQrUrl=getQrUrl(key);$("#fQrUrl").value=savedQrUrl;
   const fMode=savedQrUrl?"url":"image",fRadio=document.querySelector(`input[name="fQrMode"][value="${fMode}"]`);
-  if(fRadio)fRadio.checked=true;const fQrBox=$("#editForm .qr-source-box");if(fQrBox)fQrBox.dataset.mode=fMode;renderGeneratedQr("#fQrPreview",savedQrUrl);
+  if(fRadio)fRadio.checked=true;const fQrBox=$("#fJapaneseQrBox");if(fQrBox)fQrBox.dataset.mode=fMode;renderGeneratedQr("#fQrPreview",savedQrUrl);
 
   const initialPublish=needsInitialPublish(e);
   const publishBtn=$("#editPublishBtn");
@@ -290,16 +321,23 @@ async function openEdit(key){
   await updateEditPreview();
   $("#editModal").hidden=false;
 }
+function updateLanguageFieldState(){
+  const ja=$("#fJaEnabled")?.checked,en=$("#fEnEnabled")?.checked;
+  $("#fJaFields")?.classList.toggle("language-fields-disabled",!ja);
+  $("#fEnFields")?.classList.toggle("language-fields-disabled",!en);
+}
+$("#fJaEnabled")?.addEventListener("change",updateLanguageFieldState);
+$("#fEnEnabled")?.addEventListener("change",updateLanguageFieldState);
 async function updateEditPreview(){
   const e=itemByKey(currentEditId);if(!e)return;
-  $("#previewName").textContent=$("#fName").value;$("#previewPurpose").textContent=$("#fPurpose").value;$("#previewDescription").textContent=$("#fDescription").value;
+  const useEn=!$("#fJaEnabled")?.checked&&$("#fEnEnabled")?.checked;$("#previewName").textContent=useEn?$("#feName").value:$("#fName").value;$("#previewPurpose").textContent=useEn?$("#fePurpose").value:$("#fPurpose").value;$("#previewDescription").textContent=useEn?$("#feDescription").value:$("#fDescription").value;
   const cats=selectedCats($("#categoryChecks"));$("#previewTags").innerHTML=cats.map(c=>`<span class="tag">${esc(c)}</span>`).join("");
   const box=$("#previewImage");box.innerHTML="";
   const img=document.createElement("img");
   if(tempEditImageURL)img.src=tempEditImageURL;else{const blob=await idbGet(currentEditId).catch(()=>null);img.src=blob?URL.createObjectURL(blob):completedPath(e)}
   img.onerror=()=>{img.src=fallbackImage(e)};box.appendChild(img);
 }
-["fName","fPurpose","fDescription"].forEach(id=>$("#"+id).addEventListener("input",updateEditPreview));
+["fName","fPurpose","fDescription","feName","fePurpose","feDescription"].forEach(id=>$("#"+id).addEventListener("input",updateEditPreview));
 $("#categoryChecks").addEventListener("change",updateEditPreview);
 $("#fImage").addEventListener("change",()=>{const f=$("#fImage").files[0];if(f){if(tempEditImageURL)URL.revokeObjectURL(tempEditImageURL);tempEditImageURL=URL.createObjectURL(f);updateEditPreview()}});
 
@@ -313,10 +351,11 @@ $("#editForm").addEventListener("submit",async ev=>{
   const submitBtn=$("#editForm button[type='submit']");
   if(submitBtn?.disabled)return;
 
+  const existingLang=languageRecord(e.id);
   const patch={
-    name:$("#fName").value.trim(),
-    purpose:$("#fPurpose").value.trim(),
-    description:$("#fDescription").value,
+    name:$("#fJaEnabled").checked?$("#fName").value.trim():(existingLang.en.name||e.name||""),
+    purpose:$("#fJaEnabled").checked?$("#fPurpose").value.trim():(existingLang.en.purpose||e.purpose||""),
+    description:$("#fJaEnabled").checked?$("#fDescription").value:(existingLang.en.description||desc(e)),
     categories:selectedCats($("#categoryChecks")),
     hidden:$("#fHidden").checked
   };
@@ -324,8 +363,12 @@ $("#editForm").addEventListener("submit",async ev=>{
 
   /* FIX4: 編集保存では、既存画像の再取得を要求しない。
      既存データの画像はすでに登録済みなので、編集項目だけを検証する。 */
+  const jaEnabled=$("#fJaEnabled").checked,enEnabled=$("#fEnEnabled").checked;
+  const enPatch={name:$("#feName").value.trim(),purpose:$("#fePurpose").value.trim(),description:$("#feDescription").value};
   const autoErrors=[];
-  if(!candidate.name) autoErrors.push("運動名を入力してください。");
+  if(!jaEnabled&&!enEnabled)autoErrors.push("日本語版またはEnglish版のどちらかを有効にしてください。");
+  if(jaEnabled&&!candidate.name) autoErrors.push("日本語の運動名を入力してください。");
+  if(enEnabled&&!enPatch.name) autoErrors.push("EnglishのExercise nameを入力してください。");
   if(!(candidate.categories||[]).length) autoErrors.push("カテゴリーを1つ以上設定してください。");
   if(autoErrors.length){
     alert("保存できません。\n\n・"+autoErrors.join("\n・"));
@@ -360,6 +403,8 @@ $("#editForm").addEventListener("submit",async ev=>{
     if(file) await idbPut(key,file);
 
     await saveQrChoice("f",key);
+    saveLanguageRecord(e.id,{jaEnabled,enEnabled,en:enPatch});
+    await saveQrChoice("fe",`EN:${e.id}`);
 
     /*
       Rebuild19 公開モデル:
@@ -1594,7 +1639,7 @@ function renderExerciseOrderList(){
   visibleIds.forEach(id=>{
     const e=map.get(id),absoluteIndex=exerciseOrder.indexOf(id);
     const item=document.createElement("div");item.className="exercise-order-item";
-    item.innerHTML=`<span class="order-no">${absoluteIndex+1}</span><span class="order-id"></span><span class="order-name"></span>
+    item.innerHTML=`<span class="order-no">${absoluteIndex+1}</span><span class="order-thumb"><img alt=""></span><span class="order-id"></span><span class="order-name"></span>
       <div class="order-actions">
         <button type="button" data-order-action="top" title="上端へ" ${absoluteIndex===0?"disabled":""}>⇈</button>
         <button type="button" data-order-action="up" title="1つ上へ" ${absoluteIndex===0?"disabled":""}>▲</button>
@@ -1603,6 +1648,7 @@ function renderExerciseOrderList(){
       </div>`;
     item.querySelector(".order-id").textContent=e.id;
     item.querySelector(".order-name").textContent=e.name||"";
+    (function(imgEl,ex){imageURL(ex).then(u=>{if(u)imgEl.src=u;}).catch(()=>{});})(item.querySelector(".order-thumb img"),e);
     item.querySelectorAll("[data-order-action]").forEach(b=>b.addEventListener("click",()=>{
       const cur=exerciseOrder.indexOf(id); if(cur<0)return;
       const action=b.dataset.orderAction;
@@ -1620,6 +1666,7 @@ function renderExerciseOrderList(){
     }));
     box.appendChild(item);
   });
+  refreshDraftImages();
 }
 function openDisplayOrder(){
   normalizeExerciseOrder();
@@ -1648,3 +1695,264 @@ document.addEventListener("keydown",e=>{
 });
 
 setupQrMode("f");setupQrMode("n");
+
+/* =========================================================
+   v2.1.0 / Build009: full browser-local backup / restore
+   Protects localStorage + image/QR IndexedDB + visual layouts.
+   ========================================================= */
+const TSOC_FULL_BACKUP_FORMAT="TSOC_EXERCISE_FULL_BACKUP_V1";
+const TSOC_FULL_BACKUP_VERSION="v2.1.0 / Build009";
+let tsocRestoreCandidate=null;
+
+function tsocBackupStamp(){
+  const d=new Date(),p=n=>String(n).padStart(2,"0");
+  return `${d.getFullYear()}${p(d.getMonth()+1)}${p(d.getDate())}_${p(d.getHours())}${p(d.getMinutes())}${p(d.getSeconds())}`;
+}
+function tsocSetBackupStatus(text,type=""){
+  const el=$("#backupStatus");if(!el)return;
+  el.textContent=text;el.className="backup-status"+(type?` ${type}`:"");
+}
+function tsocDownloadBlob(blob,name){
+  const a=document.createElement("a");
+  a.href=URL.createObjectURL(blob);a.download=name;a.click();
+  setTimeout(()=>URL.revokeObjectURL(a.href),2000);
+}
+function tsocLocalStorageSnapshot(){
+  if(window.TSOC_STORAGE_SCOPE?.mode==="test"){
+    return window.TSOC_STORAGE_SCOPE.snapshotScopedLocalStorage();
+  }
+  const out={};
+  for(let i=0;i<localStorage.length;i++){
+    const k=localStorage.key(i);
+    if(k && k.startsWith("tsoc_")) out[k]=localStorage.getItem(k);
+  }
+  return out;
+}
+function tsocBackupDiagnostics(images,layouts){
+  const baseIds=new Set(baseExercises.map(e=>String(e.id||"")));
+  const imageBase=[],imageQr=[],imageOther=[];
+  for(const row of images){
+    const k=String(row.key??"");
+    if(baseIds.has(k))imageBase.push(k);
+    else if(k.startsWith("QR:"))imageQr.push(k.slice(3));
+    else imageOther.push(k);
+  }
+  const layoutBase=[],layoutNew=[],layoutOther=[];
+  for(const row of layouts){
+    const k=String(row.key??"");
+    if(baseIds.has(k))layoutBase.push(k);
+    else if(k.startsWith("NEW:")||k.startsWith("NEW_FORM:"))layoutNew.push(k);
+    else layoutOther.push(k);
+  }
+  const missingBaseLayouts=[...baseIds].filter(id=>!layoutBase.includes(id));
+  const fmt=(a,max=12)=>a.length?(a.slice(0,max).join(", ")+(a.length>max?` …ほか${a.length-max}件`:"")):"なし";
+  return {imageBase,imageQr,imageOther,layoutBase,layoutNew,layoutOther,missingBaseLayouts,fmt};
+}
+function tsocBackupDiagnosticText(d){
+  return [
+    `【内訳】`,
+    `完成画像（既存EX001～EX218）: ${d.imageBase.length}件`,
+    `QR画像: ${d.imageQr.length}件${d.imageQr.length?`（${d.fmt(d.imageQr)}）`:""}`,
+    `その他の画像データ: ${d.imageOther.length}件${d.imageOther.length?`（${d.fmt(d.imageOther)}）`:""}`,
+    `画像レイアウト（既存EX001～EX218）: ${d.layoutBase.length}件`,
+    `新規/一時レイアウト: ${d.layoutNew.length}件${d.layoutNew.length?`（${d.fmt(d.layoutNew)}）`:""}`,
+    `その他のレイアウト: ${d.layoutOther.length}件${d.layoutOther.length?`（${d.fmt(d.layoutOther)}）`:""}`,
+    `既存218件でレイアウト未保存: ${d.missingBaseLayouts.length}件${d.missingBaseLayouts.length?`（${d.fmt(d.missingBaseLayouts)}）`:""}`
+  ].join("\n");
+}
+function tsocOpenNamedDB(name,store,version=1){
+  return new Promise((resolve,reject)=>{
+    const r=indexedDB.open(name,version);
+    r.onupgradeneeded=()=>{if(!r.result.objectStoreNames.contains(store))r.result.createObjectStore(store)};
+    r.onsuccess=()=>resolve(r.result);r.onerror=()=>reject(r.error);
+  });
+}
+async function tsocReadStore(name,store){
+  const db=await tsocOpenNamedDB(name,store);
+  return await new Promise((resolve,reject)=>{
+    const tx=db.transaction(store,"readonly"),os=tx.objectStore(store),rows=[];
+    const r=os.openCursor();
+    r.onsuccess=()=>{const c=r.result;if(c){rows.push({key:c.key,value:c.value});c.continue()}else resolve(rows)};
+    r.onerror=()=>reject(r.error);
+  });
+}
+async function tsocReplaceStore(name,store,rows){
+  const db=await tsocOpenNamedDB(name,store);
+  return await new Promise((resolve,reject)=>{
+    const tx=db.transaction(store,"readwrite"),os=tx.objectStore(store);
+    os.clear();
+    for(const row of rows)os.put(row.value,row.key);
+    tx.oncomplete=()=>resolve();tx.onerror=()=>reject(tx.error);tx.onabort=()=>reject(tx.error||new Error("IndexedDB restore aborted"));
+  });
+}
+async function tsocCreateFullBackup(){
+  const btn=$("#fullBackupBtn");if(btn?.disabled)return;
+  if(typeof JSZip==="undefined"){alert("バックアップ作成ライブラリを読み込めませんでした。");return;}
+  if(btn)btn.disabled=true;
+  try{
+    tsocSetBackupStatus("バックアップ対象を確認しています…","working");
+    const ls=tsocLocalStorageSnapshot();
+    const images=await tsocReadStore(DB_NAME,DB_STORE);
+    const layouts=await tsocReadStore(VE_DB_NAME,VE_DB_STORE);
+    const diag=tsocBackupDiagnostics(images,layouts);
+
+    const zip=new JSZip();
+    const imageManifest=[];
+    let imageNo=0;
+    for(const row of images){
+      imageNo++;
+      tsocSetBackupStatus(`バックアップ作成中…\n完成画像・QR ${imageNo} / ${images.length}\n画像レイアウト ${layouts.length}件`,"working");
+      const fileName=`indexeddb/images/${String(imageNo).padStart(4,"0")}.bin`;
+      const value=row.value;
+      if(value instanceof Blob){
+        zip.file(fileName,value,{binary:true});
+        imageManifest.push({key:row.key,file:fileName,type:value.type||"application/octet-stream",size:value.size});
+      }else{
+        const jsonFile=`indexeddb/images/${String(imageNo).padStart(4,"0")}.json`;
+        zip.file(jsonFile,JSON.stringify(value));
+        imageManifest.push({key:row.key,file:jsonFile,type:"application/json",json:true});
+      }
+    }
+
+    zip.file("localStorage.json",JSON.stringify(ls,null,2));
+    zip.file("indexeddb/images-manifest.json",JSON.stringify(imageManifest,null,2));
+    zip.file("indexeddb/layouts.json",JSON.stringify(layouts,null,2));
+    const meta={
+      format:TSOC_FULL_BACKUP_FORMAT,
+      created_at:new Date().toISOString(),
+      app_version:TSOC_FULL_BACKUP_VERSION,
+      base_exercises:baseExercises.length,
+      localStorage_keys:Object.keys(ls).length,
+      image_store_records:images.length,
+      visual_layout_records:layouts.length,
+      diagnostics:{
+        base_completed_images:diag.imageBase.length,
+        qr_images:diag.imageQr.length,
+        other_image_records:diag.imageOther,
+        base_visual_layouts:diag.layoutBase.length,
+        new_or_temp_layouts:diag.layoutNew,
+        other_layouts:diag.layoutOther,
+        missing_base_layouts:diag.missingBaseLayouts
+      },
+      note:"TSOC Exercise browser-local management backup. No patient name/data is included by this backup function."
+    };
+    zip.file("backup-info.json",JSON.stringify(meta,null,2));
+    zip.file("README.txt",`TSOC Exercise 管理データ一括バックアップ\n\n作成日時: ${new Date().toLocaleString()}\n版: ${TSOC_FULL_BACKUP_VERSION}\n元データ: ${baseExercises.length}件\nlocalStorage: ${Object.keys(ls).length}キー\n完成画像・QR: ${images.length}件\n画像レイアウト: ${layouts.length}件\n\nこのZIPは管理画面の「バックアップZIPから復元」で使用してください。\nZIP内部のファイルを編集しないでください。\n`);
+
+    tsocSetBackupStatus(`ZIPを作成しています…\n完成画像・QR ${images.length}件\n画像レイアウト ${layouts.length}件`,"working");
+    const blob=await zip.generateAsync({type:"blob",compression:"DEFLATE",compressionOptions:{level:3}},m=>{
+      tsocSetBackupStatus(`ZIP圧縮中… ${Math.round(m.percent)}%\n完成画像・QR ${images.length}件\n画像レイアウト ${layouts.length}件`,"working");
+    });
+    const name=`TSOC_Exercise_FULL_BACKUP_${tsocBackupStamp()}.zip`;
+    tsocDownloadBlob(blob,name);
+    const diagText=tsocBackupDiagnosticText(diag);
+    tsocSetBackupStatus(`バックアップ完了\n${name}\n完成画像・QR: ${images.length}件\n画像レイアウト: ${layouts.length}件\n\n${diagText}\n\nZIPサイズ: ${(blob.size/1024/1024).toFixed(1)} MB`,"ok");
+  }catch(err){
+    console.error(err);tsocSetBackupStatus("バックアップに失敗しました。\n"+(err?.message||String(err)),"error");alert("バックアップに失敗しました。");
+  }finally{if(btn)btn.disabled=false;}
+}
+
+async function tsocInspectBackupFile(file){
+  if(typeof JSZip==="undefined")throw new Error("ZIPライブラリを読み込めません。");
+  const zip=new JSZip();
+  await zip.loadAsync(file);
+  for(const req of ["backup-info.json","localStorage.json","indexeddb/images-manifest.json","indexeddb/layouts.json"]){
+    if(!zip.file(req))throw new Error(`必要なファイルがありません: ${req}`);
+  }
+  const meta=JSON.parse(await zip.file("backup-info.json").async("string"));
+  if(meta.format!==TSOC_FULL_BACKUP_FORMAT)throw new Error("TSOC Exerciseの一括バックアップZIPではありません。");
+  const ls=JSON.parse(await zip.file("localStorage.json").async("string"));
+  const manifest=JSON.parse(await zip.file("indexeddb/images-manifest.json").async("string"));
+  const layouts=JSON.parse(await zip.file("indexeddb/layouts.json").async("string"));
+  if(!ls||typeof ls!=="object"||Array.isArray(ls))throw new Error("localStorageデータが不正です。");
+  if(!Array.isArray(manifest)||!Array.isArray(layouts))throw new Error("IndexedDBデータが不正です。");
+  for(const row of manifest){if(!row?.file||!zip.file(row.file))throw new Error(`画像データが不足しています: ${row?.file||"不明"}`)}
+  return {zip,meta,ls,manifest,layouts,file};
+}
+
+async function tsocRestoreFullBackup(candidate){
+  const btn=$("#fullRestoreBtn");if(btn?.disabled)return;
+  const {zip,meta,ls,manifest,layouts}=candidate;
+  const created=meta.created_at?new Date(meta.created_at).toLocaleString():"不明";
+  const ok=confirm(
+    `バックアップから復元します。\n\n`+
+    `作成日時: ${created}\n`+
+    `完成画像・QR: ${manifest.length}件\n`+
+    `画像レイアウト: ${layouts.length}件\n`+
+    `localStorage: ${Object.keys(ls).length}キー\n\n`+
+    `このブラウザ内の現在のTSOC管理データを置き換えます。\n実行しますか？`
+  );
+  if(!ok)return;
+  btn.disabled=true;
+  try{
+    tsocSetBackupStatus("復元データを展開しています…","working");
+    const imageRows=[];
+    for(let i=0;i<manifest.length;i++){
+      const m=manifest[i];
+      tsocSetBackupStatus(`復元データ展開中…\n完成画像・QR ${i+1} / ${manifest.length}\n画像レイアウト ${layouts.length}件`,"working");
+      if(m.json){
+        imageRows.push({key:m.key,value:JSON.parse(await zip.file(m.file).async("string"))});
+      }else{
+        const bytes=await zip.file(m.file).async("uint8array");
+        imageRows.push({key:m.key,value:new Blob([bytes],{type:m.type||"application/octet-stream"})});
+      }
+    }
+
+    // Replace only this environment's TSOC-owned localStorage keys.
+    // In /test/build009/ the storage-scope layer maps logical tsoc_* keys
+    // into a test-only physical namespace, so production data is untouched.
+    if(window.TSOC_STORAGE_SCOPE?.mode==="test"){
+      window.TSOC_STORAGE_SCOPE.clearScopedLocalStorage();
+    }else{
+      const remove=[];
+      for(let i=0;i<localStorage.length;i++){
+        const k=localStorage.key(i);
+        if(k&&k.startsWith("tsoc_"))remove.push(k);
+      }
+      remove.forEach(k=>localStorage.removeItem(k));
+    }
+    Object.entries(ls).forEach(([k,v])=>{
+      if(k.startsWith("tsoc_"))localStorage.setItem(k,String(v));
+    });
+
+    await tsocReplaceStore(DB_NAME,DB_STORE,imageRows);
+    await tsocReplaceStore(VE_DB_NAME,VE_DB_STORE,layouts);
+    tsocSetBackupStatus(`復元完了\n完成画像・QR: ${imageRows.length}件\n画像レイアウト: ${layouts.length}件\n画面を再読み込みします。`,"ok");
+    alert("復元が完了しました。管理画面を再読み込みします。");
+    location.reload();
+  }catch(err){
+    console.error(err);tsocSetBackupStatus("復元に失敗しました。\n"+(err?.message||String(err)),"error");alert("復元に失敗しました。\n\n"+(err?.message||String(err)));
+  }finally{btn.disabled=false;}
+}
+
+$("#fullBackupBtn")?.addEventListener("click",tsocCreateFullBackup);
+$("#fullRestoreFile")?.addEventListener("change",async ev=>{
+  const file=ev.target.files?.[0]||null;
+  tsocRestoreCandidate=null;
+  const btn=$("#fullRestoreBtn");if(btn)btn.disabled=true;
+  const preview=$("#restorePreview");if(preview)preview.textContent="";
+  if(!file)return;
+  try{
+    tsocSetBackupStatus("バックアップZIPを検証しています…","working");
+    const c=await tsocInspectBackupFile(file);tsocRestoreCandidate=c;
+    const created=c.meta.created_at?new Date(c.meta.created_at).toLocaleString():"不明";
+    if(preview)preview.textContent=`検証OK\nファイル: ${file.name}\n作成日時: ${created}\n完成画像・QR: ${c.manifest.length}件\n画像レイアウト: ${c.layouts.length}件\nlocalStorage: ${Object.keys(c.ls).length}キー`;
+    tsocSetBackupStatus("復元用ZIPの検証に成功しました。内容を確認してから「選択したZIPから復元」を押してください。","ok");
+    if(btn)btn.disabled=false;
+  }catch(err){
+    console.error(err);tsocSetBackupStatus("バックアップZIPを使用できません。\n"+(err?.message||String(err)),"error");if(preview)preview.textContent="検証NG";
+  }
+});
+$("#fullRestoreBtn")?.addEventListener("click",()=>{if(tsocRestoreCandidate)tsocRestoreFullBackup(tsocRestoreCandidate)});
+
+/* Build016 English QR mode binding */
+(function(){
+  document.querySelectorAll('input[name="feQrMode"]').forEach(r=>r.addEventListener('change',()=>{const b=document.getElementById('fEnglishQrBox');if(b)b.dataset.mode=r.value;}));
+  document.getElementById('feQrUrl')?.addEventListener('input',e=>renderGeneratedQr('#feQrPreview',e.target.value.trim()));
+})();
+
+/* Build017 Japanese QR mode binding（English QRと操作感を統一） */
+(function(){
+  document.querySelectorAll('input[name="fQrMode"]').forEach(r=>r.addEventListener('change',()=>{const b=document.getElementById('fJapaneseQrBox');if(b)b.dataset.mode=r.value;}));
+  document.getElementById('fQrUrl')?.addEventListener('input',e=>renderGeneratedQr('#fQrPreview',e.target.value.trim()));
+})();

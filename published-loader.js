@@ -15,7 +15,11 @@ window.TSOC_APPLY_LOCAL_PUBLISHED = async function(){
     while(categoryAliases?.[cur] && categoryAliases[cur]!==cur && guard++<10)cur=categoryAliases[cur];
     return cur;
   };
-  const mapCats=a=>[...new Set((a||[]).map(catName).filter(Boolean))];
+  /* Build017 #3: English master由来でEX219等に混入した不要カテゴリー "Training(Upper limb)" を
+     利用画面のカテゴリー一覧・タグから除去する。正規カテゴリー(exercise-data.js)には存在しない値であり、
+     ユーザーが設定した他の正規カテゴリーには影響しない。published等のstorageは書き換えず読み出し時に除外する。 */
+  const REMOVED_CATEGORIES=new Set(["Training(Upper limb)"]);
+  const mapCats=a=>[...new Set((a||[]).map(catName).filter(Boolean).filter(c=>!REMOVED_CATEGORIES.has(c)))];
   const map=new Map(DATA.exercises.map(e=>[e.id,{...e,categories:mapCats(e.categories)}]));
 
   for(const [id,entry] of Object.entries(state)){
